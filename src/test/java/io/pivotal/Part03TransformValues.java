@@ -10,29 +10,36 @@ import reactor.core.test.TestSubscriber;
  */
 public class Part03TransformValues {
 
+//========================================================================================
+
 	@Test
 	public void transformMono() {
-		Mono<String> mono = Mono.just("foo");
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(capitalizeMono(mono)).assertValues("FOO").assertComplete();
+		Mono<Person> mono = Mono.just(new Person("Skyler", "White"));
+		TestSubscriber<Person> ts = new TestSubscriber<>();
+		ts.bindTo(capitalizeOne(mono)).assertValues(new Person("SKYLER", "WHITE")).assertComplete();
 	}
 
-	// TODO Capitalize the Mono value
-	private Mono<String> capitalizeMono(Mono<String> mono) {
-		return mono.map(value -> value.toUpperCase()); // TO BE REMOVED
+	// TODO Capitalize the person firstName and lastName
+	Mono<Person> capitalizeOne(Mono<Person> mono) {
+		return mono.map(person ->
+				new Person(person.getFirstName().toUpperCase(), person.getLastName().toUpperCase())); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void transformFlux() {
-		Flux<String> flux = Flux.just("foo", "bar");
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(capitalizeFlux(flux)).assertValues("FOO", "BAR").assertComplete();
+		Flux<Person> flux = Flux.just(new Person("Skyler", "White"), new Person("Jesse", "Pinkman"));
+		TestSubscriber<Person> ts = new TestSubscriber<>();
+		ts.bindTo(capitalizeMany(flux)).assertValues(
+				new Person("SKYLER", "WHITE"),
+				new Person("JESSE", "PINKMAN")).assertComplete();
 	}
 
-	// TODO Capitalize the values contained in the Flux
-	private Flux<String> capitalizeFlux(Flux<String> flux) {
-		return flux.map(value -> value.toUpperCase()); // TO BE REMOVED
+	// TODO Capitalize the persons firstName and lastName
+	Flux<Person> capitalizeMany(Flux<Person> flux) {
+		return flux.map(person ->
+				new Person(person.getFirstName().toUpperCase(), person.getLastName().toUpperCase())); // TO BE REMOVED
 	}
 
 

@@ -7,12 +7,12 @@ import reactor.core.test.TestSubscriber;
 /**
  * Learn how to create Mono instances
  * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html>Mono Javadoc</a>
+ * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html>TestSubscriber Javadoc</a>
  */
 public class Part02CreateMono {
 
-	/**
-	 * Create an empty Mono
-	 */
+//========================================================================================
+
 	@Test
 	public void empty() {
 		Mono<String> mono = emptyMono();
@@ -21,10 +21,11 @@ public class Part02CreateMono {
 	}
 
 	// TODO Return an empty Mono
-	private Mono<String> emptyMono() {
+	Mono<String> emptyMono() {
 		return Mono.empty(); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void fromValue() {
@@ -38,6 +39,7 @@ public class Part02CreateMono {
 		return Mono.just("foo"); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void error() {

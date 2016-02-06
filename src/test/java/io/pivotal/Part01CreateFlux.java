@@ -1,6 +1,7 @@
 package io.pivotal;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import reactor.core.publisher.Flux;
@@ -9,8 +10,11 @@ import reactor.core.test.TestSubscriber;
 /**
  * Learn how to create Flux instances
  * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html>Flux Javadoc</a>
+ * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html>TestSubscriber Javadoc</a>
  */
 public class Part01CreateFlux {
+
+//========================================================================================
 
 	@Test
 	public void empty() {
@@ -20,10 +24,11 @@ public class Part01CreateFlux {
 	}
 
 	// TODO Return an empty Flux
-	private Flux<String> emptyFlux() {
+	Flux<String> emptyFlux() {
 		return Flux.empty(); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void fromValues() {
@@ -37,6 +42,7 @@ public class Part01CreateFlux {
 		return Flux.just("foo", "bar"); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void fromList() {
@@ -50,6 +56,7 @@ public class Part01CreateFlux {
 		return Flux.fromIterable(Arrays.asList("foo", "bar")); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void error() {
@@ -63,6 +70,7 @@ public class Part01CreateFlux {
 		return Flux.error(new IllegalStateException()); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void neverTerminates() {
@@ -76,6 +84,7 @@ public class Part01CreateFlux {
 		return Flux.never(); // TO BE REMOVED
 	}
 
+//========================================================================================
 
 	@Test
 	public void countEachSecond() {
@@ -84,9 +93,9 @@ public class Part01CreateFlux {
 		ts.bindTo(flux).awaitAndAssertValues(0L, 1L, 2L);
 	}
 
-	// TODO Create a Flux that emits an increasing value each second
+	// TODO Create a Flux that emits an increasing value each 100ms
 	Flux<Long> counter() {
-		return Flux.interval(1);  // TO BE REMOVED
+		return Flux.interval(100, TimeUnit.MILLISECONDS);  // TO BE REMOVED
 	}
 
 }
