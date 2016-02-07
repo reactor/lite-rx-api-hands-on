@@ -1,4 +1,4 @@
-package io.pivotal;
+package io.pivotal.literx;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;

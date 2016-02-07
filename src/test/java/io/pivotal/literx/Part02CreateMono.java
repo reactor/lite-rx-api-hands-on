@@ -1,4 +1,4 @@
-package io.pivotal;
+package io.pivotal.literx;
 
 import org.junit.Test;
 import reactor.core.publisher.Mono;
