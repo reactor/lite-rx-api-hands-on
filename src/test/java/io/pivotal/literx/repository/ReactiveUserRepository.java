@@ -1,5 +1,6 @@
 package io.pivotal.literx.repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,23 +20,21 @@ public class ReactiveUserRepository implements ReactiveRepository<User> {
 
 
 	public ReactiveUserRepository() {
-		delayInMs = DEFAULT_DELAY_IN_MS;
-		users = Arrays.asList(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
+		this(DEFAULT_DELAY_IN_MS);
 	}
 
 	public ReactiveUserRepository(long delayInMs) {
 		this.delayInMs = delayInMs;
-		users = Arrays.asList(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
+		users = new ArrayList<>(Arrays.asList(User.SKYLER, User.JESSE, User.WALTER, User.SAUL));
 	}
 
 	public ReactiveUserRepository(User... users) {
-		this.delayInMs = DEFAULT_DELAY_IN_MS;
-		this.users = Arrays.asList(users);
+		this(DEFAULT_DELAY_IN_MS, users);
 	}
 
 	public ReactiveUserRepository(long delayInMs, User... users) {
 		this.delayInMs = delayInMs;
-		this.users = Arrays.asList(users);
+		this.users = new ArrayList<>(Arrays.asList(users));
 	}
 
 

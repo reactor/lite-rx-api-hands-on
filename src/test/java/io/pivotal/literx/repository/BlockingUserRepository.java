@@ -5,7 +5,25 @@ import reactor.core.publisher.Mono;
 
 public class BlockingUserRepository implements BlockingRepository<User>{
 
-	private ReactiveUserRepository reactiveRepository;
+	private final ReactiveRepository<User> reactiveRepository;
+
+
+	public BlockingUserRepository() {
+		reactiveRepository = new ReactiveUserRepository();
+	}
+
+	public BlockingUserRepository(long delayInMs) {
+		reactiveRepository = new ReactiveUserRepository(delayInMs);
+	}
+
+	public BlockingUserRepository(User... users) {
+		reactiveRepository = new ReactiveUserRepository(users);
+	}
+
+	public BlockingUserRepository(long delayInMs, User... users) {
+		reactiveRepository = new ReactiveUserRepository(delayInMs, users);
+	}
+
 
 	@Override
 	public void insert(User user) {

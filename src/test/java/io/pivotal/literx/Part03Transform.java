@@ -1,6 +1,7 @@
 package io.pivotal.literx;
 
 import io.pivotal.literx.domain.User;
+import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
@@ -12,7 +13,7 @@ import reactor.core.test.TestSubscriber;
  */
 public class Part03Transform {
 
-	ReactiveUserRepository repository = new ReactiveUserRepository();
+	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
 //========================================================================================
 

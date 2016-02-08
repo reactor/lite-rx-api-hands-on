@@ -1,6 +1,7 @@
 package io.pivotal.literx;
 
 import io.pivotal.literx.domain.User;
+import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
@@ -15,9 +16,8 @@ public class Part04Merge {
 	final static User MARIE = new User("mschrader", "Marie", "Schrader");
 	final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
 
-	ReactiveUserRepository repository1 = new ReactiveUserRepository(500);
-	ReactiveUserRepository repository2 = new ReactiveUserRepository(MARIE, MIKE);
-
+	ReactiveRepository<User> repository1 = new ReactiveUserRepository(500);
+	ReactiveRepository<User> repository2 = new ReactiveUserRepository(MARIE, MIKE);
 
 //========================================================================================
 

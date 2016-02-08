@@ -3,6 +3,7 @@ package io.pivotal.literx;
 import java.util.Iterator;
 
 import io.pivotal.literx.domain.User;
+import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 public class Part07ReactiveToBlocking {
 
-	ReactiveUserRepository repository = new ReactiveUserRepository();
+	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
 //========================================================================================
 
