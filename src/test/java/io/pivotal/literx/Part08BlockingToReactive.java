@@ -28,8 +28,13 @@ public class Part08BlockingToReactive {
 	public void slowPublisherFastSubscriber() {
 		BlockingRepository<User> repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertNotTerminated().await().assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertNotTerminated()
+				.await()
+				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.assertComplete();
 	}
 
 	// TODO Create a Flux for all users from the blocking repository, and run it on a scheduler factory dedicated to IO to avoid blocking the calling thread
@@ -44,8 +49,12 @@ public class Part08BlockingToReactive {
 		ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
 		BlockingRepository<User> blockingRepository = new BlockingUserRepository(new User[]{});
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
-		TestSubscriber<Void> ts = new TestSubscriber<>();
-		ts.bindTo(complete).assertNotTerminated().await().assertComplete();
+		TestSubscriber<Void> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(complete)
+				.assertNotTerminated()
+				.await()
+				.assertComplete();
 		Iterator<User> it = blockingRepository.findAll().iterator();
 		assertEquals(User.SKYLER, it.next());
 		assertEquals(User.JESSE, it.next());
@@ -56,7 +65,10 @@ public class Part08BlockingToReactive {
 
 	// TODO Insert values in the blocking repository without blocking the calling thread using an scheduler factory suitable for async tasks
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
-		return flux.dispatchOn(SchedulerGroup.async()).doOnNext(user -> repository.insert(user)).after(); // TO BE REMOVED
+		return flux
+				.dispatchOn(SchedulerGroup.async())
+				.doOnNext(user -> repository.insert(user))
+				.after(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -64,11 +76,17 @@ public class Part08BlockingToReactive {
 	@Test
 	public void nullHandling() {
 		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(mono).assertValues(User.SKYLER).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(mono)
+				.assertValues(User.SKYLER)
+				.assertComplete();
 		mono = nullAwareUserToMono(null);
-		ts = new TestSubscriber<>();
-		ts.bindTo(mono).assertNoValues().assertComplete();
+		testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(mono)
+				.assertNoValues()
+				.assertComplete();
 	}
 
 	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)

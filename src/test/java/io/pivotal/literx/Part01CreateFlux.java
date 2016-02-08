@@ -11,8 +11,8 @@ import reactor.core.test.TestSubscriber;
  * Learn how to create Flux instances.
  *
  * @author Sebastien Deleuze
- * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html>Flux Javadoc</a>
- * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html>TestSubscriber Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html>Flux Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html>TestSubscriber Javadoc</a>
  */
 public class Part01CreateFlux {
 
@@ -21,8 +21,11 @@ public class Part01CreateFlux {
 	@Test
 	public void empty() {
 		Flux<String> flux = emptyFlux();
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertValueCount(0).assertComplete();
+		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertValueCount(0)
+				.assertComplete();
 	}
 
 	// TODO Return an empty Flux
@@ -35,8 +38,11 @@ public class Part01CreateFlux {
 	@Test
 	public void fromValues() {
 		Flux<String> flux = fooBarFluxFromValues();
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertValues("foo", "bar").assertComplete();
+		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertValues("foo", "bar")
+				.assertComplete();
 	}
 
 	// TODO Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
@@ -49,8 +55,11 @@ public class Part01CreateFlux {
 	@Test
 	public void fromList() {
 		Flux<String> flux = fooBarFluxFromList();
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertValues("foo", "bar").assertComplete();
+		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertValues("foo", "bar")
+				.assertComplete();
 	}
 
 	// TODO Create a Flux from a List that contains 2 values "foo" and "bar"
@@ -63,8 +72,11 @@ public class Part01CreateFlux {
 	@Test
 	public void error() {
 		Flux<String> flux = errorFlux();
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertError(IllegalStateException.class).assertNotComplete();
+		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertError(IllegalStateException.class)
+				.assertNotComplete();
 	}
 
 	// TODO Create a Flux that emits an IllegalStateException
@@ -77,8 +89,10 @@ public class Part01CreateFlux {
 	@Test
 	public void neverTerminates() {
 		Flux<String> flux = neverTerminatedFlux();
-		TestSubscriber<String> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertNotTerminated();
+		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertNotTerminated();
 	}
 
 	// TODO Create a Flux that never terminates
@@ -91,8 +105,11 @@ public class Part01CreateFlux {
 	@Test
 	public void countEachSecond() {
 		Flux<Long> flux = counter();
-		TestSubscriber<Long> ts = new TestSubscriber<>();
-		ts.bindTo(flux).assertNotTerminated().awaitAndAssertValues(0L, 1L, 2L);
+		TestSubscriber<Long> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.assertNotTerminated()
+				.awaitAndAssertValues(0L, 1L, 2L);
 	}
 
 	// TODO Create a Flux that emits an increasing value each 100ms

@@ -26,8 +26,12 @@ public class Part04Merge {
 	@Test
 	public void mergeWithInterleave() {
 		Flux<User> flux = mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(flux).await().assertValues(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.await()
+				.assertValues(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.assertComplete();
 	}
 
 	// TODO Merge flux1 and flux2 values with interleave
@@ -40,8 +44,12 @@ public class Part04Merge {
 	@Test
 	public void mergeWithNoInterleave() {
 		Flux<User> flux = mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(flux).await().assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.await()
+				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
+				.assertComplete();
 	}
 
 	// TODO Merge flux1 and flux2 values with no interleave (flux1 values, and then flux2 values)
@@ -56,8 +64,12 @@ public class Part04Merge {
 		Mono<User> skylerMono = repository1.findFirst();
 		Mono<User> marieMono = repository2.findFirst();
 		Flux<User> flux = createFluxFromMultipleMono(skylerMono, marieMono);
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(flux).await().assertValues(User.SKYLER, MARIE).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(flux)
+				.await()
+				.assertValues(User.SKYLER, MARIE)
+				.assertComplete();
 	}
 
 	// TODO Create a Flux containing the values of the 2 Mono

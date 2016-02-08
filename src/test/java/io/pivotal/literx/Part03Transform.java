@@ -22,8 +22,12 @@ public class Part03Transform {
 	@Test
 	public void transformMono() {
 		Mono<User> mono = repository.findFirst();
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(capitalizeOne(mono)).await().assertValues(new User("SWHITE", "SKYLER", "WHITE")).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(capitalizeOne(mono))
+				.await()
+				.assertValues(new User("SWHITE", "SKYLER", "WHITE"))
+				.assertComplete();
 	}
 
 	// TODO Capitalize the user username, firstname and lastname
@@ -36,13 +40,16 @@ public class Part03Transform {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> ts = new TestSubscriber<>();
-		ts.bindTo(capitalizeMany(flux)).await().assertValues(
-				new User("SWHITE", "SKYLER", "WHITE"),
-				new User("JPINKMAN", "JESSE", "PINKMAN"),
-				new User("WWHITE", "WALTER", "WHITE"),
-				new User("SGOODMAN", "SAUL", "GOODMAN")
-				).assertComplete();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(capitalizeMany(flux))
+				.await()
+				.assertValues(
+					new User("SWHITE", "SKYLER", "WHITE"),
+					new User("JPINKMAN", "JESSE", "PINKMAN"),
+					new User("WWHITE", "WALTER", "WHITE"),
+					new User("SGOODMAN", "SAUL", "GOODMAN"))
+				.assertComplete();
 	}
 
 	// TODO Capitalize the users username, firstName and lastName

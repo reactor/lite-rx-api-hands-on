@@ -21,8 +21,10 @@ public class Part05Request {
 	@Test
 	public void requestNoValue() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> ts = createSubscriber();
-		ts.bindTo(flux).assertValueCount(0);
+		TestSubscriber<User> testSubscriber = createSubscriber();
+		testSubscriber
+				.bindTo(flux)
+				.assertValueCount(0);
 	}
 
 	// TODO Create a TestSubscriber that requests initially no value
@@ -35,21 +37,31 @@ public class Part05Request {
 	@Test
 	public void requestValueOneByOne() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> ts = createSubscriber();
-		ts.bindTo(flux).assertValueCount(0);
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.SKYLER).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.JESSE).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.WALTER).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.SAUL).assertComplete();
+		TestSubscriber<User> testSubscriber = createSubscriber();
+		testSubscriber
+				.bindTo(flux)
+				.assertValueCount(0);
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.SKYLER)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.JESSE)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.WALTER)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.SAUL)
+				.assertComplete();
 	}
 
 	// TODO Request one value
-	void requestOne(TestSubscriber<User> ts) {
-		ts.request(1);  // TO BE REMOVED
+	void requestOne(TestSubscriber<User> testSubscriber) {
+		testSubscriber.request(1);  // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -57,21 +69,33 @@ public class Part05Request {
 	@Test
 	public void experimentWithLog() {
 	Flux<User> flux = fluxWithLog();
-		TestSubscriber<User> ts = createSubscriber();
-		ts.bindTo(flux).assertValueCount(0);
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.SKYLER).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.JESSE).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.WALTER).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.SAUL).assertComplete();
+		TestSubscriber<User> testSubscriber = createSubscriber();
+		testSubscriber
+				.bindTo(flux)
+				.assertValueCount(0);
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.SKYLER)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.JESSE)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.WALTER)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.SAUL)
+				.assertComplete();
 	}
 
 	// TODO Return a Flux with skyler, jesse, walter and saul that prints automatically logs for all Reactive Streams signals
 	Flux<User> fluxWithLog() {
-		return repository.findAll().log(); // TO BE REMOVED
+		return repository
+				.findAll()
+				.log(); // TO BE REMOVED
 	}
 
 
@@ -80,21 +104,32 @@ public class Part05Request {
 	@Test
 	public void experimentWithDoOn() {
 		Flux<User> flux = fluxWithDoOnPrintln();
-		TestSubscriber<User> ts = createSubscriber();
-		ts.bindTo(flux).assertValueCount(0);
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.SKYLER).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.JESSE).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.WALTER).assertNotTerminated();
-		requestOne(ts);
-		ts.awaitAndAssertValues(User.SAUL).assertComplete();
+		TestSubscriber<User> testSubscriber = createSubscriber();
+		testSubscriber
+				.bindTo(flux)
+				.assertValueCount(0);
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.SKYLER)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.JESSE)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.WALTER)
+				.assertNotTerminated();
+		requestOne(testSubscriber);
+		testSubscriber
+				.awaitAndAssertValues(User.SAUL)
+				.assertComplete();
 	}
 
 	// TODO Return a Flux with skyler, jesse, walter and saul that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
 	Flux<User> fluxWithDoOnPrintln() {
-		return repository.findAll()
+		return repository
+				.findAll()
 				.doOnSubscribe(s -> System.out.println("Starring:"))
 				.doOnNext(p -> System.out.println(p.getFirstname() + " " + p.getLastname()))
 				.doOnComplete(() -> System.out.println("The end!")); // TO BE REMOVED
