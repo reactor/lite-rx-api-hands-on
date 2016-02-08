@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-core</artifactId>
-			<version>2.5.0.BUILD-SNAPSHOT</version>
+			<version>2.5.0.M1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -37,14 +37,8 @@
 
 	<repositories>
 		<repository>
-		  <id>spring-snapshot-repository</id>
-		  <releases>
-			<enabled>false</enabled>
-		  </releases>
-		  <snapshots>
-			<enabled>true</enabled>
-		  </snapshots>
-		  <url>http://repo.spring.io/snapshot</url>
+		  <id>spring-milestone-repository</id>
+		  <url>http://repo.spring.io/milestone</url>
 		</repository>
 	  </repositories>
 
