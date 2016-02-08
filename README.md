@@ -14,7 +14,7 @@ To do this Hands-on, you just have to:
  - `git clone https://github.com/sdeleuze/lite-rx-api-hands-on.git` (or clone your fork)
  - Import the project as a Maven one in your IDE
  - Make sure that the language level is set to Java 8 in your IDE project settings
- - Fix the TODO one by one in Part01 to Part08 test classes to make unit tests green
+ - Fix the TODO one by one in Part01 to Part09 test classes to make unit tests green
 
 The solution is available in the `complete` branch to compare, when you have finished, with what you have done.
  

@@ -23,15 +23,21 @@
 			<version>2.5.0.M1</version>
 		</dependency>
 		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.3</version>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>1.1.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -40,7 +46,7 @@
 		  <id>spring-milestone-repository</id>
 		  <url>http://repo.spring.io/milestone</url>
 		</repository>
-	</repositories>
+	  </repositories>
 
 	<build>
 		<plugins>
