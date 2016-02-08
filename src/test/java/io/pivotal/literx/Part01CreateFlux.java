@@ -53,7 +53,7 @@ public class Part01CreateFlux {
 		ts.bindTo(flux).assertValues("foo", "bar").assertComplete();
 	}
 
-	// TODO Create a Flux from anList that contains 2 values "foo" and "bar"
+	// TODO Create a Flux from a List that contains 2 values "foo" and "bar"
 	Flux<String> fooBarFluxFromList() {
 		return Flux.fromIterable(Arrays.asList("foo", "bar")); // TO BE REMOVED
 	}
@@ -92,7 +92,7 @@ public class Part01CreateFlux {
 	public void countEachSecond() {
 		Flux<Long> flux = counter();
 		TestSubscriber<Long> ts = new TestSubscriber<>();
-		ts.bindTo(flux).awaitAndAssertValues(0L, 1L, 2L);
+		ts.bindTo(flux).assertNotTerminated().awaitAndAssertValues(0L, 1L, 2L);
 	}
 
 	// TODO Create a Flux that emits an increasing value each 100ms

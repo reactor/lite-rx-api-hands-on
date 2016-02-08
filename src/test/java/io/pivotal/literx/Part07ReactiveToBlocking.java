@@ -29,7 +29,7 @@ public class Part07ReactiveToBlocking {
 		assertEquals(User.SKYLER, user);
 	}
 
-	// TODO Return the user value contain in that mono
+	// TODO Return the user contained in that Mono
 	User monoToValue(Mono<User> mono) {
 		return mono.get(); // TO BE REMOVED
 	}
@@ -48,7 +48,7 @@ public class Part07ReactiveToBlocking {
 		assertFalse(it.hasNext());
 	}
 
-	// TODO Return the user value contain in that mono
+	// TODO Return the user contained in that Flux
 	Iterable<User> fluxToValues(Flux<User> flux) {
 		return flux.toIterable(); // TO BE REMOVED
 	}

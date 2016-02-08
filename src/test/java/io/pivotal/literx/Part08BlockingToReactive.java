@@ -71,7 +71,7 @@ public class Part08BlockingToReactive {
 		ts.bindTo(mono).assertNoValues().assertComplete();
 	}
 
-	// TODO Return a valid Mono of user for null and non null input user (hint: Reactive Streams does not accept null values)
+	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
 	Mono<User> nullAwareUserToMono(User user) {
 		return user == null ? Mono.empty() : Mono.just(user); // TO BE REMOVED
 	}

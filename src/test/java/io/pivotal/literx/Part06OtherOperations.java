@@ -30,7 +30,7 @@ public class Part06OtherOperations {
 		ts.bindTo(userFlux).assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
 	}
 
-	// TODO Create a Flux of user from a Flux of user name, first name and last name.
+	// TODO Create a Flux of user from Flux of username, firstname and lastname.
 	Flux<User> userFluxFromStringFlux(Flux<String> usernameFlux, Flux<String> firstnameFlux, Flux<String> lastnameFlux) {
 		return Flux.zip(usernameFlux, firstnameFlux, lastnameFlux).map(tuple -> new User(tuple.t1, tuple.t2, tuple.t3)); // TO BE REMOVED
 	}
@@ -52,7 +52,7 @@ public class Part06OtherOperations {
 		ts.bindTo(mono).await().assertValues(MIKE).assertComplete();
 	}
 
-	// TODO return the mono who return faster its value
+	// TODO return the mono which returns faster its value
 	Mono<User> useFastestMono(Mono<User> mono1, Mono<User> mono2) {
 		return Mono.any(mono1, mono2); // TO BE REMOVED
 	}
@@ -74,7 +74,7 @@ public class Part06OtherOperations {
 		ts.bindTo(flux).await().assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL).assertComplete();
 	}
 
-	// TODO return the flux who return faster the first value
+	// TODO return the flux which returns faster the first value
 	Flux<User> useFastestFlux(Flux<User> flux1, Flux<User> flux2) {
 		return Flux.amb(flux1, flux2); // TO BE REMOVED
 	}
@@ -94,7 +94,6 @@ public class Part06OtherOperations {
 		return flux.after(); // TO BE REMOVED
 	}
 
-
 //========================================================================================
 
 	@Test
@@ -108,7 +107,7 @@ public class Part06OtherOperations {
 		ts.bindTo(mono).assertValues(User.SKYLER).assertComplete();
 	}
 
-	// TODO Return a Mono containing Saul when an error occurs in the input Mono, else do not change the input Mono.
+	// TODO Return a Mono<User> containing Saul when an error occurs in the input Mono, else do not change the input Mono.
 	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
 		return mono.otherwise(e -> Mono.just(User.SAUL)); // TO BE REMOVED
 	}
@@ -126,7 +125,7 @@ public class Part06OtherOperations {
 		ts.bindTo(flux).assertValues(User.SKYLER, User.WALTER).assertComplete();
 	}
 
-	// TODO Return a Flux containing Saul when an error occurs in the input Flux, else do not change the input Flux.
+	// TODO Return a Flux<User> containing Saul when an error occurs in the input Flux, else do not change the input Flux.
 	Flux<User> betterCallSaulForBogusFlux(Flux<User> flux) {
 		return flux.onErrorResumeWith(e -> Mono.just(User.SAUL)); // TO BE REMOVED
 	}

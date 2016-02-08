@@ -60,7 +60,7 @@ public class Part04Merge {
 		ts.bindTo(flux).await().assertValues(User.SKYLER, MARIE).assertComplete();
 	}
 
-	// TODO Create a Flux with the values of the 2 Mono
+	// TODO Create a Flux containing the values of the 2 Mono
 	Flux<User> createFluxFromMultipleMono(Mono<User> mono1, Mono<User> mono2) {
 		return Flux.concat(mono1, mono2);  // TO BE REMOVED
 	}
