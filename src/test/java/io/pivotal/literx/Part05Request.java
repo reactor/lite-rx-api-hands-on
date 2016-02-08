@@ -7,6 +7,11 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.test.TestSubscriber;
 
+/**
+ * Learn how to control the demand.
+ *
+ * @author Sebastien Deleuze
+ */
 public class Part05Request {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
@@ -92,7 +97,7 @@ public class Part05Request {
 		return repository.findAll()
 				.doOnSubscribe(s -> System.out.println("Starring:"))
 				.doOnNext(p -> System.out.println(p.getFirstname() + " " + p.getLastname()))
-				.doOnComplete(() -> System.out.println("The end!"));  // TO BE REMOVED
+				.doOnComplete(() -> System.out.println("The end!")); // TO BE REMOVED
 	}
 
 }

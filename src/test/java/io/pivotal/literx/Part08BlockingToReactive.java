@@ -15,6 +15,11 @@ import reactor.core.publisher.Mono;
 import reactor.core.publisher.SchedulerGroup;
 import reactor.core.test.TestSubscriber;
 
+/**
+ * Learn how to call blocking code for Reactive one.
+ *
+ * @author Sebastien Deleuze
+ */
 public class Part08BlockingToReactive {
 
 //========================================================================================
@@ -31,7 +36,6 @@ public class Part08BlockingToReactive {
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
 		return Flux.fromIterable(repository.findAll()).publishOn(SchedulerGroup.io()); // TO BE REMOVED
 	}
-
 
 //========================================================================================
 
@@ -52,7 +56,24 @@ public class Part08BlockingToReactive {
 
 	// TODO Insert values in the blocking repository without blocking the calling thread using an scheduler factory suitable for async tasks
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
-		return flux.dispatchOn(SchedulerGroup.async()).doOnNext(user -> repository.insert(user)).after();
+		return flux.dispatchOn(SchedulerGroup.async()).doOnNext(user -> repository.insert(user)).after(); // TO BE REMOVED
+	}
+
+//========================================================================================
+
+	@Test
+	public void nullHandling() {
+		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
+		TestSubscriber<User> ts = new TestSubscriber<>();
+		ts.bindTo(mono).assertValues(User.SKYLER).assertComplete();
+		mono = nullAwareUserToMono(null);
+		ts = new TestSubscriber<>();
+		ts.bindTo(mono).assertNoValues().assertComplete();
+	}
+
+	// TODO Return a valid Mono of user for null and non null input user (hint: Reactive Streams does not accept null values)
+	Mono<User> nullAwareUserToMono(User user) {
+		return user == null ? Mono.empty() : Mono.just(user); // TO BE REMOVED
 	}
 
 }

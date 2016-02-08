@@ -9,7 +9,9 @@ import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
 
 /**
- * Learn how to transform values
+ * Learn how to transform values.
+ *
+ * @author Sebastien Deleuze
  */
 public class Part03Transform {
 

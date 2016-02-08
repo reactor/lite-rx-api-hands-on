@@ -11,6 +11,11 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Learn how to turn Reactive API to blocking one.
+ *
+ * @author Sebastien Deleuze
+ */
 public class Part07ReactiveToBlocking {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
@@ -26,7 +31,7 @@ public class Part07ReactiveToBlocking {
 
 	// TODO Return the user value contain in that mono
 	User monoToValue(Mono<User> mono) {
-		return mono.get();   // TO BE REMOVED
+		return mono.get(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -45,7 +50,7 @@ public class Part07ReactiveToBlocking {
 
 	// TODO Return the user value contain in that mono
 	Iterable<User> fluxToValues(Flux<User> flux) {
-		return flux.toIterable();   // TO BE REMOVED
+		return flux.toIterable(); // TO BE REMOVED
 	}
 
 }

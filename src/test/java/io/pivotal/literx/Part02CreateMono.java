@@ -5,7 +5,9 @@ import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
 
 /**
- * Learn how to create Mono instances
+ * Learn how to create Mono instances.
+ *
+ * @author Sebastien Deleuze
  * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html>Mono Javadoc</a>
  * @see <a href="http://next.projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html>TestSubscriber Javadoc</a>
  */
