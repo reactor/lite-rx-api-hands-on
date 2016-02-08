@@ -1,8 +1,5 @@
 package io.pivotal.literx;
 
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.test.TestSubscriber;
