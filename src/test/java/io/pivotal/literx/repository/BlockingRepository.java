@@ -2,7 +2,7 @@ package io.pivotal.literx.repository;
 
 public interface BlockingRepository<T> {
 
-	void insert(T value);
+	void save(T value);
 
 	T findFirst();
 

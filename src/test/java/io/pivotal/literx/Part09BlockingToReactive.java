@@ -67,7 +67,7 @@ public class Part09BlockingToReactive {
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
 		return flux
 				.dispatchOn(SchedulerGroup.async())
-				.doOnNext(user -> repository.insert(user))
+				.doOnNext(user -> repository.save(user))
 				.after(); // TO BE REMOVED
 	}
 

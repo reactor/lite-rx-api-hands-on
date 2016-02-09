@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface ReactiveRepository<T> {
 
-	Mono<Void> insert(Publisher<T> publisher);
+	Mono<Void> save(Publisher<T> publisher);
 
 	Mono<T> findFirst();
 
