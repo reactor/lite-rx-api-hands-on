@@ -37,7 +37,7 @@ import rx.Single;
  *
  * @author Sebastien Deleuze
  */
-public class Part09Conversion {
+public class Part08Conversion {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 

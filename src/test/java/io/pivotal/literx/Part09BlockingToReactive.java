@@ -19,7 +19,7 @@ import reactor.core.test.TestSubscriber;
  *
  * @author Sebastien Deleuze
  */
-public class Part08BlockingToReactive {
+public class Part09BlockingToReactive {
 
 //========================================================================================
 
