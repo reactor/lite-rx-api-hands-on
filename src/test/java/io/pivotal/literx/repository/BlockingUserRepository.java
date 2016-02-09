@@ -26,8 +26,8 @@ public class BlockingUserRepository implements BlockingRepository<User>{
 
 
 	@Override
-	public void insert(User user) {
-		reactiveRepository.insert(Mono.just(user)).get();
+	public void save(User user) {
+		reactiveRepository.save(Mono.just(user)).get();
 	}
 
 	@Override
