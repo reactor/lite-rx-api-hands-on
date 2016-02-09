@@ -37,7 +37,7 @@ public class Part09BlockingToReactive {
 				.assertComplete();
 	}
 
-	// TODO Create a Flux for all users from the blocking repository, and run it on a scheduler factory dedicated to IO to avoid blocking the calling thread
+	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler factory suitable for slow blocking request methods
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
 		return Flux.fromIterable(repository.findAll()).publishOn(SchedulerGroup.io()); // TO BE REMOVED
 	}
@@ -63,7 +63,7 @@ public class Part09BlockingToReactive {
 		assertFalse(it.hasNext());
 	}
 
-	// TODO Insert values in the blocking repository without blocking the calling thread using an scheduler factory suitable for async tasks
+	// TODO Insert values in the blocking repository using an scheduler factory suitable for blocking but fast onNext methods
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
 		return flux
 				.dispatchOn(SchedulerGroup.async())
