@@ -24,7 +24,8 @@ public class Part05Request {
 		TestSubscriber<User> testSubscriber = createSubscriber();
 		testSubscriber
 				.bindTo(flux)
-				.assertValueCount(0);
+				.await()
+				.assertNoValues();
 	}
 
 	// TODO Create a TestSubscriber that requests initially no value
