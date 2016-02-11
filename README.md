@@ -11,7 +11,7 @@ You will mostly need these 3 classes Javadoc:
 To do this Hands-on, you just have to:
 
  - Have [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and a Java IDE ([IntelliJ IDEA](https://www.jetbrains.com/idea/) for example) installed with Maven support
- - `git clone https://github.com/sdeleuze/lite-rx-api-hands-on.git` (or clone your fork)
+ - Clone this repository (or your fork)
  - Import the project as a Maven one in your IDE
  - Make sure that the language level is set to Java 8 in your IDE project settings
  - Fix the TODO one by one in Part01 to Part09 test classes to make unit tests green
