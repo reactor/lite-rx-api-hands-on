@@ -164,7 +164,7 @@ public class Part06OtherOperations {
 
 	// TODO Return a Flux<User> containing Saul when an error occurs in the input Flux, else do not change the input Flux.
 	Flux<User> betterCallSaulForBogusFlux(Flux<User> flux) {
-		return flux.onErrorResumeWith(e -> Mono.just(User.SAUL)); // TO BE REMOVED
+		return flux.onErrorResumeWith(e -> Flux.just(User.SAUL)); // TO BE REMOVED
 	}
 
 }
