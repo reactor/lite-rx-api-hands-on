@@ -57,5 +57,30 @@ public class Part03Transform {
 		return null;
 	}
 
+//========================================================================================
+
+	@Test
+	public void  asyncTransformFlux() {
+		Flux<User> flux = repository.findAll();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(asyncCapitalizeMany(flux))
+				.await()
+				.assertValues(
+					new User("SWHITE", "SKYLER", "WHITE"),
+					new User("JPINKMAN", "JESSE", "PINKMAN"),
+					new User("WWHITE", "WALTER", "WHITE"),
+					new User("SGOODMAN", "SAUL", "GOODMAN"))
+				.assertComplete();
+	}
+
+	// TODO Capitalize the users username, firstName and lastName using asyncCapitalizeUser()
+	Flux<User> asyncCapitalizeMany(Flux<User> flux) {
+		return null;
+	}
+
+	Mono<User> asyncCapitalizeUser(User u) {
+		return Mono.just(new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase()));
+	}
 
 }
