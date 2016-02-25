@@ -25,11 +25,13 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
+import reactor.rx.Stream;
 import rx.Observable;
 import rx.Single;
 
 /**
- * Learn how to convert from/to Java 8+ CompletableFuture and RxJava Observable/Single.
+ * Learn how to convert from/to Java 8+ CompletableFuture, RxJava Observable/Single and
+ * Reactor Stream.
  *
  * Mono and Flux already implements Reactive Streams interfaces so they are natively
  * Reactive Streams compliant + there are Mono.from(Publisher) and Flux.from(Publisher)
@@ -55,12 +57,12 @@ public class Part08Conversion {
 				.assertComplete();
 	}
 
-	// TODO Convert Flux to RxJava Observable thanks to Reactor dedicated class
+	// TODO Convert Flux to RxJava Observable thanks to a Reactor converter
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
 		return null;
 	}
 
-	// TODO Convert RxJava Observable to Flux thanks to Reactor dedicated class
+	// TODO Convert RxJava Observable to Flux thanks to a Reactor converter
 	Flux<User> fromObservableToFlux(Observable<User> observable) {
 		return null;
 	}
@@ -79,12 +81,12 @@ public class Part08Conversion {
 				.assertComplete();
 	}
 
-	// TODO Convert Mono to RxJava Single thanks to Reactor dedicated class
+	// TODO Convert Mono to RxJava Single thanks to a Reactor converter
 	Single<User> fromMonoToSingle(Mono<User> mono) {
 		return null;
 	}
 
-	// TODO Convert RxJava Single to Mono thanks to Reactor dedicated class
+	// TODO Convert RxJava Single to Mono thanks to a Reactor converter
 	Mono<User> fromSingleToMono(Single<User> single) {
 		return null;
 	}
@@ -103,15 +105,34 @@ public class Part08Conversion {
 				.assertComplete();
 	}
 
-	// TODO Convert Mono to Java 8+ CompletableFuture thanks to Reactor dedicated class
+	// TODO Convert Mono to Java 8+ CompletableFuture thanks to a Reactor converter
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
 		return null;
 	}
 
-	// TODO Convert Java 8+ CompletableFuture to Mono thanks to Reactor dedicated class
+	// TODO Convert Java 8+ CompletableFuture to Mono thanks to a Reactor converter
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
 		return null;
 	}
+
+//========================================================================================
+
+	@Test
+	public void reactorStreamConversion() {
+		Flux<User> flux = repository.findAll();
+		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
+		testSubscriber
+				.bindTo(fromFluxToReactorStream(flux))
+				.await()
+				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.assertComplete();
+	}
+
+	// TODO Convert Flux to Reactor Stream thanks to Flux as operator + Stream static builder method
+	Stream<User> fromFluxToReactorStream(Flux<User> flux) {
+		return null; // TO BE REMOVED
+	}
+
 
 
 }
