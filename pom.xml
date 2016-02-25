@@ -23,6 +23,11 @@
 			<version>2.5.0.M1</version>
 		</dependency>
 		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-stream</artifactId>
+			<version>2.5.0.BUILD-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.3</version>
@@ -45,6 +50,10 @@
 		<repository>
 		  <id>spring-milestone-repository</id>
 		  <url>http://repo.spring.io/milestone</url>
+		</repository>
+		<repository>
+		  <id>spring-snapshot-repository</id>
+		  <url>http://repo.spring.io/snapshot</url>
 		</repository>
 	  </repositories>
 
