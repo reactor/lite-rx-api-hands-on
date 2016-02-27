@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 public class ReactiveUserRepository implements ReactiveRepository<User> {
 
-	private final static long DEFAULT_DELAY_IN_MS = 50;
+	private final static long DEFAULT_DELAY_IN_MS = 100;
 
 	private final long delayInMs;
 
@@ -40,7 +40,7 @@ public class ReactiveUserRepository implements ReactiveRepository<User> {
 
 	@Override
 	public Mono<Void> save(Publisher<User> userPublisher) {
-		return withDelay(Flux.from(userPublisher)).doOnNext(u -> users.add(u)).after();
+		return withDelay(Flux.from(userPublisher)).doOnNext(users::add).after();
 	}
 
 	@Override

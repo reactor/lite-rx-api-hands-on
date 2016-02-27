@@ -22,13 +22,12 @@ import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
-import reactor.core.converter.CompletableFutureConverter;
 import reactor.core.converter.RxJava1ObservableConverter;
 import reactor.core.converter.RxJava1SingleConverter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
-import reactor.rx.Stream;
+import reactor.rx.Fluxion;
 import rx.Observable;
 import rx.Single;
 
@@ -108,31 +107,31 @@ public class Part08Conversion {
 				.assertComplete();
 	}
 
-	// TODO Convert Mono to Java 8+ CompletableFuture thanks to a Reactor converter
+	// TODO Convert Mono to Java 8+ CompletableFuture thanks to Mono
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
-		return CompletableFutureConverter.fromSingle(mono); // TO BE REMOVED
+		return mono.toCompletableFuture(); // TO BE REMOVED
 	}
 
-	// TODO Convert Java 8+ CompletableFuture to Mono thanks to a Reactor converter
+	// TODO Convert Java 8+ CompletableFuture to Mono
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
-		return CompletableFutureConverter.from(future); // TO BE REMOVED
+		return Mono.fromCompletableFuture(future); // TO BE REMOVED
 	}
 
 //========================================================================================
 
 	@Test
-	public void reactorStreamConversion() {
+	public void fluxionConversion() {
 		Flux<User> flux = repository.findAll();
 		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
 		testSubscriber
-				.bindTo(fromFluxToReactorStream(flux))
+				.bindTo(fromFluxToFluxion(flux))
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
 	}
 
 	// TODO Convert Flux to Reactor Stream thanks to Flux as operator + Stream static builder method
-	Stream<User> fromFluxToReactorStream(Flux<User> flux) {
-		return flux.as(Stream::from); // TO BE REMOVED
+	Fluxion<User> fromFluxToFluxion(Flux<User> flux) {
+		return flux.as(Fluxion::from); // TO BE REMOVED
 	}
 }
