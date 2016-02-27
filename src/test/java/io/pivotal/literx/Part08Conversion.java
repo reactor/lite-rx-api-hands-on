@@ -25,7 +25,7 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
-import reactor.rx.Stream;
+import reactor.rx.Fluxion;
 import rx.Observable;
 import rx.Single;
 
@@ -118,18 +118,18 @@ public class Part08Conversion {
 //========================================================================================
 
 	@Test
-	public void reactorStreamConversion() {
+	public void fluxionConversion() {
 		Flux<User> flux = repository.findAll();
 		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
 		testSubscriber
-				.bindTo(fromFluxToReactorStream(flux))
+				.bindTo(fromFluxToFluxion(flux))
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
 	}
 
 	// TODO Convert Flux to Reactor Stream thanks to Flux as operator + Stream static builder method
-	Stream<User> fromFluxToReactorStream(Flux<User> flux) {
+	Fluxion<User> fromFluxToFluxion(Flux<User> flux) {
 		return null; // TO BE REMOVED
 	}
 
