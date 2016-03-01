@@ -44,19 +44,19 @@ public class Part05Request {
 				.assertValueCount(0);
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.SKYLER)
+				.awaitAndAssertNextValues(User.SKYLER)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.JESSE)
+				.awaitAndAssertNextValues(User.JESSE)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.WALTER)
+				.awaitAndAssertNextValues(User.WALTER)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.SAUL)
+				.awaitAndAssertNextValues(User.SAUL)
 				.assertComplete();
 	}
 
@@ -76,19 +76,19 @@ public class Part05Request {
 				.assertValueCount(0);
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.SKYLER)
+				.awaitAndAssertNextValues(User.SKYLER)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.JESSE)
+				.awaitAndAssertNextValues(User.JESSE)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.WALTER)
+				.awaitAndAssertNextValues(User.WALTER)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.SAUL)
+				.awaitAndAssertNextValues(User.SAUL)
 				.assertComplete();
 	}
 
@@ -109,19 +109,19 @@ public class Part05Request {
 				.assertValueCount(0);
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.SKYLER)
+				.awaitAndAssertNextValues(User.SKYLER)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.JESSE)
+				.awaitAndAssertNextValues(User.JESSE)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.WALTER)
+				.awaitAndAssertNextValues(User.WALTER)
 				.assertNotTerminated();
 		requestOne(testSubscriber);
 		testSubscriber
-				.awaitAndAssertValues(User.SAUL)
+				.awaitAndAssertNextValues(User.SAUL)
 				.assertComplete();
 	}
 

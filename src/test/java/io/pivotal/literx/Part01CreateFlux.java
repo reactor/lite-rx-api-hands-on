@@ -106,7 +106,7 @@ public class Part01CreateFlux {
 		testSubscriber
 				.bindTo(flux)
 				.assertNotTerminated()
-				.awaitAndAssertValues(0L, 1L, 2L);
+				.awaitAndAssertNextValues(0L, 1L, 2L);
 	}
 
 	// TODO Create a Flux that emits an increasing value each 100ms
