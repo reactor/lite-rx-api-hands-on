@@ -3,7 +3,6 @@ package io.pivotal.literx.repository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.pivotal.literx.domain.User;
 import org.reactivestreams.Publisher;
@@ -63,11 +62,11 @@ public class ReactiveUserRepository implements ReactiveRepository<User> {
 
 
 	private Mono<User> withDelay(Mono<User> userMono) {
-		return Mono.delay(delayInMs, TimeUnit.MILLISECONDS).then(c -> userMono);
+		return Mono.delay(delayInMs).then(c -> userMono);
 	}
 
 	private Flux<User> withDelay(Flux<User> userFlux) {
-		return Flux.interval(delayInMs, TimeUnit.MILLISECONDS).zipWith(userFlux, (i, user) -> user);
+		return Flux.interval(delayInMs).zipWith(userFlux, (i, user) -> user);
 	}
 
 }
