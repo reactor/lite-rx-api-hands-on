@@ -92,7 +92,7 @@ public class Part05Request {
 				.assertComplete();
 	}
 
-	// TODO Return a Flux with skyler, jesse, walter and saul that prints automatically logs for all Reactive Streams signals
+	// TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
 	Flux<User> fluxWithLog() {
 		return repository
 				.findAll()
@@ -127,7 +127,7 @@ public class Part05Request {
 				.assertComplete();
 	}
 
-	// TODO Return a Flux with skyler, jesse, walter and saul that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
+	// TODO Return a Flux with all users stored in the repository that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
 	Flux<User> fluxWithDoOnPrintln() {
 		return repository
 				.findAll()
