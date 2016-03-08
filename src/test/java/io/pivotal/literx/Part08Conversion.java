@@ -27,13 +27,11 @@ import reactor.core.converter.RxJava1SingleConverter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
-import reactor.rx.Fluxion;
 import rx.Observable;
 import rx.Single;
 
 /**
- * Learn how to convert from/to Java 8+ CompletableFuture, RxJava Observable/Single and
- * Reactor Stream.
+ * Learn how to convert from/to Java 8+ CompletableFuture and RxJava Observable/Single.
  *
  * Mono and Flux already implements Reactive Streams interfaces so they are natively
  * Reactive Streams compliant + there are Mono.from(Publisher) and Flux.from(Publisher)
@@ -117,21 +115,4 @@ public class Part08Conversion {
 		return Mono.fromCompletableFuture(future); // TO BE REMOVED
 	}
 
-//========================================================================================
-
-	@Test
-	public void fluxionConversion() {
-		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(fromFluxToFluxion(flux))
-				.await()
-				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.assertComplete();
-	}
-
-	// TODO Convert Flux to Reactor Stream thanks to Flux as operator + Stream static builder method
-	Fluxion<User> fromFluxToFluxion(Flux<User> flux) {
-		return flux.as(Fluxion::from); // TO BE REMOVED
-	}
 }
