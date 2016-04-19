@@ -10,8 +10,8 @@ import reactor.core.test.TestSubscriber;
  * Learn how to create Flux instances.
  *
  * @author Sebastien Deleuze
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html>Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html>TestSubscriber Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html">TestSubscriber Javadoc</a>
  */
 public class Part01CreateFlux {
 
