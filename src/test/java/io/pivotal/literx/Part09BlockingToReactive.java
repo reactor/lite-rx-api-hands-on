@@ -13,7 +13,7 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.SchedulerGroup;
+import reactor.core.publisher.Computations;
 import reactor.core.test.TestSubscriber;
 
 /**
@@ -27,7 +27,7 @@ import reactor.core.test.TestSubscriber;
  * @author Sebastien Deleuze
  * @see Flux#publishOn(Callable)
  * @see Flux#dispatchOn(Callable)
- * @see SchedulerGroup
+ * @see Computations
  */
 public class Part09BlockingToReactive {
 
