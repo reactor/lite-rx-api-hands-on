@@ -25,7 +25,6 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.test.TestSubscriber;
-import reactor.rx.Fluxion;
 import rx.Observable;
 import rx.Single;
 
@@ -114,25 +113,6 @@ public class Part08Conversion {
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
 		return null;
 	}
-
-//========================================================================================
-
-	@Test
-	public void fluxionConversion() {
-		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(fromFluxToFluxion(flux))
-				.await()
-				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.assertComplete();
-	}
-
-	// TODO Convert Flux to Reactor Stream thanks to Flux as operator + Stream static builder method
-	Fluxion<User> fromFluxToFluxion(Flux<User> flux) {
-		return null; // TO BE REMOVED
-	}
-
 
 
 }
