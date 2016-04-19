@@ -1,7 +1,6 @@
 package io.pivotal.literx;
 
 import java.util.Iterator;
-import java.util.concurrent.Callable;
 
 import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.BlockingRepository;
@@ -11,23 +10,24 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
+import reactor.core.publisher.Computations;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.SchedulerGroup;
+import reactor.core.scheduler.Scheduler;
 import reactor.core.test.TestSubscriber;
 
 /**
  * Learn how to call blocking code from Reactive one with adapted concurrency strategy for
- * blocking code that produces data (publishOn) or receives data (dispatchOn).
+ * blocking code that produces or receives data.
  *
  * For those who know RxJava:
- *  - RxJava subscribeOn = Reactor publishOn
- *  - RxJava observeOn = Reactor dispatchOn
+ *  - RxJava subscribeOn = Reactor subscribeOn
+ *  - RxJava observeOn = Reactor publishOn
  *
  * @author Sebastien Deleuze
- * @see Flux#publishOn(Callable)
- * @see Flux#dispatchOn(Callable)
- * @see SchedulerGroup
+ * @see Flux#subscribeOn(Scheduler)
+ * @see Flux#publishOn(Scheduler)
+ * @see Computations
  */
 public class Part09BlockingToReactive {
 
@@ -46,11 +46,11 @@ public class Part09BlockingToReactive {
 				.assertComplete();
 	}
 
-	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler factory suitable for slow {@link Runnable} executions
+	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler suitable for slow tasks
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
 		return Flux
 				.fromIterable(repository.findAll())
-				.publishOn(SchedulerGroup.io()); // TO BE REMOVED
+				.subscribeOn(Computations.concurrent()); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -74,10 +74,10 @@ public class Part09BlockingToReactive {
 		assertFalse(it.hasNext());
 	}
 
-	// TODO Insert users contained in the Flux parameter in the blocking repository using an scheduler factory suitable for fast {@link Runnable} executions
+	// TODO Insert users contained in the Flux parameter in the blocking repository using an scheduler factory suitable for fast tasks
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
 		return flux
-				.dispatchOn(SchedulerGroup.async())
+				.publishOn(Computations.parallel())
 				.doOnNext(user -> repository.save(user))
 				.after(); // TO BE REMOVED
 	}
