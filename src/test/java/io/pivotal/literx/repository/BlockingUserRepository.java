@@ -7,6 +7,7 @@ public class BlockingUserRepository implements BlockingRepository<User>{
 
 	private final ReactiveRepository<User> reactiveRepository;
 
+	private int callCount = 0;
 
 	public BlockingUserRepository() {
 		reactiveRepository = new ReactiveUserRepository();
@@ -27,21 +28,29 @@ public class BlockingUserRepository implements BlockingRepository<User>{
 
 	@Override
 	public void save(User user) {
+		callCount++;
 		reactiveRepository.save(Mono.just(user)).get();
 	}
 
 	@Override
 	public User findFirst() {
+		callCount++;
 		return reactiveRepository.findFirst().get();
 	}
 
 	@Override
 	public Iterable<User> findAll() {
+		callCount++;
 		return reactiveRepository.findAll().toIterable();
 	}
 
 	@Override
 	public User findById(String username) {
+		callCount++;
 		return reactiveRepository.findById(username).get();
+	}
+
+	public int getCallCount() {
+		return callCount;
 	}
 }
