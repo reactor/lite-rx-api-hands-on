@@ -147,14 +147,14 @@ public class Part06OtherOperations {
 
 	@Test
 	public void fluxWithValueInsteadOfError() {
-		Flux<User> flux = betterCallSaulForBogusFlux(Flux.error(new IllegalStateException()));
+		Flux<User> flux = betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
 		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
 		testSubscriber
 				.bindTo(flux)
-				.assertValues(User.SAUL)
+				.assertValues(User.SAUL, User.JESSE)
 				.assertComplete();
 
-		flux = betterCallSaulForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
+		flux = betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
 		testSubscriber = new TestSubscriber<>();
 		testSubscriber
 				.bindTo(flux)
@@ -162,9 +162,9 @@ public class Part06OtherOperations {
 				.assertComplete();
 	}
 
-	// TODO Return a Flux<User> containing Saul when an error occurs in the input Flux, else do not change the input Flux.
-	Flux<User> betterCallSaulForBogusFlux(Flux<User> flux) {
-		return flux.onErrorResumeWith(e -> Mono.just(User.SAUL)); // TO BE REMOVED
+	// TODO Return a Flux<User> containing Saul and Walter when an error occurs in the input Flux, else do not change the input Flux.
+	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
+		return flux.onErrorResumeWith(e -> Flux.just(User.SAUL, User.JESSE)); // TO BE REMOVED
 	}
 
 }
