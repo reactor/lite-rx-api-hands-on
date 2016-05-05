@@ -35,8 +35,9 @@ public class Part09BlockingToReactive {
 
 	@Test
 	public void slowPublisherFastSubscriber() {
-		BlockingRepository<User> repository = new BlockingUserRepository();
+		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
+		assertEquals(0, repository.getCallCount());
 		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
 		testSubscriber
 				.bindTo(flux)
@@ -48,8 +49,7 @@ public class Part09BlockingToReactive {
 
 	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler suitable for slow tasks
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
-		return Flux
-				.fromIterable(repository.findAll())
+		return Flux.defer(() -> Flux.fromIterable(repository.findAll()))
 				.subscribeOn(Computations.concurrent()); // TO BE REMOVED
 	}
 
@@ -58,8 +58,9 @@ public class Part09BlockingToReactive {
 	@Test
 	public void fastPublisherSlowSubscriber() {
 		ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
-		BlockingRepository<User> blockingRepository = new BlockingUserRepository(new User[]{});
+		BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
+		assertEquals(0, blockingRepository.getCallCount());
 		TestSubscriber<Void> testSubscriber = new TestSubscriber<>();
 		testSubscriber
 				.bindTo(complete)
