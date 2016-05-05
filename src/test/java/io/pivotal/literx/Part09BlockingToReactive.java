@@ -47,7 +47,7 @@ public class Part09BlockingToReactive {
 				.assertComplete();
 	}
 
-	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler suitable for slow tasks
+	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler suitable for slow tasks without blocking the main thread
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
 		return Flux.defer(() -> Flux.fromIterable(repository.findAll()))
 				.subscribeOn(Computations.concurrent()); // TO BE REMOVED
