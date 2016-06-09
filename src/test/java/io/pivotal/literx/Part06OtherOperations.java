@@ -26,9 +26,8 @@ public class Part06OtherOperations {
 		Flux<String> firstnameFlux = Flux.just(User.SKYLER.getFirstname(), User.JESSE.getFirstname(), User.WALTER.getFirstname(), User.SAUL.getFirstname());
 		Flux<String> lastnameFlux = Flux.just(User.SKYLER.getLastname(), User.JESSE.getLastname(), User.WALTER.getLastname(), User.SAUL.getLastname());
 		Flux<User> userFlux = userFluxFromStringFlux(usernameFlux, firstnameFlux, lastnameFlux);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(userFlux)
+		TestSubscriber
+				.subscribe(userFlux)
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
 	}
 
@@ -44,9 +43,8 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE);
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250, MIKE);
 		Mono<User> mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.await()
 				.assertValues(MARIE)
 				.assertComplete();
@@ -54,9 +52,8 @@ public class Part06OtherOperations {
 		repository1 = new ReactiveUserRepository(250, MARIE);
 		repository2 = new ReactiveUserRepository(MIKE);
 		mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.await()
 				.assertValues(MIKE)
 				.assertComplete();
@@ -74,9 +71,8 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE, MIKE);
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250);
 		Flux<User> flux = useFastestFlux(repository1.findAll(), repository2.findAll());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(MARIE, MIKE)
 				.assertComplete();
@@ -84,9 +80,8 @@ public class Part06OtherOperations {
 		repository1 = new ReactiveUserRepository(250, MARIE, MIKE);
 		repository2 = new ReactiveUserRepository();
 		flux = useFastestFlux(repository1.findAll(), repository2.findAll());
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
@@ -103,9 +98,8 @@ public class Part06OtherOperations {
 	public void end() {
 		ReactiveRepository<User> repository = new ReactiveUserRepository();
 		Mono<Void> end = endOfFlux(repository.findAll());
-		TestSubscriber<Void> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(end)
+		TestSubscriber
+				.subscribe(end)
 				.assertNotTerminated()
 				.await()
 				.assertNoValues()
@@ -122,16 +116,14 @@ public class Part06OtherOperations {
 	@Test
 	public void monoWithValueInsteadOfError() {
 		Mono<User> mono = betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValues(User.SAUL)
 				.assertComplete();
 
 		mono = betterCallSaulForBogusMono(Mono.just(User.SKYLER));
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValues(User.SKYLER)
 				.assertComplete();
 	}
@@ -146,16 +138,14 @@ public class Part06OtherOperations {
 	@Test
 	public void fluxWithValueInsteadOfError() {
 		Flux<User> flux = betterCallSaulForBogusFlux(Flux.error(new IllegalStateException()));
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValues(User.SAUL)
 				.assertComplete();
 
 		flux = betterCallSaulForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValues(User.SKYLER, User.WALTER)
 				.assertComplete();
 	}

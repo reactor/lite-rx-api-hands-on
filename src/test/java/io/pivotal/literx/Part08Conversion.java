@@ -48,9 +48,8 @@ public class Part08Conversion {
 	public void observableConversion() {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(fromObservableToFlux(observable))
+		TestSubscriber
+				.subscribe(fromObservableToFlux(observable))
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
@@ -72,9 +71,8 @@ public class Part08Conversion {
 	public void singleConversion() {
 		Mono<User> mono = repository.findFirst();
 		Single<User> single = fromMonoToSingle(mono);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(fromSingleToMono(single))
+		TestSubscriber
+				.subscribe(fromSingleToMono(single))
 				.await()
 				.assertValues(User.SKYLER)
 				.assertComplete();
@@ -96,9 +94,8 @@ public class Part08Conversion {
 	public void completableFutureConversion() {
 		Mono<User> mono = repository.findFirst();
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(fromCompletableFutureToMono(future))
+		TestSubscriber
+				.subscribe(fromCompletableFutureToMono(future))
 				.await()
 				.assertValues(User.SKYLER)
 				.assertComplete();

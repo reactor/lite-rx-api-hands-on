@@ -10,10 +10,10 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
-import reactor.core.publisher.Computations;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 import reactor.core.test.TestSubscriber;
 
 /**
@@ -27,7 +27,7 @@ import reactor.core.test.TestSubscriber;
  * @author Sebastien Deleuze
  * @see Flux#subscribeOn(Scheduler)
  * @see Flux#publishOn(Scheduler)
- * @see Computations
+ * @see Schedulers
  */
 public class Part09BlockingToReactive {
 
@@ -38,16 +38,15 @@ public class Part09BlockingToReactive {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
 		assertEquals(0, repository.getCallCount());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertNotTerminated()
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
 	}
 
-	// TODO Create a Flux for reading all users from the blocking repository, and run it with a scheduler suitable for slow tasks without blocking the main thread
+	// TODO Create a Flux for reading all users from the blocking repository, and run it with an elastic scheduler
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
 		return null;
 	}
@@ -59,9 +58,8 @@ public class Part09BlockingToReactive {
 		ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
 		BlockingRepository<User> blockingRepository = new BlockingUserRepository(new User[]{});
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
-		TestSubscriber<Void> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(complete)
+		TestSubscriber
+				.subscribe(complete)
 				.assertNotTerminated()
 				.await()
 				.assertComplete();
@@ -73,7 +71,7 @@ public class Part09BlockingToReactive {
 		assertFalse(it.hasNext());
 	}
 
-	// TODO Insert users contained in the Flux parameter in the blocking repository using an scheduler factory suitable for fast tasks
+	// TODO Insert users contained in the Flux parameter in the blocking repository using a parallel scheduler
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
 		return null;
 	}
@@ -83,15 +81,13 @@ public class Part09BlockingToReactive {
 	@Test
 	public void nullHandling() {
 		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValues(User.SKYLER)
 				.assertComplete();
 		mono = nullAwareUserToMono(null);
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertNoValues()
 				.assertComplete();
 	}

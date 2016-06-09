@@ -29,13 +29,13 @@ public class BlockingUserRepository implements BlockingRepository<User>{
 	@Override
 	public void save(User user) {
 		callCount++;
-		reactiveRepository.save(Mono.just(user)).get();
+		reactiveRepository.save(Mono.just(user)).block();
 	}
 
 	@Override
 	public User findFirst() {
 		callCount++;
-		return reactiveRepository.findFirst().get();
+		return reactiveRepository.findFirst().block();
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class BlockingUserRepository implements BlockingRepository<User>{
 	@Override
 	public User findById(String username) {
 		callCount++;
-		return reactiveRepository.findById(username).get();
+		return reactiveRepository.findById(username).block();
 	}
 
 	public int getCallCount() {

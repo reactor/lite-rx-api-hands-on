@@ -21,15 +21,14 @@ public class Part05Request {
 	@Test
 	public void requestNoValue() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> testSubscriber = createSubscriber();
+		TestSubscriber<User> testSubscriber = createSubscriber(flux);
 		testSubscriber
-				.bindTo(flux)
 				.await()
 				.assertNoValues();
 	}
 
 	// TODO Create a TestSubscriber that requests initially no value
-	TestSubscriber<User> createSubscriber() {
+	TestSubscriber<User> createSubscriber(Flux<User> flux) {
 		return null;
 	}
 
@@ -38,9 +37,8 @@ public class Part05Request {
 	@Test
 	public void requestValueOneByOne() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> testSubscriber = createSubscriber();
+		TestSubscriber<User> testSubscriber = createSubscriber(flux);
 		testSubscriber
-				.bindTo(flux)
 				.assertValueCount(0);
 		requestOne(testSubscriber);
 		testSubscriber
@@ -70,9 +68,8 @@ public class Part05Request {
 	@Test
 	public void experimentWithLog() {
 	Flux<User> flux = fluxWithLog();
-		TestSubscriber<User> testSubscriber = createSubscriber();
+		TestSubscriber<User> testSubscriber = createSubscriber(flux);
 		testSubscriber
-				.bindTo(flux)
 				.assertValueCount(0);
 		requestOne(testSubscriber);
 		testSubscriber
@@ -103,9 +100,8 @@ public class Part05Request {
 	@Test
 	public void experimentWithDoOn() {
 		Flux<User> flux = fluxWithDoOnPrintln();
-		TestSubscriber<User> testSubscriber = createSubscriber();
+		TestSubscriber<User> testSubscriber = createSubscriber(flux);
 		testSubscriber
-				.bindTo(flux)
 				.assertValueCount(0);
 		requestOne(testSubscriber);
 		testSubscriber
