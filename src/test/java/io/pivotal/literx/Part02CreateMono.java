@@ -18,9 +18,8 @@ public class Part02CreateMono {
 	@Test
 	public void empty() {
 		Mono<String> mono = emptyMono();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValueCount(0)
 				.assertComplete();
 	}
@@ -35,9 +34,8 @@ public class Part02CreateMono {
 	@Test
 	public void fromValue() {
 		Mono<String> mono = fooMono();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValues("foo")
 				.assertComplete();
 	}
@@ -52,9 +50,8 @@ public class Part02CreateMono {
 	@Test
 	public void error() {
 		Mono<String> mono = errorMono();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertError(IllegalStateException.class)
 				.assertNotComplete();
 	}

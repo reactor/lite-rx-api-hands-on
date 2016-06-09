@@ -22,9 +22,8 @@ public class Part03Transform {
 	@Test
 	public void transformMono() {
 		Mono<User> mono = repository.findFirst();
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(capitalizeOne(mono))
+		TestSubscriber
+				.subscribe(capitalizeOne(mono))
 				.await()
 				.assertValues(new User("SWHITE", "SKYLER", "WHITE"))
 				.assertComplete();
@@ -40,9 +39,8 @@ public class Part03Transform {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(capitalizeMany(flux))
+		TestSubscriber
+				.subscribe(capitalizeMany(flux))
 				.await()
 				.assertValues(
 					new User("SWHITE", "SKYLER", "WHITE"),
@@ -62,9 +60,8 @@ public class Part03Transform {
 	@Test
 	public void  asyncTransformFlux() {
 		Flux<User> flux = repository.findAll();
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(asyncCapitalizeMany(flux))
+		TestSubscriber
+				.subscribe(asyncCapitalizeMany(flux))
 				.await()
 				.assertValues(
 					new User("SWHITE", "SKYLER", "WHITE"),

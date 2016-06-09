@@ -26,9 +26,8 @@ public class Part06OtherOperations {
 		Flux<String> firstnameFlux = Flux.just(User.SKYLER.getFirstname(), User.JESSE.getFirstname(), User.WALTER.getFirstname(), User.SAUL.getFirstname());
 		Flux<String> lastnameFlux = Flux.just(User.SKYLER.getLastname(), User.JESSE.getLastname(), User.WALTER.getLastname(), User.SAUL.getLastname());
 		Flux<User> userFlux = userFluxFromStringFlux(usernameFlux, firstnameFlux, lastnameFlux);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(userFlux)
+		TestSubscriber
+				.subscribe(userFlux)
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
 	}
 
@@ -46,9 +45,8 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE);
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250, MIKE);
 		Mono<User> mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.await()
 				.assertValues(MARIE)
 				.assertComplete();
@@ -56,9 +54,8 @@ public class Part06OtherOperations {
 		repository1 = new ReactiveUserRepository(250, MARIE);
 		repository2 = new ReactiveUserRepository(MIKE);
 		mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.await()
 				.assertValues(MIKE)
 				.assertComplete();
@@ -66,7 +63,7 @@ public class Part06OtherOperations {
 
 	// TODO return the mono which returns faster its value
 	Mono<User> useFastestMono(Mono<User> mono1, Mono<User> mono2) {
-		return Mono.any(mono1, mono2); // TO BE REMOVED
+		return Mono.first(mono1, mono2); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -76,9 +73,8 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE, MIKE);
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250);
 		Flux<User> flux = useFastestFlux(repository1.findAll(), repository2.findAll());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(MARIE, MIKE)
 				.assertComplete();
@@ -86,9 +82,8 @@ public class Part06OtherOperations {
 		repository1 = new ReactiveUserRepository(250, MARIE, MIKE);
 		repository2 = new ReactiveUserRepository();
 		flux = useFastestFlux(repository1.findAll(), repository2.findAll());
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
@@ -96,7 +91,7 @@ public class Part06OtherOperations {
 
 	// TODO return the flux which returns faster the first value
 	Flux<User> useFastestFlux(Flux<User> flux1, Flux<User> flux2) {
-		return Flux.amb(flux1, flux2); // TO BE REMOVED
+		return Flux.firstEmitting(flux1, flux2); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -105,9 +100,8 @@ public class Part06OtherOperations {
 	public void end() {
 		ReactiveRepository<User> repository = new ReactiveUserRepository();
 		Mono<Void> end = endOfFlux(repository.findAll());
-		TestSubscriber<Void> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(end)
+		TestSubscriber
+				.subscribe(end)
 				.assertNotTerminated()
 				.await()
 				.assertNoValues()
@@ -116,7 +110,7 @@ public class Part06OtherOperations {
 
 	// TODO Convert the input Flux<User> to a Mono<Void> that represents the complete signal of the flux
 	Mono<Void> endOfFlux(Flux<User> flux) {
-		return flux.after(); // TO BE REMOVED
+		return flux.then(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -124,16 +118,14 @@ public class Part06OtherOperations {
 	@Test
 	public void monoWithValueInsteadOfError() {
 		Mono<User> mono = betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValues(User.SAUL)
 				.assertComplete();
 
 		mono = betterCallSaulForBogusMono(Mono.just(User.SKYLER));
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(mono)
+		TestSubscriber
+				.subscribe(mono)
 				.assertValues(User.SKYLER)
 				.assertComplete();
 	}
@@ -148,16 +140,14 @@ public class Part06OtherOperations {
 	@Test
 	public void fluxWithValueInsteadOfError() {
 		Flux<User> flux = betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValues(User.SAUL, User.JESSE)
 				.assertComplete();
 
 		flux = betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
-		testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValues(User.SKYLER, User.WALTER)
 				.assertComplete();
 	}

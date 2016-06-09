@@ -26,9 +26,8 @@ public class Part04Merge {
 	@Test
 	public void mergeWithInterleave() {
 		Flux<User> flux = mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.assertComplete();
@@ -44,9 +43,8 @@ public class Part04Merge {
 	@Test
 	public void mergeWithNoInterleave() {
 		Flux<User> flux = mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
 				.assertComplete();
@@ -64,9 +62,8 @@ public class Part04Merge {
 		Mono<User> skylerMono = repository1.findFirst();
 		Mono<User> marieMono = repository2.findFirst();
 		Flux<User> flux = createFluxFromMultipleMono(skylerMono, marieMono);
-		TestSubscriber<User> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.await()
 				.assertValues(User.SKYLER, MARIE)
 				.assertComplete();

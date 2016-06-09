@@ -20,9 +20,8 @@ public class Part01CreateFlux {
 	@Test
 	public void empty() {
 		Flux<String> flux = emptyFlux();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValueCount(0)
 				.assertComplete();
 	}
@@ -37,9 +36,8 @@ public class Part01CreateFlux {
 	@Test
 	public void fromValues() {
 		Flux<String> flux = fooBarFluxFromValues();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValues("foo", "bar")
 				.assertComplete();
 	}
@@ -54,9 +52,8 @@ public class Part01CreateFlux {
 	@Test
 	public void fromList() {
 		Flux<String> flux = fooBarFluxFromList();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertValues("foo", "bar")
 				.assertComplete();
 	}
@@ -71,9 +68,8 @@ public class Part01CreateFlux {
 	@Test
 	public void error() {
 		Flux<String> flux = errorFlux();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertError(IllegalStateException.class)
 				.assertNotComplete();
 	}
@@ -88,9 +84,8 @@ public class Part01CreateFlux {
 	@Test
 	public void neverTerminates() {
 		Flux<String> flux = neverTerminatedFlux();
-		TestSubscriber<String> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertNotTerminated();
 	}
 
@@ -104,9 +99,8 @@ public class Part01CreateFlux {
 	@Test
 	public void countEachSecond() {
 		Flux<Long> flux = counter();
-		TestSubscriber<Long> testSubscriber = new TestSubscriber<>();
-		testSubscriber
-				.bindTo(flux)
+		TestSubscriber
+				.subscribe(flux)
 				.assertNotTerminated()
 				.awaitAndAssertNextValues(0L, 1L, 2L);
 	}
