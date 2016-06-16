@@ -35,7 +35,7 @@ public class Part04Merge {
 
 	// TODO Merge flux1 and flux2 values with interleave
 	Flux<User> mergeFluxWithInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return Flux.merge(flux1, flux2); // TO BE REMOVED
+		return flux1.mergeWith(flux2); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -52,7 +52,7 @@ public class Part04Merge {
 
 	// TODO Merge flux1 and flux2 values with no interleave (flux1 values, and then flux2 values)
 	Flux<User> mergeFluxWithNoInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return Flux.concat(flux1, flux2); // TO BE REMOVED
+		return flux1.concatWith(flux2); // TO BE REMOVED
 	}
 
 //========================================================================================
