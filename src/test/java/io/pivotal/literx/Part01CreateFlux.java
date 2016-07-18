@@ -1,10 +1,11 @@
 package io.pivotal.literx;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.core.test.TestSubscriber;
+import reactor.test.TestSubscriber;
 
 /**
  * Learn how to create Flux instances.
@@ -107,7 +108,7 @@ public class Part01CreateFlux {
 
 	// TODO Create a Flux that emits an increasing value each 100ms
 	Flux<Long> counter() {
-		return Flux.interval(100);  // TO BE REMOVED
+		return Flux.interval(Duration.ofMillis(100));  // TO BE REMOVED
 	}
 
 }

@@ -1,5 +1,6 @@
 package io.pivotal.literx.repository;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,11 +63,15 @@ public class ReactiveUserRepository implements ReactiveRepository<User> {
 
 
 	private Mono<User> withDelay(Mono<User> userMono) {
-		return Mono.delay(delayInMs).then(c -> userMono);
+		return Mono
+				.delay(Duration.ofMillis(delayInMs))
+				.then(c -> userMono);
 	}
 
 	private Flux<User> withDelay(Flux<User> userFlux) {
-		return Flux.interval(delayInMs).zipWith(userFlux, (i, user) -> user);
+		return Flux
+				.interval(Duration.ofMillis(delayInMs))
+				.zipWith(userFlux, (i, user) -> user);
 	}
 
 }

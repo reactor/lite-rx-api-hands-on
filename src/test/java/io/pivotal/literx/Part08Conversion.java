@@ -22,11 +22,10 @@ import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
-import reactor.core.converter.RxJava1ObservableConverter;
-import reactor.core.converter.RxJava1SingleConverter;
+import reactor.adapter.RxJava1Adapter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.test.TestSubscriber;
+import reactor.test.TestSubscriber;
 import rx.Observable;
 import rx.Single;
 
@@ -58,12 +57,12 @@ public class Part08Conversion {
 
 	// TODO Convert Flux to RxJava Observable thanks to a Reactor converter
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
-		return RxJava1ObservableConverter.from(flux); // TO BE REMOVED
+		return RxJava1Adapter.publisherToObservable(flux); // TO BE REMOVED
 	}
 
 	// TODO Convert RxJava Observable to Flux thanks to a Reactor converter
 	Flux<User> fromObservableToFlux(Observable<User> observable) {
-		return RxJava1ObservableConverter.from(observable); // TO BE REMOVED
+		return RxJava1Adapter.observableToFlux(observable); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -81,12 +80,12 @@ public class Part08Conversion {
 
 	// TODO Convert Mono to RxJava Single thanks to a Reactor converter
 	Single<User> fromMonoToSingle(Mono<User> mono) {
-		return RxJava1SingleConverter.from(mono); // TO BE REMOVED
+		return RxJava1Adapter.publisherToSingle(mono); // TO BE REMOVED
 	}
 
 	// TODO Convert RxJava Single to Mono thanks to a Reactor converter
 	Mono<User> fromSingleToMono(Single<User> single) {
-		return RxJava1SingleConverter.from(single); // TO BE REMOVED
+		return RxJava1Adapter.singleToMono(single); // TO BE REMOVED
 	}
 
 //========================================================================================

@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
-import reactor.core.test.TestSubscriber;
+import reactor.test.TestSubscriber;
 
 /**
  * Learn how to call blocking code from Reactive one with adapted concurrency strategy for
