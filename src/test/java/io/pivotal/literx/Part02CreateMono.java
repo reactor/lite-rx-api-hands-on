@@ -2,7 +2,7 @@ package io.pivotal.literx;
 
 import org.junit.Test;
 import reactor.core.publisher.Mono;
-import reactor.core.test.TestSubscriber;
+import reactor.test.TestSubscriber;
 
 /**
  * Learn how to create Mono instances.
