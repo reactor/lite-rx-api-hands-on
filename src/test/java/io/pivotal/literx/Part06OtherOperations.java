@@ -142,7 +142,7 @@ public class Part06OtherOperations {
 		Flux<User> flux = betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
 		TestSubscriber
 				.subscribe(flux)
-				.assertValues(User.SAUL, User.JESSE)
+				.assertValues(User.SAUL)
 				.assertComplete();
 
 		flux = betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
@@ -152,9 +152,9 @@ public class Part06OtherOperations {
 				.assertComplete();
 	}
 
-	// TODO Return a Flux<User> containing Saul and Walter when an error occurs in the input Flux, else do not change the input Flux.
+	// TODO Return a Flux<User> containing Saul when an error occurs in the input Flux, else do not change the input Flux.
 	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
-		return flux.onErrorResumeWith(e -> Flux.just(User.SAUL, User.JESSE)); // TO BE REMOVED
+		return flux.onErrorResumeWith(e -> Flux.just(User.SAUL)); // TO BE REMOVED
 	}
 
 }
