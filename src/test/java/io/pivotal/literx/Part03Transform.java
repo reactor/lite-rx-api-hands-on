@@ -6,7 +6,7 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.TestSubscriber;
+import io.pivotal.literx.test.TestSubscriber;
 
 /**
  * Learn how to transform values.

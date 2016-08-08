@@ -6,7 +6,6 @@ You will mostly need these 3 classes Javadoc:
 
  - [Flux](http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html)
  - [Mono](http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html)
- - [TestSubscriber](http://projectreactor.io/core/docs/api/reactor/test/TestSubscriber.html)
  
 To do this Hands-on, you just have to:
 
