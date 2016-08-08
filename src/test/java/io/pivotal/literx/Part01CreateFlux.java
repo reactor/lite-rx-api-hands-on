@@ -5,14 +5,14 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.test.TestSubscriber;
+import io.pivotal.literx.test.TestSubscriber;
 
 /**
  * Learn how to create Flux instances.
  *
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html">TestSubscriber Javadoc</a>
+ * @see TestSubscriber
  */
 public class Part01CreateFlux {
 

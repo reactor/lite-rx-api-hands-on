@@ -2,14 +2,14 @@ package io.pivotal.literx;
 
 import org.junit.Test;
 import reactor.core.publisher.Mono;
-import reactor.test.TestSubscriber;
+import io.pivotal.literx.test.TestSubscriber;
 
 /**
  * Learn how to create Mono instances.
  *
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html">TestSubscriber Javadoc</a>
+ * @see TestSubscriber
  */
 public class Part02CreateMono {
 

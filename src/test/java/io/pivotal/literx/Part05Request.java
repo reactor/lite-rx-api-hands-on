@@ -5,7 +5,7 @@ import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.test.TestSubscriber;
+import io.pivotal.literx.test.TestSubscriber;
 
 /**
  * Learn how to control the demand.
