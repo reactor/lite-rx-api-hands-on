@@ -9,7 +9,7 @@ import io.pivotal.literx.test.TestSubscriber;
  *
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/test/TestSubscriber.html">TestSubscriber Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/test/TestSubscriber.html">TestSubscriber Javadoc</a>
  */
 public class Part01CreateFlux {
 
