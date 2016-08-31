@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-core</artifactId>
-			<version>3.0.0.RC1</version>
+			<version>3.0.1.BUILD-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -36,11 +36,17 @@
 		<dependency>
 			<groupId>io.reactivex</groupId>
 			<artifactId>rxjava</artifactId>
-			<version>1.1.5</version>
+			<version>1.1.9</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+		  <id>spring-snapshot-repository</id>
+		  <url>http://repo.spring.io/snapshot</url>
+		</repository>
+	  </repositories>
 	<repositories>
 		<repository>
 		  <id>spring-milestone-repository</id>
