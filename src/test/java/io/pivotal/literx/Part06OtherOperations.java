@@ -35,7 +35,9 @@ public class Part06OtherOperations {
 	Flux<User> userFluxFromStringFlux(Flux<String> usernameFlux, Flux<String> firstnameFlux, Flux<String> lastnameFlux) {
 		return Flux
 				.zip(usernameFlux, firstnameFlux, lastnameFlux)
-				.map(tuple -> new User(tuple.t1, tuple.t2, tuple.t3)); // TO BE REMOVED
+				.map(tuple -> new User(tuple.getT1(), tuple.getT2(), tuple.getT3())); // TO
+		// BE
+		// REMOVED
 	}
 
 //========================================================================================
