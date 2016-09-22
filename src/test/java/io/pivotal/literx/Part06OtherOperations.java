@@ -154,7 +154,7 @@ public class Part06OtherOperations {
 				.assertComplete();
 	}
 
-	// TODO Return a Flux<User> containing Saul and Walter when an error occurs in the input Flux, else do not change the input Flux.
+	// TODO Return a Flux<User> containing Saul and Jesse when an error occurs in the input Flux, else do not change the input Flux.
 	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
 		return flux.onErrorResumeWith(e -> Flux.just(User.SAUL, User.JESSE)); // TO BE REMOVED
 	}
