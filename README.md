@@ -1,6 +1,6 @@
 # Lite Rx API Hands-on
 
-This Hands-on (slides available [here](https://speakerdeck.com/sdeleuze/a-lite-rx-api-for-the-jvm)) is designed to help you to learn easily the lite Rx API provided by [Reactor Core 3.x](https://github.com/reactor/reactor-core/).`
+This Hands-on (slides available [here](https://speakerdeck.com/sdeleuze/a-lite-rx-api-for-the-jvm)) is designed to help you to learn easily the lite Rx API provided by [Reactor Core 3.x](https://github.com/reactor/reactor-core/).
 
 You will mostly need these 2 classes Javadoc:
 
