@@ -93,7 +93,7 @@ public class TestSubscriber<T>
 	public static final Duration DEFAULT_VALUES_TIMEOUT = Duration.ofSeconds(3);
 
 	@SuppressWarnings("rawtypes")
-    private static final AtomicLongFieldUpdater<TestSubscriber> REQUESTED =
+	private static final AtomicLongFieldUpdater<TestSubscriber> REQUESTED =
 			AtomicLongFieldUpdater.newUpdater(TestSubscriber.class, "requested");
 
 	@SuppressWarnings("rawtypes")
@@ -102,7 +102,7 @@ public class TestSubscriber<T>
 					"values");
 
 	@SuppressWarnings("rawtypes")
-    private static final AtomicReferenceFieldUpdater<TestSubscriber, Subscription> S =
+	private static final AtomicReferenceFieldUpdater<TestSubscriber, Subscription> S =
 			AtomicReferenceFieldUpdater.newUpdater(TestSubscriber.class, Subscription.class, "s");
 
 
@@ -224,8 +224,8 @@ public class TestSubscriber<T>
 	 * before use assert methods.
 	 * @param n Number of elements to request (can be 0 if you want no initial demand).
 	 * @see #subscribe(Publisher, long)
-     * @param <T> the observed value type
-     * @return a fresh TestSubscriber instance
+	 * @param <T> the observed value type
+	 * @return a fresh TestSubscriber instance
 	 */
 	public static <T> TestSubscriber<T> create(long n) {
 		return new TestSubscriber<>(n);
@@ -235,8 +235,8 @@ public class TestSubscriber<T>
 	 * Create a new {@link TestSubscriber} that requests an unbounded number of elements,
 	 * and make the specified {@code publisher} subscribe to it.
 	 * @param publisher The publisher to subscribe with
-     * @param <T> the observed value type
-     * @return a fresh TestSubscriber instance
+	 * @param <T> the observed value type
+	 * @return a fresh TestSubscriber instance
 	 */
 	public static <T> TestSubscriber<T> subscribe(Publisher<T> publisher) {
 		TestSubscriber<T> subscriber = new TestSubscriber<>();
@@ -250,8 +250,8 @@ public class TestSubscriber<T>
 	 * demand with {@link Subscription#request(long)}.
 	 * @param publisher The publisher to subscribe with
 	 * @param n Number of elements to request (can be 0 if you want no initial demand).
-     * @param <T> the observed value type
-     * @return a fresh TestSubscriber instance
+	 * @param <T> the observed value type
+	 * @return a fresh TestSubscriber instance
 	 */
 	public static <T> TestSubscriber<T> subscribe(Publisher<T> publisher, long n) {
 		TestSubscriber<T> subscriber = new TestSubscriber<>(n);
@@ -494,7 +494,7 @@ public class TestSubscriber<T>
 
 	/**
 	 * Assert no error signal has been received.
-     * @return this
+	 * @return this
 	 */
 	public final TestSubscriber<T> assertNoError() {
 		int s = errors.size();
@@ -627,7 +627,7 @@ public class TestSubscriber<T>
 	 * use this method.
 	 * @param expectedSequence the values to assert
 	 * @see #configureValuesStorage(boolean)
-     * @return this
+	 * @return this
 	 */
 	public final TestSubscriber<T> assertValueSequence(Iterable<? extends T> expectedSequence) {
 		if (!valuesStorage) {
@@ -709,7 +709,7 @@ public class TestSubscriber<T>
 
 	/**
 	 * Blocking method that waits until a complete successfully or error signal is received.
-     * @return this
+	 * @return this
 	 */
 	public final TestSubscriber<T> await() {
 		if (cdl.getCount() == 0) {
@@ -727,7 +727,7 @@ public class TestSubscriber<T>
 	 * Blocking method that waits until a complete successfully or error signal is received
 	 * or until a timeout occurs.
 	 * @param timeout The timeout value
-     * @return this
+	 * @return this
 	 */
 	public final TestSubscriber<T> await(Duration timeout) {
 		if (cdl.getCount() == 0) {
@@ -804,7 +804,7 @@ public class TestSubscriber<T>
 	 * (n is the number of expectations provided) to assert them.
 	 * @param expectations One or more methods that can verify the values and throw a
 	 * exception (like an {@link AssertionError}) if the value is not valid.
-     * @return this
+	 * @return this
 	 */
 	@SafeVarargs
 	public final TestSubscriber<T> awaitAndAssertNextValuesWith(Consumer<T>... expectations) {
