@@ -6,12 +6,15 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import io.pivotal.literx.test.TestSubscriber;
+import reactor.test.subscriber.ScriptedSubscriber;
 
 /**
  * Learn how to merge flux.
  *
  * @author Sebastien Deleuze
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
  */
 public class Part04Merge {
 
@@ -26,11 +29,11 @@ public class Part04Merge {
 	@Test
 	public void mergeWithInterleave() {
 		Flux<User> flux = mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
-		TestSubscriber
-				.subscribe(flux)
-				.await()
-				.assertValues(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.assertComplete();
+		ScriptedSubscriber
+				.create()
+				.expectValues(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify(flux);
 	}
 
 	// TODO Merge flux1 and flux2 values with interleave
@@ -43,11 +46,11 @@ public class Part04Merge {
 	@Test
 	public void mergeWithNoInterleave() {
 		Flux<User> flux = mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
-		TestSubscriber
-				.subscribe(flux)
-				.await()
-				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
-				.assertComplete();
+		ScriptedSubscriber
+				.create()
+				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
+				.expectComplete()
+				.verify(flux);
 	}
 
 	// TODO Merge flux1 and flux2 values with no interleave (flux1 values, and then flux2 values)
@@ -62,11 +65,11 @@ public class Part04Merge {
 		Mono<User> skylerMono = repository1.findFirst();
 		Mono<User> marieMono = repository2.findFirst();
 		Flux<User> flux = createFluxFromMultipleMono(skylerMono, marieMono);
-		TestSubscriber
-				.subscribe(flux)
-				.await()
-				.assertValues(User.SKYLER, MARIE)
-				.assertComplete();
+		ScriptedSubscriber
+				.create()
+				.expectValues(User.SKYLER, MARIE)
+				.expectComplete()
+				.verify(flux);
 	}
 
 	// TODO Create a Flux containing the values of the 2 Mono

@@ -2,10 +2,11 @@
 
 This Hands-on (slides available [here](https://speakerdeck.com/sdeleuze/a-lite-rx-api-for-the-jvm)) is designed to help you to learn easily the lite Rx API provided by [Reactor Core 3.x](https://github.com/reactor/reactor-core/).
 
-You will mostly need these 2 classes Javadoc:
+You will mostly need these 3 classes Javadoc:
 
  - [Flux](http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html)
  - [Mono](http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html)
+ - [ScriptedSubscriber](https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java) (Javadoc not available yet)
  
 To do this Hands-on, you just have to:
 

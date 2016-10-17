@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
-import io.pivotal.literx.test.TestSubscriber;
+import reactor.test.subscriber.ScriptedSubscriber;
 
 /**
  * Learn how to call blocking code from Reactive one with adapted concurrency strategy for
@@ -28,6 +28,7 @@ import io.pivotal.literx.test.TestSubscriber;
  * @see Flux#subscribeOn(Scheduler)
  * @see Flux#publishOn(Scheduler)
  * @see Schedulers
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
  */
 public class Part09BlockingToReactive {
 
@@ -38,12 +39,10 @@ public class Part09BlockingToReactive {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
 		assertEquals(0, repository.getCallCount());
-		TestSubscriber
-				.subscribe(flux)
-				.assertNotTerminated()
-				.await()
-				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.assertComplete();
+		ScriptedSubscriber.create()
+				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify(flux);
 	}
 
 	// TODO Create a Flux for reading all users from the blocking repository, and run it with an elastic scheduler
@@ -56,13 +55,12 @@ public class Part09BlockingToReactive {
 	@Test
 	public void fastPublisherSlowSubscriber() {
 		ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
-		BlockingRepository<User> blockingRepository = new BlockingUserRepository(new User[]{});
+		BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
-		TestSubscriber
-				.subscribe(complete)
-				.assertNotTerminated()
-				.await()
-				.assertComplete();
+		assertEquals(0, blockingRepository.getCallCount());
+		ScriptedSubscriber.create()
+				.expectComplete()
+				.verify(complete);
 		Iterator<User> it = blockingRepository.findAll().iterator();
 		assertEquals(User.SKYLER, it.next());
 		assertEquals(User.JESSE, it.next());
@@ -71,29 +69,8 @@ public class Part09BlockingToReactive {
 		assertFalse(it.hasNext());
 	}
 
-	// TODO Insert users contained in the Flux parameter in the blocking repository using a parallel scheduler
+	// TODO Insert users contained in the Flux parameter in the blocking repository using an parallel scheduler
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
-		return null;
-	}
-
-//========================================================================================
-
-	@Test
-	public void nullHandling() {
-		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
-		TestSubscriber
-				.subscribe(mono)
-				.assertValues(User.SKYLER)
-				.assertComplete();
-		mono = nullAwareUserToMono(null);
-		TestSubscriber
-				.subscribe(mono)
-				.assertNoValues()
-				.assertComplete();
-	}
-
-	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
-	Mono<User> nullAwareUserToMono(User user) {
 		return null;
 	}
 

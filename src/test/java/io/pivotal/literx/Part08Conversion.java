@@ -22,21 +22,22 @@ import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
+import reactor.adapter.RxJava1Adapter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import io.pivotal.literx.test.TestSubscriber;
+import reactor.test.subscriber.ScriptedSubscriber;
 import rx.Observable;
 import rx.Single;
 
 /**
- * Learn how to convert from/to Java 8+ CompletableFuture, RxJava Observable/Single and
- * Reactor Stream.
+ * Learn how to convert from/to Java 8+ CompletableFuture and RxJava Observable/Single.
  *
  * Mono and Flux already implements Reactive Streams interfaces so they are natively
  * Reactive Streams compliant + there are Mono.from(Publisher) and Flux.from(Publisher)
  * factory methods.
  *
  * @author Sebastien Deleuze
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
  */
 public class Part08Conversion {
 
@@ -48,11 +49,10 @@ public class Part08Conversion {
 	public void observableConversion() {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
-		TestSubscriber
-				.subscribe(fromObservableToFlux(observable))
-				.await()
-				.assertValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.assertComplete();
+		ScriptedSubscriber.create()
+				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify(fromObservableToFlux(observable));
 	}
 
 	// TODO Convert Flux to RxJava Observable thanks to a Reactor converter
@@ -71,11 +71,10 @@ public class Part08Conversion {
 	public void singleConversion() {
 		Mono<User> mono = repository.findFirst();
 		Single<User> single = fromMonoToSingle(mono);
-		TestSubscriber
-				.subscribe(fromSingleToMono(single))
-				.await()
-				.assertValues(User.SKYLER)
-				.assertComplete();
+		ScriptedSubscriber.create()
+				.expectValue(User.SKYLER)
+				.expectComplete()
+				.verify(fromSingleToMono(single));
 	}
 
 	// TODO Convert Mono to RxJava Single thanks to a Reactor converter
@@ -94,22 +93,20 @@ public class Part08Conversion {
 	public void completableFutureConversion() {
 		Mono<User> mono = repository.findFirst();
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
-		TestSubscriber
-				.subscribe(fromCompletableFutureToMono(future))
-				.await()
-				.assertValues(User.SKYLER)
-				.assertComplete();
+		ScriptedSubscriber.create()
+				.expectValue(User.SKYLER)
+				.expectComplete()
+				.verify(fromCompletableFutureToMono(future));
 	}
 
-	// TODO Convert Mono to Java 8+ CompletableFuture thanks to a Reactor converter
+	// TODO Convert Mono to Java 8+ CompletableFuture thanks to Mono
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
 		return null;
 	}
 
-	// TODO Convert Java 8+ CompletableFuture to Mono thanks to a Reactor converter
+	// TODO Convert Java 8+ CompletableFuture to Mono
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
 		return null;
 	}
-
 
 }
