@@ -2,14 +2,14 @@ package io.pivotal.literx;
 
 import org.junit.Test;
 import reactor.core.publisher.Mono;
-import io.pivotal.literx.test.TestSubscriber;
+import reactor.test.subscriber.ScriptedSubscriber;
 
 /**
  * Learn how to create Mono instances.
  *
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see TestSubscriber
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
  */
 public class Part02CreateMono {
 
@@ -18,10 +18,10 @@ public class Part02CreateMono {
 	@Test
 	public void empty() {
 		Mono<String> mono = emptyMono();
-		TestSubscriber
-				.subscribe(mono)
-				.assertValueCount(0)
-				.assertComplete();
+		ScriptedSubscriber
+				.expectValueCount(0)
+				.expectComplete()
+				.verify(mono);
 	}
 
 	// TODO Return an empty Mono
@@ -34,10 +34,11 @@ public class Part02CreateMono {
 	@Test
 	public void fromValue() {
 		Mono<String> mono = fooMono();
-		TestSubscriber
-				.subscribe(mono)
-				.assertValues("foo")
-				.assertComplete();
+		ScriptedSubscriber
+				.create()
+				.expectValues("foo")
+				.expectComplete()
+				.verify(mono);
 	}
 
 	// TODO Return a Mono that contains a "foo" value
@@ -50,10 +51,10 @@ public class Part02CreateMono {
 	@Test
 	public void error() {
 		Mono<String> mono = errorMono();
-		TestSubscriber
-				.subscribe(mono)
-				.assertError(IllegalStateException.class)
-				.assertNotComplete();
+		ScriptedSubscriber
+				.create()
+				.expectError(IllegalStateException.class)
+				.verify(mono);
 	}
 
 	// TODO Create a Mono that emits an IllegalStateException
