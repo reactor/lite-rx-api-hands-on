@@ -22,8 +22,8 @@ public class Part01CreateFlux {
 	public void empty() {
 		Flux<String> flux = emptyFlux();
 
-		ScriptedSubscriber
-				.expectValueCount(0)
+		ScriptedSubscriber.create()
+				.expectNextCount(0)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -40,7 +40,7 @@ public class Part01CreateFlux {
 		Flux<String> flux = fooBarFluxFromValues();
 		ScriptedSubscriber
 				.create()
-				.expectValues("foo", "bar")
+				.expectNext("foo", "bar")
 				.expectComplete()
 				.verify(flux);
 	}
@@ -57,7 +57,7 @@ public class Part01CreateFlux {
 		Flux<String> flux = fooBarFluxFromList();
 		ScriptedSubscriber
 				.create()
-				.expectValues("foo", "bar")
+				.expectNext("foo", "bar")
 				.expectComplete()
 				.verify(flux);
 	}
@@ -89,7 +89,7 @@ public class Part01CreateFlux {
 		Flux<Long> flux = counter();
 		ScriptedSubscriber
 				.create()
-				.expectValues(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L)
+				.expectNext(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L)
 				.expectComplete()
 				.verify(flux);
 	}

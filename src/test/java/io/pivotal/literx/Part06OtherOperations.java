@@ -30,7 +30,7 @@ public class Part06OtherOperations {
 		Flux<String> lastnameFlux = Flux.just(User.SKYLER.getLastname(), User.JESSE.getLastname(), User.WALTER.getLastname(), User.SAUL.getLastname());
 		Flux<User> userFlux = userFluxFromStringFlux(usernameFlux, firstnameFlux, lastnameFlux);
 		ScriptedSubscriber.create()
-				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify(userFlux);
 	}
@@ -48,7 +48,7 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250, MIKE);
 		Mono<User> mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
 		ScriptedSubscriber.create()
-				.expectValue(MARIE)
+				.expectNext(MARIE)
 				.expectComplete()
 				.verify(mono);
 
@@ -56,7 +56,7 @@ public class Part06OtherOperations {
 		repository2 = new ReactiveUserRepository(MIKE);
 		mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
 		ScriptedSubscriber.create()
-				.expectValue(MIKE)
+				.expectNext(MIKE)
 				.expectComplete()
 				.verify(mono);
 	}
@@ -74,7 +74,7 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250);
 		Flux<User> flux = useFastestFlux(repository1.findAll(), repository2.findAll());
 		ScriptedSubscriber.create()
-				.expectValues(MARIE, MIKE)
+				.expectNext(MARIE, MIKE)
 				.expectComplete()
 				.verify(flux);
 
@@ -82,7 +82,7 @@ public class Part06OtherOperations {
 		repository2 = new ReactiveUserRepository();
 		flux = useFastestFlux(repository1.findAll(), repository2.findAll());
 		ScriptedSubscriber.create()
-				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -114,13 +114,13 @@ public class Part06OtherOperations {
 	public void monoWithValueInsteadOfError() {
 		Mono<User> mono = betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
 		ScriptedSubscriber.create()
-				.expectValue(User.SAUL)
+				.expectNext(User.SAUL)
 				.expectComplete()
 				.verify(mono);
 
 		mono = betterCallSaulForBogusMono(Mono.just(User.SKYLER));
 		ScriptedSubscriber.create()
-				.expectValue(User.SKYLER)
+				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify(mono);
 	}
@@ -136,13 +136,13 @@ public class Part06OtherOperations {
 	public void fluxWithValueInsteadOfError() {
 		Flux<User> flux = betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
 		ScriptedSubscriber.create()
-				.expectValues(User.SAUL, User.JESSE)
+				.expectNext(User.SAUL, User.JESSE)
 				.expectComplete()
 				.verify(flux);
 
 		flux = betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
 		ScriptedSubscriber.create()
-				.expectValues(User.SKYLER, User.WALTER)
+				.expectNext(User.SKYLER, User.WALTER)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -158,7 +158,7 @@ public class Part06OtherOperations {
 	public void nullHandling() {
 		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
 		ScriptedSubscriber.create()
-				.expectValues(User.SKYLER)
+				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify(mono);
 		mono = nullAwareUserToMono(null);

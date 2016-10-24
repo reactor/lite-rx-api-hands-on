@@ -50,13 +50,13 @@ public class Part05Request {
 	public void experimentWithLog() {
 		Flux<User> flux = fluxWithLog();
 		ScriptedSubscriber.create(0)
-				.doRequest(1)
-				.expectValueWith(u -> true)
-				.doRequest(1)
-				.expectValueWith(u -> true)
-				.doRequest(2)
-				.expectValueWith(u -> true)
-				.expectValueWith(u -> true)
+				.thenRequest(1)
+				.expectNextWith(u -> true)
+				.thenRequest(1)
+				.expectNextWith(u -> true)
+				.thenRequest(2)
+				.expectNextWith(u -> true)
+				.expectNextWith(u -> true)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -72,7 +72,8 @@ public class Part05Request {
 	@Test
 	public void experimentWithDoOn() {
 		Flux<User> flux = fluxWithDoOnPrintln();
-		ScriptedSubscriber.expectValueCount(4)
+		ScriptedSubscriber.create()
+				.expectNextCount(4)
 				.expectComplete()
 				.verify(flux);
 	}

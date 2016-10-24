@@ -31,7 +31,7 @@ public class Part04Merge {
 		Flux<User> flux = mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
 		ScriptedSubscriber
 				.create()
-				.expectValues(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -48,7 +48,7 @@ public class Part04Merge {
 		Flux<User> flux = mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
 		ScriptedSubscriber
 				.create()
-				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -67,7 +67,7 @@ public class Part04Merge {
 		Flux<User> flux = createFluxFromMultipleMono(skylerMono, marieMono);
 		ScriptedSubscriber
 				.create()
-				.expectValues(User.SKYLER, MARIE)
+				.expectNext(User.SKYLER, MARIE)
 				.expectComplete()
 				.verify(flux);
 	}
