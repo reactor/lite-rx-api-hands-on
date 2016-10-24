@@ -18,8 +18,8 @@ public class Part02CreateMono {
 	@Test
 	public void empty() {
 		Mono<String> mono = emptyMono();
-		ScriptedSubscriber
-				.expectValueCount(0)
+		ScriptedSubscriber.create()
+				.expectNextCount(0)
 				.expectComplete()
 				.verify(mono);
 	}
@@ -36,7 +36,7 @@ public class Part02CreateMono {
 		Mono<String> mono = fooMono();
 		ScriptedSubscriber
 				.create()
-				.expectValues("foo")
+				.expectNext("foo")
 				.expectComplete()
 				.verify(mono);
 	}
