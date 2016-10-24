@@ -27,7 +27,7 @@ public class Part03Transform {
 		Mono<User> mono = repository.findFirst();
 		ScriptedSubscriber
 				.create()
-				.expectValue(new User("SWHITE", "SKYLER", "WHITE"))
+				.expectNext(new User("SWHITE", "SKYLER", "WHITE"))
 				.expectComplete()
 				.verify(capitalizeOne(mono));
 	}
@@ -44,7 +44,7 @@ public class Part03Transform {
 		Flux<User> flux = repository.findAll();
 		ScriptedSubscriber
 				.create()
-				.expectValues(
+				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
@@ -65,7 +65,7 @@ public class Part03Transform {
 		Flux<User> flux = repository.findAll();
 		ScriptedSubscriber
 				.create()
-				.expectValues(
+				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),

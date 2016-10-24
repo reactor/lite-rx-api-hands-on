@@ -18,8 +18,8 @@ public class Part02CreateMono {
 	@Test
 	public void empty() {
 		Mono<String> mono = emptyMono();
-		ScriptedSubscriber
-				.expectValueCount(0)
+		ScriptedSubscriber.create()
+				.expectNextCount(0)
 				.expectComplete()
 				.verify(mono);
 	}
@@ -34,9 +34,8 @@ public class Part02CreateMono {
 	@Test
 	public void fromValue() {
 		Mono<String> mono = fooMono();
-		ScriptedSubscriber
-				.create()
-				.expectValues("foo")
+		ScriptedSubscriber.create()
+				.expectNext("foo")
 				.expectComplete()
 				.verify(mono);
 	}
@@ -51,8 +50,7 @@ public class Part02CreateMono {
 	@Test
 	public void error() {
 		Mono<String> mono = errorMono();
-		ScriptedSubscriber
-				.create()
+		ScriptedSubscriber.create()
 				.expectError(IllegalStateException.class)
 				.verify(mono);
 	}

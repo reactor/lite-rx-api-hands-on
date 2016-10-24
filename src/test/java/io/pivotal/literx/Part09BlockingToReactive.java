@@ -40,7 +40,7 @@ public class Part09BlockingToReactive {
 		Flux<User> flux = blockingRepositoryToFlux(repository);
 		assertEquals(0, repository.getCallCount());
 		ScriptedSubscriber.create()
-				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify(flux);
 	}

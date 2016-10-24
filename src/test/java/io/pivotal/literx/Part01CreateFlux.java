@@ -22,8 +22,8 @@ public class Part01CreateFlux {
 	public void empty() {
 		Flux<String> flux = emptyFlux();
 
-		ScriptedSubscriber
-				.expectValueCount(0)
+		ScriptedSubscriber.create()
+				.expectNextCount(0)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -38,9 +38,8 @@ public class Part01CreateFlux {
 	@Test
 	public void fromValues() {
 		Flux<String> flux = fooBarFluxFromValues();
-		ScriptedSubscriber
-				.create()
-				.expectValues("foo", "bar")
+		ScriptedSubscriber.create()
+				.expectNext("foo", "bar")
 				.expectComplete()
 				.verify(flux);
 	}
@@ -55,9 +54,8 @@ public class Part01CreateFlux {
 	@Test
 	public void fromList() {
 		Flux<String> flux = fooBarFluxFromList();
-		ScriptedSubscriber
-				.create()
-				.expectValues("foo", "bar")
+		ScriptedSubscriber.create()
+				.expectNext("foo", "bar")
 				.expectComplete()
 				.verify(flux);
 	}
@@ -72,8 +70,7 @@ public class Part01CreateFlux {
 	@Test
 	public void error() {
 		Flux<String> flux = errorFlux();
-		ScriptedSubscriber
-				.create()
+		ScriptedSubscriber.create()
 				.expectError(IllegalStateException.class)
 				.verify(flux);
 	}
@@ -87,16 +84,17 @@ public class Part01CreateFlux {
 	@Test
 	public void countEachSecond() {
 		Flux<Long> flux = counter();
-		ScriptedSubscriber
-				.create()
-				.expectValues(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L)
+		ScriptedSubscriber.create()
+				.expectNext(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L)
 				.expectComplete()
 				.verify(flux);
 	}
 
 	// TODO Create a Flux that emits increasing values from 0 to 9 each 100ms
 	Flux<Long> counter() {
-		return Flux.interval(Duration.ofMillis(100)).take(10);  // TO BE REMOVED
+		return Flux
+				.interval(Duration.ofMillis(100))
+				.take(10);  // TO BE REMOVED
 	}
 
 }

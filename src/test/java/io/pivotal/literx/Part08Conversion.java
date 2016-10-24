@@ -52,7 +52,7 @@ public class Part08Conversion {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
 		ScriptedSubscriber.create()
-				.expectValues(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify(fromObservableToFlux(observable));
 	}
@@ -74,7 +74,7 @@ public class Part08Conversion {
 		Mono<User> mono = repository.findFirst();
 		Single<User> single = fromMonoToSingle(mono);
 		ScriptedSubscriber.create()
-				.expectValue(User.SKYLER)
+				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify(fromSingleToMono(single));
 	}
@@ -96,7 +96,7 @@ public class Part08Conversion {
 		Mono<User> mono = repository.findFirst();
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
 		ScriptedSubscriber.create()
-				.expectValue(User.SKYLER)
+				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify(fromCompletableFutureToMono(future));
 	}

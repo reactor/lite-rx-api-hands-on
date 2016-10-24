@@ -30,8 +30,8 @@ public class Part05Request {
 
 	// TODO Create a ScriptedSubscriber that requests initially all values and expect a 4 values to be received
 	ScriptedSubscriber<Object> requestAllExpectFour() {
-		return ScriptedSubscriber
-				.expectValueCount(4)
+		return ScriptedSubscriber.create()
+				.expectNextCount(4)
 				.expectComplete(); // TO BE REMOVED
 	}
 
@@ -47,10 +47,10 @@ public class Part05Request {
 	// TODO Create a ScriptedSubscriber that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
 	ScriptedSubscriber<Object> requestOneExpectSkylerThenRequestOneExpectJesse() {
 		return ScriptedSubscriber.create(1)
-				.expectValue(User.SKYLER)
-				.doRequest(1)
-				.expectValue(User.JESSE)
-				.doCancel(); // TO BE REMOVED
+				.expectNext(User.SKYLER)
+				.thenRequest(1)
+				.expectNext(User.JESSE)
+				.thenCancel(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -59,13 +59,13 @@ public class Part05Request {
 	public void experimentWithLog() {
 		Flux<User> flux = fluxWithLog();
 		ScriptedSubscriber.create(0)
-				.doRequest(1)
-				.expectValueWith(u -> true)
-				.doRequest(1)
-				.expectValueWith(u -> true)
-				.doRequest(2)
-				.expectValueWith(u -> true)
-				.expectValueWith(u -> true)
+				.thenRequest(1)
+				.expectNextWith(u -> true)
+				.thenRequest(1)
+				.expectNextWith(u -> true)
+				.thenRequest(2)
+				.expectNextWith(u -> true)
+				.expectNextWith(u -> true)
 				.expectComplete()
 				.verify(flux);
 	}
@@ -83,7 +83,8 @@ public class Part05Request {
 	@Test
 	public void experimentWithDoOn() {
 		Flux<User> flux = fluxWithDoOnPrintln();
-		ScriptedSubscriber.expectValueCount(4)
+		ScriptedSubscriber.create()
+				.expectNextCount(4)
 				.expectComplete()
 				.verify(flux);
 	}
