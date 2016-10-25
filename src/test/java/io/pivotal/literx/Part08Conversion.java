@@ -16,27 +16,35 @@
 
 package io.pivotal.literx;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import org.junit.Test;
-import reactor.adapter.RxJava1Adapter;
+import org.reactivestreams.Publisher;
+import reactor.adapter.rxjava.RxJava2Adapter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.subscriber.ScriptedSubscriber;
-import rx.Observable;
-import rx.Single;
 
 /**
- * Learn how to convert from/to Java 8+ CompletableFuture and RxJava Observable/Single.
+ * Learn how to adapt from/to RxJava 2 Observable/Single/Flowable and transform from/to
+ * Java 8+ CompletableFuture and List.
  *
  * Mono and Flux already implements Reactive Streams interfaces so they are natively
- * Reactive Streams compliant + there are Mono.from(Publisher) and Flux.from(Publisher)
+ * Reactive Streams compliant + there are {@link Mono#from(Publisher)} and {@link Flux#from(Publisher)}
  * factory methods.
  *
  * @author Sebastien Deleuze
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-adapter/src/main/java/reactor/adapter/rxjava/RxJava2Adapter.java">RxJava2Adapter</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
+ * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
  * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
  */
 public class Part08Conversion {
@@ -46,7 +54,7 @@ public class Part08Conversion {
 //========================================================================================
 
 	@Test
-	public void observableConversion() {
+	public void adaptToObservable() {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
 		ScriptedSubscriber.create()
@@ -55,12 +63,12 @@ public class Part08Conversion {
 				.verify(fromObservableToFlux(observable));
 	}
 
-	// TODO Convert Flux to RxJava Observable thanks to a Reactor converter
+	// TODO Convert Flux to RxJava Observable thanks to a Reactor adapter
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
 		return null;
 	}
 
-	// TODO Convert RxJava Observable to Flux thanks to a Reactor converter
+	// TODO Convert RxJava Observable to Flux thanks to a Reactor adapter
 	Flux<User> fromObservableToFlux(Observable<User> observable) {
 		return null;
 	}
@@ -68,7 +76,7 @@ public class Part08Conversion {
 //========================================================================================
 
 	@Test
-	public void singleConversion() {
+	public void adaptToSingle() {
 		Mono<User> mono = repository.findFirst();
 		Single<User> single = fromMonoToSingle(mono);
 		ScriptedSubscriber.create()
@@ -77,12 +85,12 @@ public class Part08Conversion {
 				.verify(fromSingleToMono(single));
 	}
 
-	// TODO Convert Mono to RxJava Single thanks to a Reactor converter
+	// TODO Convert Mono to RxJava Single thanks to a Reactor adapter
 	Single<User> fromMonoToSingle(Mono<User> mono) {
 		return null;
 	}
 
-	// TODO Convert RxJava Single to Mono thanks to a Reactor converter
+	// TODO Convert RxJava Single to Mono thanks to a Reactor adapter
 	Mono<User> fromSingleToMono(Single<User> single) {
 		return null;
 	}
@@ -90,7 +98,29 @@ public class Part08Conversion {
 //========================================================================================
 
 	@Test
-	public void completableFutureConversion() {
+	public void adaptToFlowable() {
+		Flux<User> flux = repository.findAll();
+		Observable<User> observable = fromFluxToObservable(flux);
+		ScriptedSubscriber.create()
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify(fromObservableToFlux(observable));
+	}
+
+	// TODO Convert Flux to RxJava Flowable thanks to a Reactor adapter or using the fact that Flowable implements Publisher
+	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
+		return null;
+	}
+
+	// TODO Convert RxJava Flowable to Flux thanks to a Reactor adapter or using the fact that Flowable implements Publisher
+	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
+		return null;
+	}
+
+//========================================================================================
+
+	@Test
+	public void transformToCompletableFuture() {
 		Mono<User> mono = repository.findFirst();
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
 		ScriptedSubscriber.create()
@@ -99,13 +129,35 @@ public class Part08Conversion {
 				.verify(fromCompletableFutureToMono(future));
 	}
 
-	// TODO Convert Mono to Java 8+ CompletableFuture thanks to Mono
+	// TODO Transform Mono to Java 8+ CompletableFuture thanks to Mono
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
 		return null;
 	}
 
-	// TODO Convert Java 8+ CompletableFuture to Mono
+	// TODO Transform Java 8+ CompletableFuture to Mono
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
+		return null;
+	}
+
+//========================================================================================
+
+	@Test
+	public void transformToList() {
+		Flux<User> flux = repository.findAll();
+		List<User> list = fromFluxToList(flux);
+		ScriptedSubscriber.create()
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify(fromListToFlux(list));
+	}
+
+	// TODO Transform Flux to List
+	List<User> fromFluxToList(Flux<User> flux) {
+		return null;
+	}
+
+	// TODO Transform List to Flux
+	Flux<User> fromListToFlux(List<User> list) {
 		return null;
 	}
 
