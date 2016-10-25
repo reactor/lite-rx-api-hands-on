@@ -63,7 +63,9 @@
 	<repositories>
 		<repository>
 			<id>spring-snapshot</id>
-			<snapshots>true</snapshots>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 			<url>http://repo.spring.io/snapshot</url>
 		</repository>
 	</repositories>
