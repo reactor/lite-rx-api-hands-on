@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
-import reactor.test.subscriber.ScriptedSubscriber;
+import reactor.test.subscriber.Verifier;
 
 /**
  * Learn how to call blocking code from Reactive one with adapted concurrency strategy for
@@ -28,7 +28,7 @@ import reactor.test.subscriber.ScriptedSubscriber;
  * @see Flux#subscribeOn(Scheduler)
  * @see Flux#publishOn(Scheduler)
  * @see Schedulers
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
 public class Part09BlockingToReactive {
 
@@ -39,10 +39,10 @@ public class Part09BlockingToReactive {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
 		assertEquals(0, repository.getCallCount());
-		ScriptedSubscriber.create()
+		Verifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
-				.verify(flux);
+				.verify();
 	}
 
 	// TODO Create a Flux for reading all users from the blocking repository, and run it with an elastic scheduler
@@ -59,9 +59,9 @@ public class Part09BlockingToReactive {
 		BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
 		assertEquals(0, blockingRepository.getCallCount());
-		ScriptedSubscriber.create()
+		Verifier.create(complete)
 				.expectComplete()
-				.verify(complete);
+				.verify();
 		Iterator<User> it = blockingRepository.findAll().iterator();
 		assertEquals(User.SKYLER, it.next());
 		assertEquals(User.JESSE, it.next());

@@ -5,7 +5,7 @@ import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.test.subscriber.ScriptedSubscriber;
+import reactor.test.subscriber.Verifier;
 
 /**
  * Learn how to control the demand.
@@ -13,7 +13,7 @@ import reactor.test.subscriber.ScriptedSubscriber;
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
 public class Part05Request {
 
@@ -24,13 +24,13 @@ public class Part05Request {
 	@Test
 	public void requestAll() {
 		Flux<User> flux = repository.findAll();
-		ScriptedSubscriber<Object> subscriber = requestAllExpectFour();
-		subscriber.verify(flux);
+		Verifier verifier = requestAllExpectFour(flux);
+		verifier.verify();
 	}
 
-	// TODO Create a ScriptedSubscriber that requests initially all values and expect a 4 values to be received
-	ScriptedSubscriber<Object> requestAllExpectFour() {
-		return ScriptedSubscriber.create()
+	// TODO Create a Verifier that requests initially all values and expect a 4 values to be received
+	Verifier requestAllExpectFour(Flux<User> flux) {
+		return Verifier.create(flux)
 				.expectNextCount(4)
 				.expectComplete(); // TO BE REMOVED
 	}
@@ -40,13 +40,13 @@ public class Part05Request {
 	@Test
 	public void requestOneByOne() {
 		Flux<User> flux = repository.findAll();
-		ScriptedSubscriber<Object> subscriber = requestOneExpectSkylerThenRequestOneExpectJesse();
-		subscriber.verify(flux);
+		Verifier subscriber = requestOneExpectSkylerThenRequestOneExpectJesse(flux);
+		subscriber.verify();
 	}
 
-	// TODO Create a ScriptedSubscriber that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
-	ScriptedSubscriber<Object> requestOneExpectSkylerThenRequestOneExpectJesse() {
-		return ScriptedSubscriber.create(1)
+	// TODO Create a Verifier that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
+	Verifier requestOneExpectSkylerThenRequestOneExpectJesse(Flux<User> flux) {
+		return Verifier.create(flux, 1)
 				.expectNext(User.SKYLER)
 				.thenRequest(1)
 				.expectNext(User.JESSE)
@@ -58,7 +58,7 @@ public class Part05Request {
 	@Test
 	public void experimentWithLog() {
 		Flux<User> flux = fluxWithLog();
-		ScriptedSubscriber.create(0)
+		Verifier.create(flux, 0)
 				.thenRequest(1)
 				.expectNextWith(u -> true)
 				.thenRequest(1)
@@ -67,7 +67,7 @@ public class Part05Request {
 				.expectNextWith(u -> true)
 				.expectNextWith(u -> true)
 				.expectComplete()
-				.verify(flux);
+				.verify();
 	}
 
 	// TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
@@ -83,10 +83,10 @@ public class Part05Request {
 	@Test
 	public void experimentWithDoOn() {
 		Flux<User> flux = fluxWithDoOnPrintln();
-		ScriptedSubscriber.create()
+		Verifier.create(flux)
 				.expectNextCount(4)
 				.expectComplete()
-				.verify(flux);
+				.verify();
 	}
 
 	// TODO Return a Flux with all users stored in the repository that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
