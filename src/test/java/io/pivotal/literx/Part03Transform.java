@@ -25,8 +25,7 @@ public class Part03Transform {
 	@Test
 	public void transformMono() {
 		Mono<User> mono = repository.findFirst();
-		Verifier
-				.create(capitalizeOne(mono))
+		Verifier.create(capitalizeOne(mono))
 				.expectNext(new User("SWHITE", "SKYLER", "WHITE"))
 				.expectComplete()
 				.verify();
@@ -42,8 +41,7 @@ public class Part03Transform {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		Verifier
-				.create(capitalizeMany(flux))
+		Verifier.create(capitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
@@ -63,8 +61,7 @@ public class Part03Transform {
 	@Test
 	public void  asyncTransformFlux() {
 		Flux<User> flux = repository.findAll();
-		Verifier
-				.create(asyncCapitalizeMany(flux))
+		Verifier.create(asyncCapitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
