@@ -6,7 +6,7 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.subscriber.ScriptedSubscriber;
+import reactor.test.subscriber.Verifier;
 
 /**
  * Learn how to transform values.
@@ -14,7 +14,7 @@ import reactor.test.subscriber.ScriptedSubscriber;
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java>ScriptedSubscriber</a>
+ * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
 public class Part03Transform {
 
@@ -25,11 +25,10 @@ public class Part03Transform {
 	@Test
 	public void transformMono() {
 		Mono<User> mono = repository.findFirst();
-		ScriptedSubscriber
-				.create()
+		Verifier.create(capitalizeOne(mono))
 				.expectNext(new User("SWHITE", "SKYLER", "WHITE"))
 				.expectComplete()
-				.verify(capitalizeOne(mono));
+				.verify();
 	}
 
 	// TODO Capitalize the user username, firstname and lastname
@@ -42,15 +41,14 @@ public class Part03Transform {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		ScriptedSubscriber
-				.create()
+		Verifier.create(capitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
 					new User("SGOODMAN", "SAUL", "GOODMAN"))
 				.expectComplete()
-				.verify(capitalizeMany(flux));
+				.verify();
 	}
 
 	// TODO Capitalize the users username, firstName and lastName
@@ -63,15 +61,14 @@ public class Part03Transform {
 	@Test
 	public void  asyncTransformFlux() {
 		Flux<User> flux = repository.findAll();
-		ScriptedSubscriber
-				.create()
+		Verifier.create(asyncCapitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
 					new User("SGOODMAN", "SAUL", "GOODMAN"))
 				.expectComplete()
-				.verify(asyncCapitalizeMany(flux));
+				.verify();
 	}
 
 	// TODO Capitalize the users username, firstName and lastName using asyncCapitalizeUser()
