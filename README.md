@@ -6,7 +6,7 @@ You will mostly need these 3 classes Javadoc:
 
  - [Flux](http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html)
  - [Mono](http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html)
- - [ScriptedSubscriber](https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/ScriptedSubscriber.java) (Javadoc not available yet)
+ - [Verifier](https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java) (Javadoc not available yet)
  
 To do this Hands-on, you just have to:
 
