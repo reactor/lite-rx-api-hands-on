@@ -15,11 +15,8 @@ import reactor.core.publisher.Mono;
  * Learn how to turn Reactive API to blocking one.
  *
  * @author Sebastien Deleuze
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part07ReactiveToBlocking {
+public class Part10ReactiveToBlocking {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 

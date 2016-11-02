@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to call blocking code from Reactive one with adapted concurrency strategy for
@@ -28,9 +28,8 @@ import reactor.test.subscriber.Verifier;
  * @see Flux#subscribeOn(Scheduler)
  * @see Flux#publishOn(Scheduler)
  * @see Schedulers
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part09BlockingToReactive {
+public class Part11BlockingToReactive {
 
 //========================================================================================
 
@@ -39,7 +38,7 @@ public class Part09BlockingToReactive {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
 		assertEquals(0, repository.getCallCount());
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
@@ -58,7 +57,7 @@ public class Part09BlockingToReactive {
 		BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
 		assertEquals(0, blockingRepository.getCallCount());
-		Verifier.create(complete)
+		StepVerifier.create(complete)
 				.expectComplete()
 				.verify();
 		Iterator<User> it = blockingRepository.findAll().iterator();

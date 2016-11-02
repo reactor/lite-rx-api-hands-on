@@ -5,16 +5,15 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to create Flux instances.
  *
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part01CreateFlux {
+public class Part01Flux {
 
 //========================================================================================
 
@@ -22,8 +21,7 @@ public class Part01CreateFlux {
 	public void empty() {
 		Flux<String> flux = emptyFlux();
 
-		Verifier.create(flux)
-				.expectNextCount(0)
+		StepVerifier.create(flux)
 				.expectComplete()
 				.verify();
 	}
@@ -38,7 +36,7 @@ public class Part01CreateFlux {
 	@Test
 	public void fromValues() {
 		Flux<String> flux = fooBarFluxFromValues();
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext("foo", "bar")
 				.expectComplete()
 				.verify();
@@ -54,7 +52,7 @@ public class Part01CreateFlux {
 	@Test
 	public void fromList() {
 		Flux<String> flux = fooBarFluxFromList();
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext("foo", "bar")
 				.expectComplete()
 				.verify();
@@ -70,7 +68,7 @@ public class Part01CreateFlux {
 	@Test
 	public void error() {
 		Flux<String> flux = errorFlux();
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectError(IllegalStateException.class)
 				.verify();
 	}
@@ -84,7 +82,7 @@ public class Part01CreateFlux {
 	@Test
 	public void countEachSecond() {
 		Flux<Long> flux = counter();
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L)
 				.expectComplete()
 				.verify();
@@ -94,5 +92,6 @@ public class Part01CreateFlux {
 	Flux<Long> counter() {
 		return null;
 	}
+
 
 }

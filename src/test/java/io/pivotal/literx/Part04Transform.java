@@ -6,17 +6,14 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to transform values.
  *
- * @author Sebastien Deleuze
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
+ * @author Sebastien Deleuze*
  */
-public class Part03Transform {
+public class Part04Transform {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
@@ -25,7 +22,7 @@ public class Part03Transform {
 	@Test
 	public void transformMono() {
 		Mono<User> mono = repository.findFirst();
-		Verifier.create(capitalizeOne(mono))
+		StepVerifier.create(capitalizeOne(mono))
 				.expectNext(new User("SWHITE", "SKYLER", "WHITE"))
 				.expectComplete()
 				.verify();
@@ -41,7 +38,7 @@ public class Part03Transform {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		Verifier.create(capitalizeMany(flux))
+		StepVerifier.create(capitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
@@ -61,7 +58,7 @@ public class Part03Transform {
 	@Test
 	public void  asyncTransformFlux() {
 		Flux<User> flux = repository.findAll();
-		Verifier.create(asyncCapitalizeMany(flux))
+		StepVerifier.create(asyncCapitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
@@ -77,7 +74,7 @@ public class Part03Transform {
 	}
 
 	Mono<User> asyncCapitalizeUser(User u) {
-		return null;
+		return Mono.just(new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase()));
 	}
 
 }

@@ -6,17 +6,14 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to use various other operators.
  *
  * @author Sebastien Deleuze
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part06OtherOperations {
+public class Part08OtherOperations {
 
 	final static User MARIE = new User("mschrader", "Marie", "Schrader");
 	final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
@@ -29,7 +26,7 @@ public class Part06OtherOperations {
 		Flux<String> firstnameFlux = Flux.just(User.SKYLER.getFirstname(), User.JESSE.getFirstname(), User.WALTER.getFirstname(), User.SAUL.getFirstname());
 		Flux<String> lastnameFlux = Flux.just(User.SKYLER.getLastname(), User.JESSE.getLastname(), User.WALTER.getLastname(), User.SAUL.getLastname());
 		Flux<User> userFlux = userFluxFromStringFlux(usernameFlux, firstnameFlux, lastnameFlux);
-		Verifier.create(userFlux)
+		StepVerifier.create(userFlux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
@@ -47,7 +44,7 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE);
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250, MIKE);
 		Mono<User> mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectNext(MARIE)
 				.expectComplete()
 				.verify();
@@ -55,7 +52,7 @@ public class Part06OtherOperations {
 		repository1 = new ReactiveUserRepository(250, MARIE);
 		repository2 = new ReactiveUserRepository(MIKE);
 		mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectNext(MIKE)
 				.expectComplete()
 				.verify();
@@ -73,7 +70,7 @@ public class Part06OtherOperations {
 		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE, MIKE);
 		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250);
 		Flux<User> flux = useFastestFlux(repository1.findAll(), repository2.findAll());
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(MARIE, MIKE)
 				.expectComplete()
 				.verify();
@@ -81,7 +78,7 @@ public class Part06OtherOperations {
 		repository1 = new ReactiveUserRepository(250, MARIE, MIKE);
 		repository2 = new ReactiveUserRepository();
 		flux = useFastestFlux(repository1.findAll(), repository2.findAll());
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
@@ -98,7 +95,7 @@ public class Part06OtherOperations {
 	public void complete() {
 		ReactiveRepository<User> repository = new ReactiveUserRepository();
 		Mono<Void> completion = fluxCompletion(repository.findAll());
-		Verifier.create(completion)
+		StepVerifier.create(completion)
 				.expectComplete()
 				.verify();
 	}
@@ -111,64 +108,41 @@ public class Part06OtherOperations {
 //========================================================================================
 
 	@Test
-	public void monoWithValueInsteadOfError() {
-		Mono<User> mono = betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
-		Verifier.create(mono)
-				.expectNext(User.SAUL)
-				.expectComplete()
-				.verify();
-
-		mono = betterCallSaulForBogusMono(Mono.just(User.SKYLER));
-		Verifier.create(mono)
-				.expectNext(User.SKYLER)
-				.expectComplete()
-				.verify();
-	}
-
-	// TODO Return a Mono<User> containing Saul when an error occurs in the input Mono, else do not change the input Mono.
-	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
-		return null;
-	}
-
-//========================================================================================
-
-	@Test
-	public void fluxWithValueInsteadOfError() {
-		Flux<User> flux = betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
-		Verifier.create(flux)
-				.expectNext(User.SAUL, User.JESSE)
-				.expectComplete()
-				.verify();
-
-		flux = betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
-		Verifier.create(flux)
-				.expectNext(User.SKYLER, User.WALTER)
-				.expectComplete()
-				.verify();
-	}
-
-	// TODO Return a Flux<User> containing Saul and Jesse when an error occurs in the input Flux, else do not change the input Flux.
-	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
-		return null;
-	}
-
-	//========================================================================================
-
-	@Test
 	public void nullHandling() {
 		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify();
 		mono = nullAwareUserToMono(null);
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectComplete()
 				.verify();
 	}
 
 	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
 	Mono<User> nullAwareUserToMono(User user) {
+		return null;
+	}
+
+//========================================================================================
+
+	@Test
+	public void emptyHandling() {
+		Mono<User> mono = emptyToSkyler(Mono.just(User.WALTER));
+		StepVerifier.create(mono)
+				.expectNext(User.WALTER)
+				.expectComplete()
+				.verify();
+		mono = emptyToSkyler(Mono.empty());
+		StepVerifier.create(mono)
+				.expectNext(User.SKYLER)
+				.expectComplete()
+				.verify();
+	}
+
+	// TODO Return the same mono passed as input parameter, expect that it will emit User.SKYLER when empty
+	Mono<User> emptyToSkyler(Mono<User> mono) {
 		return null;
 	}
 

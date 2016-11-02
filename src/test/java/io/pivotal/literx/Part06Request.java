@@ -5,14 +5,14 @@ import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to control the demand.
  *
  * @author Sebastien Deleuze
  */
-public class Part05Request {
+public class Part06Request {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
@@ -21,12 +21,12 @@ public class Part05Request {
 	@Test
 	public void requestAll() {
 		Flux<User> flux = repository.findAll();
-		Verifier subscriber = requestAllExpectFour(flux);
-		subscriber.verify();
+		StepVerifier verifier = requestAllExpectFour(flux);
+		verifier.verify();
 	}
 
 	// TODO Create a Verifier that requests initially all values and expect a 4 values to be received
-	Verifier requestAllExpectFour(Flux<User> flux) {
+	StepVerifier requestAllExpectFour(Flux<User> flux) {
 		return null;
 	}
 
@@ -35,12 +35,12 @@ public class Part05Request {
 	@Test
 	public void requestOneByOne() {
 		Flux<User> flux = repository.findAll();
-		Verifier subscriber = requestOneExpectSkylerThenRequestOneExpectJesse(flux);
-		subscriber.verify();
+		StepVerifier verifier = requestOneExpectSkylerThenRequestOneExpectJesse(flux);
+		verifier.verify();
 	}
 
 	// TODO Create a Verifier that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
-	Verifier requestOneExpectSkylerThenRequestOneExpectJesse(Flux<User> flux) {
+	StepVerifier requestOneExpectSkylerThenRequestOneExpectJesse(Flux<User> flux) {
 		return null;
 	}
 
@@ -49,7 +49,7 @@ public class Part05Request {
 	@Test
 	public void experimentWithLog() {
 		Flux<User> flux = fluxWithLog();
-		Verifier.create(flux, 0)
+		StepVerifier.create(flux, 0)
 				.thenRequest(1)
 				.expectNextWith(u -> true)
 				.thenRequest(1)
@@ -72,7 +72,7 @@ public class Part05Request {
 	@Test
 	public void experimentWithDoOn() {
 		Flux<User> flux = fluxWithDoOnPrintln();
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNextCount(4)
 				.expectComplete()
 				.verify();

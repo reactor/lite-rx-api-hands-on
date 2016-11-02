@@ -6,17 +6,14 @@ import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to merge flux.
  *
  * @author Sebastien Deleuze
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part04Merge {
+public class Part05Merge {
 
 	final static User MARIE = new User("mschrader", "Marie", "Schrader");
 	final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
@@ -29,7 +26,7 @@ public class Part04Merge {
 	@Test
 	public void mergeWithInterleave() {
 		Flux<User> flux = mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
@@ -45,7 +42,7 @@ public class Part04Merge {
 	@Test
 	public void mergeWithNoInterleave() {
 		Flux<User> flux = mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
 				.expectComplete()
 				.verify();
@@ -63,7 +60,7 @@ public class Part04Merge {
 		Mono<User> skylerMono = repository1.findFirst();
 		Mono<User> marieMono = repository2.findFirst();
 		Flux<User> flux = createFluxFromMultipleMono(skylerMono, marieMono);
-		Verifier.create(flux)
+		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, MARIE)
 				.expectComplete()
 				.verify();
