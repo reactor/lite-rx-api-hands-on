@@ -2,23 +2,22 @@ package io.pivotal.literx;
 
 import org.junit.Test;
 import reactor.core.publisher.Mono;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to create Mono instances.
  *
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part02CreateMono {
+public class Part02Mono {
 
 //========================================================================================
 
 	@Test
 	public void empty() {
 		Mono<String> mono = emptyMono();
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectNextCount(0)
 				.expectComplete()
 				.verify();
@@ -34,7 +33,7 @@ public class Part02CreateMono {
 	@Test
 	public void fromValue() {
 		Mono<String> mono = fooMono();
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectNext("foo")
 				.expectComplete()
 				.verify();
@@ -50,7 +49,7 @@ public class Part02CreateMono {
 	@Test
 	public void error() {
 		Mono<String> mono = errorMono();
-		Verifier.create(mono)
+		StepVerifier.create(mono)
 				.expectError(IllegalStateException.class)
 				.verify();
 	}

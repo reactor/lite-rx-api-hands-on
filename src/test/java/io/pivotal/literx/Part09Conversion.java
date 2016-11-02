@@ -28,10 +28,9 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import org.junit.Test;
 import org.reactivestreams.Publisher;
-import reactor.adapter.rxjava.RxJava2Adapter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.subscriber.Verifier;
+import reactor.test.StepVerifier;
 
 /**
  * Learn how to adapt from/to RxJava 2 Observable/Single/Flowable and transform from/to
@@ -41,13 +40,11 @@ import reactor.test.subscriber.Verifier;
  * Reactive Streams compliant + there are {@link Mono#from(Publisher)} and {@link Flux#from(Publisher)}
  * factory methods.
  *
+ * For RxJava 2, you should not use Reactor Adapter but only RxJava 2 and Reactor Core.
+ *
  * @author Sebastien Deleuze
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-adapter/src/main/java/reactor/adapter/rxjava/RxJava2Adapter.java">RxJava2Adapter</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
- * @see <a href="https://github.com/reactor/reactor-addons/blob/master/reactor-test/src/main/java/reactor/test/subscriber/Verifier.java>Verifier</a>
  */
-public class Part08Conversion {
+public class Part09Conversion {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
@@ -57,20 +54,20 @@ public class Part08Conversion {
 	public void adaptToObservable() {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
-		Verifier.create(fromObservableToFlux(observable))
+		StepVerifier.create(fromObservableToFlux(observable))
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
 	}
 
-	// TODO Convert Flux to RxJava Observable thanks to a Reactor adapter
+	// TODO Convert Flux to RxJava Observable
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
-		return RxJava2Adapter.fluxToObservable(flux); // TO BE REMOVED
+		return Flowable.fromPublisher(flux).toObservable(); // TO BE REMOVED
 	}
 
-	// TODO Convert RxJava Observable to Flux thanks to a Reactor adapter
+	// TODO Convert RxJava Observable to Flux
 	Flux<User> fromObservableToFlux(Observable<User> observable) {
-		return RxJava2Adapter.observableToFlux(observable, BackpressureStrategy.BUFFER); // TO BE REMOVED
+		return Flux.from(observable.toFlowable(BackpressureStrategy.BUFFER)); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -79,20 +76,20 @@ public class Part08Conversion {
 	public void adaptToSingle() {
 		Mono<User> mono = repository.findFirst();
 		Single<User> single = fromMonoToSingle(mono);
-		Verifier.create(fromSingleToMono(single))
+		StepVerifier.create(fromSingleToMono(single))
 				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify();
 	}
 
-	// TODO Convert Mono to RxJava Single thanks to a Reactor adapter
+	// TODO Convert Mono to RxJava Single
 	Single<User> fromMonoToSingle(Mono<User> mono) {
-		return RxJava2Adapter.monoToSingle(mono); // TO BE REMOVED
+		return Flowable.fromPublisher(mono).toObservable().firstOrError(); // TO BE REMOVED
 	}
 
-	// TODO Convert RxJava Single to Mono thanks to a Reactor adapter
+	// TODO Convert RxJava Single to Mono
 	Mono<User> fromSingleToMono(Single<User> single) {
-		return RxJava2Adapter.singleToMono(single); // TO BE REMOVED
+		return Mono.from(single.toFlowable()); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -101,20 +98,20 @@ public class Part08Conversion {
 	public void adaptToFlowable() {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
-		Verifier.create(fromObservableToFlux(observable))
+		StepVerifier.create(fromObservableToFlux(observable))
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
 	}
 
-	// TODO Convert Flux to RxJava Flowable thanks to a Reactor adapter or using the fact that Flowable implements Publisher
+	// TODO Convert Flux to RxJava Flowable
 	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
-		return RxJava2Adapter.fluxToFlowable(flux); // TO BE REMOVED
+		return Flowable.fromPublisher(flux); // TO BE REMOVED
 	}
 
-	// TODO Convert RxJava Flowable to Flux thanks to a Reactor adapter or using the fact that Flowable implements Publisher
+	// TODO Convert RxJava Flowable to Flux
 	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
-		return RxJava2Adapter.flowableToFlux(flowable); // TO BE REMOVED
+		return Flux.from(flowable); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -123,13 +120,13 @@ public class Part08Conversion {
 	public void transformToCompletableFuture() {
 		Mono<User> mono = repository.findFirst();
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
-		Verifier.create(fromCompletableFutureToMono(future))
+		StepVerifier.create(fromCompletableFutureToMono(future))
 				.expectNext(User.SKYLER)
 				.expectComplete()
 				.verify();
 	}
 
-	// TODO Transform Mono to Java 8+ CompletableFuture thanks to Mono
+	// TODO Transform Mono to Java 8+ CompletableFuture
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
 		return mono.toFuture(); // TO BE REMOVED
 	}
@@ -145,7 +142,7 @@ public class Part08Conversion {
 	public void transformToList() {
 		Flux<User> flux = repository.findAll();
 		List<User> list = fromFluxToList(flux);
-		Verifier.create(fromListToFlux(list))
+		StepVerifier.create(fromListToFlux(list))
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
