@@ -33,8 +33,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 /**
- * Learn how to adapt from/to RxJava 2 Observable/Single/Flowable and transform from/to
- * Java 8+ CompletableFuture and List.
+ * Learn how to adapt from/to RxJava 2 Observable/Single/Flowable and Java 8+ CompletableFuture.
  *
  * Mono and Flux already implements Reactive Streams interfaces so they are natively
  * Reactive Streams compliant + there are {@link Mono#from(Publisher)} and {@link Flux#from(Publisher)}
@@ -44,7 +43,7 @@ import reactor.test.StepVerifier;
  *
  * @author Sebastien Deleuze
  */
-public class Part09Conversion {
+public class Part09Adapt {
 
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
@@ -60,12 +59,12 @@ public class Part09Conversion {
 				.verify();
 	}
 
-	// TODO Convert Flux to RxJava Flowable
+	// TODO Adapt Flux to RxJava Flowable
 	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
 		return Flowable.fromPublisher(flux); // TO BE REMOVED
 	}
 
-	// TODO Convert RxJava Flowable to Flux
+	// TODO Adapt RxJava Flowable to Flux
 	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
 		return Flux.from(flowable); // TO BE REMOVED
 	}
@@ -82,12 +81,12 @@ public class Part09Conversion {
 				.verify();
 	}
 
-	// TODO Convert Flux to RxJava Observable
+	// TODO Adapt Flux to RxJava Observable
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
 		return Flowable.fromPublisher(flux).toObservable(); // TO BE REMOVED
 	}
 
-	// TODO Convert RxJava Observable to Flux
+	// TODO Adapt RxJava Observable to Flux
 	Flux<User> fromObservableToFlux(Observable<User> observable) {
 		return Flux.from(observable.toFlowable(BackpressureStrategy.BUFFER)); // TO BE REMOVED
 	}
@@ -104,12 +103,12 @@ public class Part09Conversion {
 				.verify();
 	}
 
-	// TODO Convert Mono to RxJava Single
+	// TODO Adapt Mono to RxJava Single
 	Single<User> fromMonoToSingle(Mono<User> mono) {
 		return Flowable.fromPublisher(mono).toObservable().firstOrError(); // TO BE REMOVED
 	}
 
-	// TODO Convert RxJava Single to Mono
+	// TODO Adapt RxJava Single to Mono
 	Mono<User> fromSingleToMono(Single<User> single) {
 		return Mono.from(single.toFlowable()); // TO BE REMOVED
 	}
@@ -117,7 +116,7 @@ public class Part09Conversion {
 //========================================================================================
 
 	@Test
-	public void transformToCompletableFuture() {
+	public void adaptToCompletableFuture() {
 		Mono<User> mono = repository.findFirst();
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
 		StepVerifier.create(fromCompletableFutureToMono(future))
@@ -126,36 +125,14 @@ public class Part09Conversion {
 				.verify();
 	}
 
-	// TODO Transform Mono to Java 8+ CompletableFuture
+	// TODO Adapt Mono to Java 8+ CompletableFuture
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
 		return mono.toFuture(); // TO BE REMOVED
 	}
 
-	// TODO Transform Java 8+ CompletableFuture to Mono
+	// TODO Adapt Java 8+ CompletableFuture to Mono
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
 		return Mono.fromFuture(future); // TO BE REMOVED
-	}
-
-//========================================================================================
-
-	@Test
-	public void transformToList() {
-		Flux<User> flux = repository.findAll();
-		List<User> list = fromFluxToList(flux);
-		StepVerifier.create(fromListToFlux(list))
-				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
-	}
-
-	// TODO Transform Flux to List
-	List<User> fromFluxToList(Flux<User> flux) {
-		return flux.collectList().block(); // TO BE REMOVED
-	}
-
-	// TODO Transform List to Flux
-	Flux<User> fromListToFlux(List<User> list) {
-		return Flux.fromIterable(list); // TO BE REMOVED
 	}
 
 }
