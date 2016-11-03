@@ -37,14 +37,14 @@ public class Part11BlockingToReactive {
 	public void slowPublisherFastSubscriber() {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = blockingRepositoryToFlux(repository);
-		assertEquals(0, repository.getCallCount());
+		assertEquals("The call to findAll must be deferred until the flux is subscribed", 0, repository.getCallCount());
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.expectComplete()
 				.verify();
 	}
 
-	// TODO Create a Flux for reading all users from the blocking repository, and run it with an elastic scheduler
+	// TODO Create a Flux for reading all users from the blocking repository deferred until the flux is subscribed, and run it with an elastic scheduler
 	Flux<User> blockingRepositoryToFlux(BlockingRepository<User> repository) {
 		return null;
 	}
@@ -68,7 +68,7 @@ public class Part11BlockingToReactive {
 		assertFalse(it.hasNext());
 	}
 
-	// TODO Insert users contained in the Flux parameter in the blocking repository using an parallel scheduler
+	// TODO Insert users contained in the Flux parameter in the blocking repository using an parallel scheduler and return a Mono<Void> that signal the end of the operation
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
 		return null;
 	}
