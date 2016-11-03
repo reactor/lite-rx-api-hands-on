@@ -53,7 +53,7 @@ public class Part07Errors {
 				.verify();
 	}
 
-	// TODO Return a Mono<User> containing Saul when an error occurs in the input Mono, else do not change the input Mono.
+	// TODO Return a Mono<User> containing User.SAUL when an error occurs in the input Mono, else do not change the input Mono.
 	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
 		return null;
 	}
@@ -75,7 +75,7 @@ public class Part07Errors {
 				.verify();
 	}
 
-	// TODO Return a Flux<User> containing Saul and Jesse when an error occurs in the input Flux, else do not change the input Flux.
+	// TODO Return a Flux<User> containing User.SAUL and User.JESSE when an error occurs in the input Flux, else do not change the input Flux.
 	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
 		return null;
 	}
