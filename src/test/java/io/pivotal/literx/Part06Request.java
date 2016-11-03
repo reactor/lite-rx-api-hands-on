@@ -25,7 +25,7 @@ public class Part06Request {
 		verifier.verify();
 	}
 
-	// TODO Create a Verifier that requests initially all values and expect a 4 values to be received
+	// TODO Create a StepVerifier that requests initially all values and expect a 4 values to be received
 	StepVerifier requestAllExpectFour(Flux<User> flux) {
 		return StepVerifier.create(flux)
 				.expectNextCount(4)
@@ -41,7 +41,7 @@ public class Part06Request {
 		verifier.verify();
 	}
 
-	// TODO Create a Verifier that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
+	// TODO Create a StepVerifier that requests initially 1 value and expects {@link User.SKYLER} then requests another value and expects {@link User.JESSE}.
 	StepVerifier requestOneExpectSkylerThenRequestOneExpectJesse(Flux<User> flux) {
 		return StepVerifier.create(flux, 1)
 				.expectNext(User.SKYLER)
