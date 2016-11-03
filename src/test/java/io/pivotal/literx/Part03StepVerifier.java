@@ -16,10 +16,11 @@
 
 package io.pivotal.literx;
 
+import java.time.Duration;
+import java.util.function.Supplier;
+
 import io.pivotal.literx.domain.User;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import reactor.core.Exceptions;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -31,22 +32,6 @@ import reactor.test.StepVerifier;
  * @see <a href="http://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html">StepVerifier Javadoc</a>
  */
 public class Part03StepVerifier {
-
-//========================================================================================
-
-	@Test
-	public void expect2ElementsThenComplete() {
-		expect2Elements(Flux.just("foo", "bar"));
-	}
-
-	// TODO Use StepVerifier to check that the flux parameter emits 2 elements and then completes successfully.
-	void expect2Elements(Flux<String> flux) {
-		StepVerifier.create(flux)
-				.expectNextCount(2)
-				.expectComplete()
-				.verify(); // TO BE REMOVED
-	}
-
 
 //========================================================================================
 
@@ -92,6 +77,37 @@ public class Part03StepVerifier {
 				.expectNextWith(user -> user.getUsername().equals("jpinkman"))
 				.expectComplete()
 				.verify(); // TO BE REMOVED
+	}
+
+//========================================================================================
+
+	@Test
+	public void count() {
+		expect10Elements(Flux.interval(Duration.ofSeconds(1)));
+	}
+
+	// TODO Expect 10 elements then cancel and notice how long it takes for running the test
+	void expect10Elements(Flux<Long> flux) {
+		StepVerifier.create(flux)
+                .expectNextCount(10)
+                .thenCancel()
+                .verify(); // TO BE REMOVED
+	}
+
+//========================================================================================
+
+	@Test
+	public void countWithVirtualTime() {
+		expect3600Elements(() -> Flux.interval(Duration.ofSeconds(1)));
+	}
+
+	// TODO Expect 3600 elements using the virtual time capabilities provided via StepVerifier.with() and notice how long it takes for running the test
+	void expect3600Elements(Supplier<Flux<Long>> supplier) {
+		StepVerifier.with(supplier)
+                .thenAwait(Duration.ofHours(1))
+                .expectNextCount(3600)
+                .thenCancel()
+                .verify(); // TO BE REMOVED
 	}
 
 }
