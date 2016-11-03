@@ -51,6 +51,28 @@ public class Part09Conversion {
 //========================================================================================
 
 	@Test
+	public void adaptToFlowable() {
+		Flux<User> flux = repository.findAll();
+		Flowable<User> observable = fromFluxToFlowable(flux);
+		StepVerifier.create(fromFlowableToFlux(observable))
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.expectComplete()
+				.verify();
+	}
+
+	// TODO Convert Flux to RxJava Flowable
+	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
+		return null;
+	}
+
+	// TODO Convert RxJava Flowable to Flux
+	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
+		return null;
+	}
+
+//========================================================================================
+
+	@Test
 	public void adaptToObservable() {
 		Flux<User> flux = repository.findAll();
 		Observable<User> observable = fromFluxToObservable(flux);
@@ -89,28 +111,6 @@ public class Part09Conversion {
 
 	// TODO Convert RxJava Single to Mono
 	Mono<User> fromSingleToMono(Single<User> single) {
-		return null;
-	}
-
-//========================================================================================
-
-	@Test
-	public void adaptToFlowable() {
-		Flux<User> flux = repository.findAll();
-		Observable<User> observable = fromFluxToObservable(flux);
-		StepVerifier.create(fromObservableToFlux(observable))
-				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
-	}
-
-	// TODO Convert Flux to RxJava Flowable
-	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
-		return null;
-	}
-
-	// TODO Convert RxJava Flowable to Flux
-	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
 		return null;
 	}
 
