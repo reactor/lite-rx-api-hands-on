@@ -1,5 +1,7 @@
 package io.pivotal.literx;
 
+import java.time.Duration;
+
 import org.junit.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -24,6 +26,23 @@ public class Part02Mono {
 
 	// TODO Return an empty Mono
 	Mono<String> emptyMono() {
+		return null;
+	}
+
+//========================================================================================
+
+	@Test
+	public void noSignal() {
+		Mono<String> mono = monoWithNoSignal();
+		StepVerifier
+				.create(mono)
+				.expectNoEvent(Duration.ofSeconds(1))
+				.thenCancel()
+				.verify();
+	}
+
+	// TODO Return an Mono that never emit any signal
+	Mono<String> monoWithNoSignal() {
 		return null;
 	}
 
