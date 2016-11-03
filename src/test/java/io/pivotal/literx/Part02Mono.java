@@ -18,7 +18,6 @@ public class Part02Mono {
 	public void empty() {
 		Mono<String> mono = emptyMono();
 		StepVerifier.create(mono)
-				.expectNextCount(0)
 				.expectComplete()
 				.verify();
 	}
