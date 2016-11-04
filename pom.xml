@@ -14,18 +14,19 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<reactor.core.version>3.0.3.RELEASE</reactor.core.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-core</artifactId>
-			<version>3.0.3.RELEASE</version>
+			<version>${reactor.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.projectreactor.addons</groupId>
 			<artifactId>reactor-test</artifactId>
-			<version>3.0.3.BUILD-SNAPSHOT</version>
+			<version>${reactor.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -60,14 +61,4 @@
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>spring-snapshot</id>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<url>http://repo.spring.io/snapshot</url>
-		</repository>
-	</repositories>
-	
 </project>
