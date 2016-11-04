@@ -74,10 +74,10 @@ public class Part03StepVerifier {
 
 	@Test
 	public void count() {
-		expect10Elements(Flux.interval(Duration.ofSeconds(1)));
+		expect10Elements(Flux.interval(Duration.ofSeconds(1)).take(10));
 	}
 
-	// TODO Expect 10 elements then cancel and notice how long it takes for running the test
+	// TODO Expect 10 elements then complete and notice how long it takes for running the test
 	void expect10Elements(Flux<Long> flux) {
 		fail();
 	}
@@ -86,10 +86,10 @@ public class Part03StepVerifier {
 
 	@Test
 	public void countWithVirtualTime() {
-		expect3600Elements(() -> Flux.interval(Duration.ofSeconds(1)));
+		expect3600Elements(() -> Flux.interval(Duration.ofSeconds(1)).take(3600));
 	}
 
-	// TODO Expect 3600 elements using the virtual time capabilities provided via StepVerifier.with() and notice how long it takes for running the test
+	// TODO Expect 3600 elements then complete using the virtual time capabilities provided via StepVerifier.with() and notice how long it takes for running the test
 	void expect3600Elements(Supplier<Flux<Long>> supplier) {
 		fail();
 	}
