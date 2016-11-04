@@ -51,12 +51,12 @@ public class Part06Request {
 		Flux<User> flux = fluxWithLog();
 		StepVerifier.create(flux, 0)
 				.thenRequest(1)
-				.expectNextWith(u -> true)
+				.expectNextMatches(u -> true)
 				.thenRequest(1)
-				.expectNextWith(u -> true)
+				.expectNextMatches(u -> true)
 				.thenRequest(2)
-				.expectNextWith(u -> true)
-				.expectNextWith(u -> true)
+				.expectNextMatches(u -> true)
+				.expectNextMatches(u -> true)
 				.expectComplete()
 				.verify();
 	}
