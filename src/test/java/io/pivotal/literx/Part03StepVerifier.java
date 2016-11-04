@@ -73,8 +73,8 @@ public class Part03StepVerifier {
 	// TODO Use StepVerifier to check that the flux parameter emits a User with "swhite" username and another one with "jpinkman" then completes successfully.
 	void expectSkylerJesseComplete(Flux<User> flux) {
 		StepVerifier.create(flux)
-				.expectNextWith(user -> user.getUsername().equals("swhite"))
-				.expectNextWith(user -> user.getUsername().equals("jpinkman"))
+				.expectNextMatches(user -> user.getUsername().equals("swhite"))
+				.expectNextMatches(user -> user.getUsername().equals("jpinkman"))
 				.expectComplete()
 				.verify(); // TO BE REMOVED
 	}
@@ -103,7 +103,7 @@ public class Part03StepVerifier {
 
 	// TODO Expect 3600 elements then complete using the virtual time capabilities provided via StepVerifier.with() and notice how long it takes for running the test
 	void expect3600Elements(Supplier<Flux<Long>> supplier) {
-		StepVerifier.with(supplier)
+		StepVerifier.withVirtualTime(supplier)
                 .thenAwait(Duration.ofHours(1))
                 .expectNextCount(3600)
                 .expectComplete()
