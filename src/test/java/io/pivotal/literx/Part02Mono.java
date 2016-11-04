@@ -36,6 +36,7 @@ public class Part02Mono {
 		Mono<String> mono = monoWithNoSignal();
 		StepVerifier
 				.create(mono)
+				.expectSubscription()
 				.expectNoEvent(Duration.ofSeconds(1))
 				.thenCancel()
 				.verify();
