@@ -11,7 +11,7 @@ import reactor.test.StepVerifier;
 /**
  * Learn how to transform values.
  *
- * @author Sebastien Deleuze*
+ * @author Sebastien Deleuze
  */
 public class Part04Transform {
 
