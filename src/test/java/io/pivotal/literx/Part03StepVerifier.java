@@ -89,7 +89,7 @@ public class Part03StepVerifier {
 		expect3600Elements(() -> Flux.interval(Duration.ofSeconds(1)).take(3600));
 	}
 
-	// TODO Expect 3600 elements then complete using the virtual time capabilities provided via StepVerifier.with() and notice how long it takes for running the test
+	// TODO Expect 3600 elements then complete using the virtual time capabilities provided via StepVerifier.withVirtualTime() and notice how long it takes for running the test
 	void expect3600Elements(Supplier<Flux<Long>> supplier) {
 		fail();
 	}
