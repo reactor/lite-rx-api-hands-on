@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<reactor.core.version>3.0.3.RELEASE</reactor.core.version>
+		<reactor.core.version>3.0.4.RELEASE</reactor.core.version>
 	</properties>
 
 	<dependencies>
