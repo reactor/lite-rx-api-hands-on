@@ -57,8 +57,7 @@ public class Part06Request {
 				.thenRequest(2)
 				.expectNextMatches(u -> true)
 				.expectNextMatches(u -> true)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
@@ -74,8 +73,7 @@ public class Part06Request {
 		Flux<User> flux = fluxWithDoOnPrintln();
 		StepVerifier.create(flux)
 				.expectNextCount(4)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Return a Flux with all users stored in the repository that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete

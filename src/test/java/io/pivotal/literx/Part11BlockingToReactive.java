@@ -40,8 +40,7 @@ public class Part11BlockingToReactive {
 		assertEquals("The call to findAll must be deferred until the flux is subscribed", 0, repository.getCallCount());
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Create a Flux for reading all users from the blocking repository deferred until the flux is subscribed, and run it with an elastic scheduler
@@ -58,8 +57,7 @@ public class Part11BlockingToReactive {
 		Mono<Void> complete = fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
 		assertEquals(0, blockingRepository.getCallCount());
 		StepVerifier.create(complete)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 		Iterator<User> it = blockingRepository.findAll().iterator();
 		assertEquals(User.SKYLER, it.next());
 		assertEquals(User.JESSE, it.next());
