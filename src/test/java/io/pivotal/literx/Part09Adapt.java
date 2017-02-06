@@ -55,8 +55,7 @@ public class Part09Adapt {
 		Flowable<User> observable = fromFluxToFlowable(flux);
 		StepVerifier.create(fromFlowableToFlux(observable))
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Adapt Flux to RxJava Flowable
@@ -77,8 +76,7 @@ public class Part09Adapt {
 		Observable<User> observable = fromFluxToObservable(flux);
 		StepVerifier.create(fromObservableToFlux(observable))
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Adapt Flux to RxJava Observable
@@ -99,8 +97,7 @@ public class Part09Adapt {
 		Single<User> single = fromMonoToSingle(mono);
 		StepVerifier.create(fromSingleToMono(single))
 				.expectNext(User.SKYLER)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Adapt Mono to RxJava Single
@@ -121,8 +118,7 @@ public class Part09Adapt {
 		CompletableFuture<User> future = fromMonoToCompletableFuture(mono);
 		StepVerifier.create(fromCompletableFutureToMono(future))
 				.expectNext(User.SKYLER)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Adapt Mono to Java 8+ CompletableFuture

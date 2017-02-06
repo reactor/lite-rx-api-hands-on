@@ -28,8 +28,7 @@ public class Part08OtherOperations {
 		Flux<User> userFlux = userFluxFromStringFlux(usernameFlux, firstnameFlux, lastnameFlux);
 		StepVerifier.create(userFlux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Create a Flux of user from Flux of username, firstname and lastname.
@@ -56,8 +55,7 @@ public class Part08OtherOperations {
 		mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
 		StepVerifier.create(mono)
 				.expectNext(MIKE)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO return the mono which returns faster its value
@@ -74,16 +72,14 @@ public class Part08OtherOperations {
 		Flux<User> flux = useFastestFlux(repository1.findAll(), repository2.findAll());
 		StepVerifier.create(flux)
 				.expectNext(MARIE, MIKE)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 
 		repository1 = new ReactiveUserRepository(250, MARIE, MIKE);
 		repository2 = new ReactiveUserRepository();
 		flux = useFastestFlux(repository1.findAll(), repository2.findAll());
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO return the flux which returns faster the first value
@@ -98,8 +94,7 @@ public class Part08OtherOperations {
 		ReactiveRepository<User> repository = new ReactiveUserRepository();
 		Mono<Void> completion = fluxCompletion(repository.findAll());
 		StepVerifier.create(completion)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Convert the input Flux<User> to a Mono<Void> that represents the complete signal of the flux
@@ -114,12 +109,10 @@ public class Part08OtherOperations {
 		Mono<User> mono = nullAwareUserToMono(User.SKYLER);
 		StepVerifier.create(mono)
 				.expectNext(User.SKYLER)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 		mono = nullAwareUserToMono(null);
 		StepVerifier.create(mono)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
@@ -139,8 +132,7 @@ public class Part08OtherOperations {
 		mono = emptyToSkyler(Mono.empty());
 		StepVerifier.create(mono)
 				.expectNext(User.SKYLER)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Return the same mono passed as input parameter, expect that it will emit User.SKYLER when empty

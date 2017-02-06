@@ -24,8 +24,7 @@ public class Part04Transform {
 		Mono<User> mono = repository.findFirst();
 		StepVerifier.create(capitalizeOne(mono))
 				.expectNext(new User("SWHITE", "SKYLER", "WHITE"))
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Capitalize the user username, firstname and lastname
@@ -44,8 +43,7 @@ public class Part04Transform {
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
 					new User("SGOODMAN", "SAUL", "GOODMAN"))
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Capitalize the users username, firstName and lastName
@@ -64,8 +62,7 @@ public class Part04Transform {
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
 					new User("SGOODMAN", "SAUL", "GOODMAN"))
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 	}
 
 	// TODO Capitalize the users username, firstName and lastName using asyncCapitalizeUser()

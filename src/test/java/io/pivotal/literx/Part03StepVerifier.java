@@ -44,8 +44,7 @@ public class Part03StepVerifier {
 	void expectFooBarComplete(Flux<String> flux) {
 		StepVerifier.create(flux)
 				.expectNext("foo", "bar")
-				.expectComplete()
-				.verify(); // TO BE REMOVED
+				.verifyComplete(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -59,8 +58,7 @@ public class Part03StepVerifier {
 	void expectFooBarError(Flux<String> flux) {
 		StepVerifier.create(flux)
 				.expectNext("foo", "bar")
-				.expectError(RuntimeException.class)
-				.verify(); // TO BE REMOVED
+				.verifyError(RuntimeException.class); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -75,8 +73,7 @@ public class Part03StepVerifier {
 		StepVerifier.create(flux)
 				.expectNextMatches(user -> user.getUsername().equals("swhite"))
 				.expectNextMatches(user -> user.getUsername().equals("jpinkman"))
-				.expectComplete()
-				.verify(); // TO BE REMOVED
+				.verifyComplete(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -90,8 +87,7 @@ public class Part03StepVerifier {
 	void expect10Elements(Flux<Long> flux) {
 		StepVerifier.create(flux)
                 .expectNextCount(10)
-                .expectComplete()
-                .verify(); // TO BE REMOVED
+                .verifyComplete(); // TO BE REMOVED
 	}
 
 //========================================================================================
@@ -106,8 +102,7 @@ public class Part03StepVerifier {
 		StepVerifier.withVirtualTime(supplier)
                 .thenAwait(Duration.ofHours(1))
                 .expectNextCount(3600)
-                .expectComplete()
-                .verify(); // TO BE REMOVED
+                .verifyComplete(); // TO BE REMOVED
 	}
 
 }
