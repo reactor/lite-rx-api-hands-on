@@ -4,9 +4,9 @@ This Hands-on is designed to help you to learn easily the lite Rx API provided b
 
 You will mostly need these 3 classes Javadoc:
 
- - [Flux](http://projectreactor.io/core/docs/api/reactor/core/publisher/Flux.html)
- - [Mono](http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html)
- - [StepVerifier](http://next.projectreactor.io/ext/docs/api/reactor/test/StepVerifier.html)
+ - [Flux](http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html)
+ - [Mono](http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html)
+ - [StepVerifier](http://projectreactor.io/docs/test/release/api/reactor/test/StepVerifier.html)
  
 To do this Hands-on, you just have to:
 
