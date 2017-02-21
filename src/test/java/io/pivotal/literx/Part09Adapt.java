@@ -81,7 +81,7 @@ public class Part09Adapt {
 
 	// TODO Adapt Flux to RxJava Observable
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
-		return Flowable.fromPublisher(flux).toObservable(); // TO BE REMOVED
+		return Observable.fromPublisher(flux); // TO BE REMOVED
 	}
 
 	// TODO Adapt RxJava Observable to Flux
@@ -102,7 +102,7 @@ public class Part09Adapt {
 
 	// TODO Adapt Mono to RxJava Single
 	Single<User> fromMonoToSingle(Mono<User> mono) {
-		return Flowable.fromPublisher(mono).toObservable().firstOrError(); // TO BE REMOVED
+		return Single.fromPublisher(mono); // TO BE REMOVED
 	}
 
 	// TODO Adapt RxJava Single to Mono
