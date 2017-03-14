@@ -25,6 +25,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Learn how to use StepVerifier to test Mono, Flux or any other kind of Reactive Streams Publisher.
  *
@@ -72,7 +74,7 @@ public class Part03StepVerifier {
 	void expectSkylerJesseComplete(Flux<User> flux) {
 		StepVerifier.create(flux)
 				.expectNextMatches(user -> user.getUsername().equals("swhite"))
-				.expectNextMatches(user -> user.getUsername().equals("jpinkman"))
+				.consumeNextWith(user -> assertEquals("jpinkman", user.getUsername()))
 				.verifyComplete(); // TO BE REMOVED
 	}
 
