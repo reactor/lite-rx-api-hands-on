@@ -47,8 +47,7 @@ public class Part08OtherOperations {
 		Mono<User> mono = useFastestMono(repository.findFirst(), repositoryWithDelay.findFirst());
 		StepVerifier.create(mono)
 				.expectNext(MARIE)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 
 		repository = new ReactiveUserRepository(250, MARIE);
 		repositoryWithDelay = new ReactiveUserRepository(MIKE);
@@ -127,8 +126,7 @@ public class Part08OtherOperations {
 		Mono<User> mono = emptyToSkyler(Mono.just(User.WALTER));
 		StepVerifier.create(mono)
 				.expectNext(User.WALTER)
-				.expectComplete()
-				.verify();
+				.verifyComplete();
 		mono = emptyToSkyler(Mono.empty());
 		StepVerifier.create(mono)
 				.expectNext(User.SKYLER)
