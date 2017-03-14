@@ -91,7 +91,7 @@ public class Part07Errors {
 			try {
 				return capitalizeUser(user);
 			}
-			catch (Exception e) {
+			catch (GetOutOfHereException e) {
 				throw Exceptions.propagate(e);
 			}
 		}); // TO BE REMOVED
