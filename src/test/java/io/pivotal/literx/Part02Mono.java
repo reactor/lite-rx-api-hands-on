@@ -41,7 +41,7 @@ public class Part02Mono {
 				.verify();
 	}
 
-	// TODO Return an Mono that never emit any signal
+	// TODO Return a Mono that never emits any signal
 	Mono<String> monoWithNoSignal() {
 		return Mono.never(); // TO BE REMOVED
 	}
