@@ -16,7 +16,6 @@
 
 package io.pivotal.literx;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import io.pivotal.literx.domain.User;
