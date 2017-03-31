@@ -17,5 +17,7 @@ To do this Hands-on, you just have to:
  - Fix the TODO one by one in Part01 to Part11 test classes to make unit tests green
 
 The solution is available in the `complete` branch to compare, when you have finished, with what you have done.
+
+A Kotlin version that takes advantage of [reactor-kotlin-extensions](https://github.com/reactor/reactor-kotlin-extensions) is available [here](https://github.com/eddumelendez/reactor-kotlin-workshop).
  
 More information available on [Reactor website](http://projectreactor.io).
