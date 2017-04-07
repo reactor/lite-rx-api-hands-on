@@ -10,7 +10,7 @@ import reactor.test.StepVerifier;
  * Learn how to create Mono instances.
  *
  * @author Sebastien Deleuze
- * @see <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
+ * @see <a href="http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
  */
 public class Part02Mono {
 
