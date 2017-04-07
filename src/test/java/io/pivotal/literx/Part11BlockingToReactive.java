@@ -70,7 +70,7 @@ public class Part11BlockingToReactive {
 	// TODO Insert users contained in the Flux parameter in the blocking repository using an parallel scheduler and return a Mono<Void> that signal the end of the operation
 	Mono<Void> fluxToBlockingRepository(Flux<User> flux, BlockingRepository<User> repository) {
 		return flux
-				.publishOn(Schedulers.parallel())
+				.publishOn(Schedulers.elastic())
 				.doOnNext(user -> repository.save(user))
 				.then(); // TO BE REMOVED
 	}
