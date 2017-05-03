@@ -18,14 +18,14 @@ public class Part05Merge {
 	final static User MARIE = new User("mschrader", "Marie", "Schrader");
 	final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
 
-	ReactiveRepository<User> repository1 = new ReactiveUserRepository(500);
-	ReactiveRepository<User> repository2 = new ReactiveUserRepository(MARIE, MIKE);
+	ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(500);
+	ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE, MIKE);
 
 //========================================================================================
 
 	@Test
 	public void mergeWithInterleave() {
-		Flux<User> flux = mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
+		Flux<User> flux = mergeFluxWithInterleave(repositoryWithDelay.findAll(), repository.findAll());
 		StepVerifier.create(flux)
 				.expectNext(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.verifyComplete();
@@ -40,7 +40,7 @@ public class Part05Merge {
 
 	@Test
 	public void mergeWithNoInterleave() {
-		Flux<User> flux = mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
+		Flux<User> flux = mergeFluxWithNoInterleave(repositoryWithDelay.findAll(), repository.findAll());
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
 				.verifyComplete();
@@ -55,8 +55,8 @@ public class Part05Merge {
 
 	@Test
 	public void multipleMonoToFlux() {
-		Mono<User> skylerMono = repository1.findFirst();
-		Mono<User> marieMono = repository2.findFirst();
+		Mono<User> skylerMono = repositoryWithDelay.findFirst();
+		Mono<User> marieMono = repository.findFirst();
 		Flux<User> flux = createFluxFromMultipleMono(skylerMono, marieMono);
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, MARIE)
