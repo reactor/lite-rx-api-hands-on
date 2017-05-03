@@ -65,7 +65,7 @@ public class ReactiveUserRepository implements ReactiveRepository<User> {
 	private Mono<User> withDelay(Mono<User> userMono) {
 		return Mono
 				.delay(Duration.ofMillis(delayInMs))
-				.then(c -> userMono);
+				.flatMap(c -> userMono);
 	}
 
 	private Flux<User> withDelay(Flux<User> userFlux) {

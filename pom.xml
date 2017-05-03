@@ -20,28 +20,25 @@
 
 	<groupId>io.pivotal</groupId>
 	<artifactId>lite-rx-api-hands-on</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>A lite Rx API for the JVM Hands-on</name>
-	<description>Lite Rx API Hands-On based on Reactor Core 3.0</description>
+	<description>Lite Rx API Hands-On based on Reactor Core 3.1</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<reactor.core.version>3.0.6.RELEASE</reactor.core.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-core</artifactId>
-			<version>${reactor.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.projectreactor.addons</groupId>
 			<artifactId>reactor-test</artifactId>
-			<version>${reactor.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -85,5 +82,25 @@
 			</plugin>
 		</plugins>
 	</build>
+
+    <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.projectreactor</groupId>
+				<artifactId>reactor-bom</artifactId>
+				<version>Bismuth-M1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones Repository</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
 
 </project>
