@@ -40,22 +40,22 @@ public class Part08OtherOperations {
 
 	@Test
 	public void fastestMono() {
-		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE);
-		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250, MIKE);
-		Mono<User> mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
+		ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE);
+		ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(250, MIKE);
+		Mono<User> mono = useFastestMono(repository.findFirst(), repositoryWithDelay.findFirst());
 		StepVerifier.create(mono)
 				.expectNext(MARIE)
 				.verifyComplete();
 
-		repository1 = new ReactiveUserRepository(250, MARIE);
-		repository2 = new ReactiveUserRepository(MIKE);
-		mono = useFastestMono(repository1.findFirst(), repository2.findFirst());
+		repository = new ReactiveUserRepository(250, MARIE);
+		repositoryWithDelay = new ReactiveUserRepository(MIKE);
+		mono = useFastestMono(repository.findFirst(), repositoryWithDelay.findFirst());
 		StepVerifier.create(mono)
 				.expectNext(MIKE)
 				.verifyComplete();
 	}
 
-	// TODO return the mono which returns faster its value
+	// TODO Return the mono which returns its value faster
 	Mono<User> useFastestMono(Mono<User> mono1, Mono<User> mono2) {
 		return null;
 	}
@@ -64,22 +64,22 @@ public class Part08OtherOperations {
 
 	@Test
 	public void fastestFlux() {
-		ReactiveRepository<User> repository1 = new ReactiveUserRepository(MARIE, MIKE);
-		ReactiveRepository<User> repository2 = new ReactiveUserRepository(250);
-		Flux<User> flux = useFastestFlux(repository1.findAll(), repository2.findAll());
+		ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE, MIKE);
+		ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(250);
+		Flux<User> flux = useFastestFlux(repository.findAll(), repositoryWithDelay.findAll());
 		StepVerifier.create(flux)
 				.expectNext(MARIE, MIKE)
 				.verifyComplete();
 
-		repository1 = new ReactiveUserRepository(250, MARIE, MIKE);
-		repository2 = new ReactiveUserRepository();
-		flux = useFastestFlux(repository1.findAll(), repository2.findAll());
+		repositoryWithDelay = new ReactiveUserRepository(250, MARIE, MIKE);
+		repository = new ReactiveUserRepository();
+		flux = useFastestFlux(repositoryWithDelay.findAll(), repository.findAll());
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.verifyComplete();
 	}
 
-	// TODO return the flux which returns faster the first value
+	// TODO Return the flux which returns the first value faster
 	Flux<User> useFastestFlux(Flux<User> flux1, Flux<User> flux2) {
 		return null;
 	}
@@ -112,7 +112,7 @@ public class Part08OtherOperations {
 				.verifyComplete();
 	}
 
-	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
+	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams do not accept null values)
 	Mono<User> nullAwareUserToMono(User user) {
 		return null;
 	}
