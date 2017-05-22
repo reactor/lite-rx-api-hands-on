@@ -22,12 +22,15 @@ public class Part04Transform {
 
 	// TODO Capitalize the users username, firstName and lastName
 	Flux<User> capitalizeMany(Flux<User> flux) {
-		return flux.map(u -> new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase())); // TO BE REMOVED
+		return flux.map(u -> new User(
+				u.getUsername().toUpperCase(),
+				u.getFirstname().toUpperCase(),
+				u.getLastname().toUpperCase())); // TO BE REMOVED
 	}
 
 //========================================================================================
 
-	// TODO Capitalize the users username, firstName and lastName using asyncCapitalizeUser()
+	// TODO Capitalize the users username, firstName and lastName using #asyncCapitalizeUser
 	Flux<User> asyncCapitalizeMany(Flux<User> flux) {
 		return flux.flatMap(u -> asyncCapitalizeUser(u)); // TO BE REMOVED
 	}

@@ -22,14 +22,14 @@ public class Part08OtherOperations {
 
 //========================================================================================
 
-	// TODO return the mono which returns faster its value
+	// TODO Return the mono which returns its value faster
 	Mono<User> useFastestMono(Mono<User> mono1, Mono<User> mono2) {
 		return Mono.first(mono1, mono2); // TO BE REMOVED
 	}
 
 //========================================================================================
 
-	// TODO return the flux which returns faster the first value
+	// TODO Return the flux which returns the first value faster
 	Flux<User> useFastestFlux(Flux<User> flux1, Flux<User> flux2) {
 		return Flux.firstEmitting(flux1, flux2); // TO BE REMOVED
 	}
@@ -43,7 +43,7 @@ public class Part08OtherOperations {
 
 //========================================================================================
 
-	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
+	// TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams do not accept null values)
 	Mono<User> nullAwareUserToMono(User user) {
 		return Mono.justOrEmpty(user); // TO BE REMOVED
 	}
