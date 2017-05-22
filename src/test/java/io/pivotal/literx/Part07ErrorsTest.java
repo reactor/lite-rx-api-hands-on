@@ -33,71 +33,48 @@ import reactor.test.StepVerifier;
  * @see Exceptions#propagate(Throwable)
  * @see Hooks#onOperator(Function)
  */
-public class Part07Errors {
+public class Part07ErrorsTest {
+
+	Part07Errors workshop = new Part07Errors();
 
 //========================================================================================
 
 	@Test
 	public void monoWithValueInsteadOfError() {
-		Mono<User> mono = betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
+		Mono<User> mono = workshop.betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
 		StepVerifier.create(mono)
 				.expectNext(User.SAUL)
 				.verifyComplete();
 
-		mono = betterCallSaulForBogusMono(Mono.just(User.SKYLER));
+		mono = workshop.betterCallSaulForBogusMono(Mono.just(User.SKYLER));
 		StepVerifier.create(mono)
 				.expectNext(User.SKYLER)
 				.verifyComplete();
-	}
-
-	// TODO Return a Mono<User> containing User.SAUL when an error occurs in the input Mono, else do not change the input Mono.
-	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
-		return null;
 	}
 
 //========================================================================================
 
 	@Test
 	public void fluxWithValueInsteadOfError() {
-		Flux<User> flux = betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
+		Flux<User> flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
 		StepVerifier.create(flux)
 				.expectNext(User.SAUL, User.JESSE)
 				.verifyComplete();
 
-		flux = betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
+		flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.just(User.SKYLER, User.WALTER));
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.WALTER)
 				.verifyComplete();
-	}
-
-	// TODO Return a Flux<User> containing User.SAUL and User.JESSE when an error occurs in the input Flux, else do not change the input Flux.
-	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
-		return null;
 	}
 
 //========================================================================================
 
 	@Test
 	public void handleCheckedExceptions() {
-		Flux<User> flux = capitalizeMany(Flux.just(User.SAUL, User.JESSE));
+		Flux<User> flux = workshop.capitalizeMany(Flux.just(User.SAUL, User.JESSE));
 
 		StepVerifier.create(flux)
-				.verifyError(GetOutOfHereException.class);
-	}
-
-	// TODO Implement a method that capitalize each user of the incoming flux using the capitalizeUser() method and emit an error containing a GetOutOfHereException exception
-	Flux<User> capitalizeMany(Flux<User> flux) {
-		return null;
-	}
-
-	User capitalizeUser(User user) throws GetOutOfHereException {
-		if (user.equals(User.SAUL)) {
-			throw new GetOutOfHereException();
-		}
-		return new User(user.getUsername(), user.getFirstname(), user.getLastname());
-	}
-
-	private class GetOutOfHereException extends Exception {
+				.verifyError(Part07Errors.GetOutOfHereException.class);
 	}
 
 }
