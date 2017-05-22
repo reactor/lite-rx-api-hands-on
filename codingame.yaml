@@ -1,0 +1,48 @@
+content:
+  title: Reactive Programming with Reactor 3
+  about: techio/about.md
+  plan:
+    - id: Intro
+      title: Introduction to Reactive Programming
+      statement: techio/intro.md
+    - id: Flux
+      title: Learn how to create Flux instances
+      statement: techio/part01Flux.md
+    - id: Mono
+      title: Learn how to create Mono instances
+      statement: techio/part02Mono.md
+    - id: StepVerifier
+      title: StepVerifier and how to use it
+      statement: techio/part03StepVerifier.md
+    - id: transform
+      title: Learn to transform our asynchronous data
+      statement: techio/part04Transform.md
+    - id: Merge
+      title: Merge
+      statement: techio/part05Merge.md
+    - id: Request
+      title: Request
+      statement: techio/part06Request.md
+    - id: Error
+      title: Error
+      statement: techio/part07Error.md
+    - id: Adapt
+      title: Adapt
+      statement: techio/part09Adapt.md
+    - id: OthersOperations
+      title: Others operations
+      statement: techio/part08OtherOperations.md
+    - id: ReactiveToBlocking
+      title: Reactive To Blocking
+      statement: techio/part10ReactiveToBlocking.md
+    - id: BlockingToReactive
+      title: Blocking to Reactive
+      statement: techio/part11BlockingToReactive.md
+
+    
+
+projects:
+  lite-rx-api-hands-on:
+    runner:
+     name: codingame/java-maven3-junit4-runner
+     version: 1.1.2-java-8
