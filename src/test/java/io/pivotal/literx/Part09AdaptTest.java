@@ -51,8 +51,8 @@ public class Part09AdaptTest {
 	@Test
 	public void adaptToFlowable() {
 		Flux<User> flux = repository.findAll();
-		Flowable<User> observable = workshop.fromFluxToFlowable(flux);
-		StepVerifier.create(workshop.fromFlowableToFlux(observable))
+		Flowable<User> flowable = workshop.fromFluxToFlowable(flux);
+		StepVerifier.create(workshop.fromFlowableToFlux(flowable))
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.verifyComplete();
 	}

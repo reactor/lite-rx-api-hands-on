@@ -45,21 +45,23 @@ public class Part03StepVerifier {
 
 //========================================================================================
 
-	// TODO Use StepVerifier to check that the flux parameter emits a User with "swhite" username and another one with "jpinkman" then completes successfully.
+	// TODO Use StepVerifier to check that the flux parameter emits a User with "swhite"username
+	// and another one with "jpinkman" then completes successfully.
 	void expectSkylerJesseComplete(Flux<User> flux) {
 		fail();
 	}
 
 //========================================================================================
 
-	// TODO Expect 10 elements then complete and notice how long it takes for running the test
+	// TODO Expect 10 elements then complete and notice how long the test takes.
 	void expect10Elements(Flux<Long> flux) {
 		fail();
 	}
 
 //========================================================================================
 
-	// TODO Expect 3600 elements then complete using the virtual time capabilities provided via StepVerifier.withVirtualTime() and notice how long it takes for running the test
+	// TODO Expect 3600 elements then complete using the virtual time capabilities provided
+	// via StepVerifier#withVirtualTime and notice how long the test takes
 	void expect3600Elements(Supplier<Flux<Long>> supplier) {
 		fail();
 	}

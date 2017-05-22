@@ -20,14 +20,14 @@ public class Part05MergeTest {
 	final static User MARIE = new User("mschrader", "Marie", "Schrader");
 	final static User MIKE = new User("mehrmantraut", "Mike", "Ehrmantraut");
 
-	ReactiveRepository<User> repository1 = new ReactiveUserRepository(500);
-	ReactiveRepository<User> repository2 = new ReactiveUserRepository(MARIE, MIKE);
+	ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(500);
+	ReactiveRepository<User> repository          = new ReactiveUserRepository(MARIE, MIKE);
 
 //========================================================================================
 
 	@Test
 	public void mergeWithInterleave() {
-		Flux<User> flux = workshop.mergeFluxWithInterleave(repository1.findAll(), repository2.findAll());
+		Flux<User> flux = workshop.mergeFluxWithInterleave(repositoryWithDelay.findAll(), repository.findAll());
 		StepVerifier.create(flux)
 				.expectNext(MARIE, MIKE, User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.verifyComplete();
@@ -37,7 +37,7 @@ public class Part05MergeTest {
 
 	@Test
 	public void mergeWithNoInterleave() {
-		Flux<User> flux = workshop.mergeFluxWithNoInterleave(repository1.findAll(), repository2.findAll());
+		Flux<User> flux = workshop.mergeFluxWithNoInterleave(repositoryWithDelay.findAll(), repository.findAll());
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL, MARIE, MIKE)
 				.verifyComplete();
@@ -47,8 +47,8 @@ public class Part05MergeTest {
 
 	@Test
 	public void multipleMonoToFlux() {
-		Mono<User> skylerMono = repository1.findFirst();
-		Mono<User> marieMono = repository2.findFirst();
+		Mono<User> skylerMono = repositoryWithDelay.findFirst();
+		Mono<User> marieMono = repository.findFirst();
 		Flux<User> flux = workshop.createFluxFromMultipleMono(skylerMono, marieMono);
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, MARIE)
