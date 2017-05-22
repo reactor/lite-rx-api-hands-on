@@ -13,8 +13,9 @@ import reactor.test.StepVerifier;
  *
  * @author Sebastien Deleuze
  */
-public class Part04Transform {
+public class Part04TransformTest {
 
+	Part04Transform workshop = new Part04Transform();
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
 //========================================================================================
@@ -22,14 +23,9 @@ public class Part04Transform {
 	@Test
 	public void transformMono() {
 		Mono<User> mono = repository.findFirst();
-		StepVerifier.create(capitalizeOne(mono))
+		StepVerifier.create(workshop.capitalizeOne(mono))
 				.expectNext(new User("SWHITE", "SKYLER", "WHITE"))
 				.verifyComplete();
-	}
-
-	// TODO Capitalize the user username, firstname and lastname
-	Mono<User> capitalizeOne(Mono<User> mono) {
-		return null;
 	}
 
 //========================================================================================
@@ -37,18 +33,13 @@ public class Part04Transform {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		StepVerifier.create(capitalizeMany(flux))
+		StepVerifier.create(workshop.capitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
 					new User("SGOODMAN", "SAUL", "GOODMAN"))
 				.verifyComplete();
-	}
-
-	// TODO Capitalize the users username, firstName and lastName
-	Flux<User> capitalizeMany(Flux<User> flux) {
-		return null;
 	}
 
 //========================================================================================
@@ -56,22 +47,13 @@ public class Part04Transform {
 	@Test
 	public void  asyncTransformFlux() {
 		Flux<User> flux = repository.findAll();
-		StepVerifier.create(asyncCapitalizeMany(flux))
+		StepVerifier.create(workshop.asyncCapitalizeMany(flux))
 				.expectNext(
 					new User("SWHITE", "SKYLER", "WHITE"),
 					new User("JPINKMAN", "JESSE", "PINKMAN"),
 					new User("WWHITE", "WALTER", "WHITE"),
 					new User("SGOODMAN", "SAUL", "GOODMAN"))
 				.verifyComplete();
-	}
-
-	// TODO Capitalize the users username, firstName and lastName using asyncCapitalizeUser()
-	Flux<User> asyncCapitalizeMany(Flux<User> flux) {
-		return null;
-	}
-
-	Mono<User> asyncCapitalizeUser(User u) {
-		return Mono.just(new User(u.getUsername().toUpperCase(), u.getFirstname().toUpperCase(), u.getLastname().toUpperCase()));
 	}
 
 }

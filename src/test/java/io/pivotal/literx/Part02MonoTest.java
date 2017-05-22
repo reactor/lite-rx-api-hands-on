@@ -12,27 +12,24 @@ import reactor.test.StepVerifier;
  * @author Sebastien Deleuze
  * @see <a href="http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
  */
-public class Part02Mono {
+public class Part02MonoTest {
+
+	Part02Mono workshop = new Part02Mono();
 
 //========================================================================================
 
 	@Test
 	public void empty() {
-		Mono<String> mono = emptyMono();
+		Mono<String> mono = workshop.emptyMono();
 		StepVerifier.create(mono)
 				.verifyComplete();
-	}
-
-	// TODO Return an empty Mono
-	Mono<String> emptyMono() {
-		return null;
 	}
 
 //========================================================================================
 
 	@Test
 	public void noSignal() {
-		Mono<String> mono = monoWithNoSignal();
+		Mono<String> mono = workshop.monoWithNoSignal();
 		StepVerifier
 				.create(mono)
 				.expectSubscription()
@@ -41,38 +38,23 @@ public class Part02Mono {
 				.verify();
 	}
 
-	// TODO Return an Mono that never emit any signal
-	Mono<String> monoWithNoSignal() {
-		return null;
-	}
-
 //========================================================================================
 
 	@Test
 	public void fromValue() {
-		Mono<String> mono = fooMono();
+		Mono<String> mono = workshop.fooMono();
 		StepVerifier.create(mono)
 				.expectNext("foo")
 				.verifyComplete();
-	}
-
-	// TODO Return a Mono that contains a "foo" value
-	Mono<String> fooMono() {
-		return null;
 	}
 
 //========================================================================================
 
 	@Test
 	public void error() {
-		Mono<String> mono = errorMono();
+		Mono<String> mono = workshop.errorMono();
 		StepVerifier.create(mono)
 				.verifyError(IllegalStateException.class);
-	}
-
-	// TODO Create a Mono that emits an IllegalStateException
-	Mono<String> errorMono() {
-		return null;
 	}
 
 }
