@@ -1,0 +1,40 @@
+buildscript {
+   repositories {
+      mavenCentral()
+      maven { url "https://repo.spring.io/snapshot" }
+      maven { url "https://repo.spring.io/milestone" }
+   }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+def reactorCoreVersion = '3.0.3.RELEASE'
+sourceCompatibility = 1.8
+
+repositories {
+   mavenCentral()
+   maven { url "https://repo.spring.io/snapshot" }
+   maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+  compile("io.projectreactor.addons:reactor-test:$reactorCoreVersion")
+
+  // Reactive Streams
+  testCompile("org.reactivestreams:reactive-streams:1.0.0")
+
+  // Reactor Core
+  testCompile("io.projectreactor:reactor-core:$reactorCoreVersion")
+  
+  // rxjava 
+  testCompile('io.reactivex.rxjava2:rxjava:2.0.0')
+
+  // Logging
+  testCompile('org.slf4j:slf4j-api:1.7.22')
+
+  // Test
+  testCompile('junit:junit:4.12')
+
+}
+
