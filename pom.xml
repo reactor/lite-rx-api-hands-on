@@ -37,7 +37,7 @@
 			<artifactId>reactor-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.projectreactor.addons</groupId>
+			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
 		</dependency>
 		<dependency>
@@ -92,7 +92,7 @@
 			<dependency>
 				<groupId>io.projectreactor</groupId>
 				<artifactId>reactor-bom</artifactId>
-				<version>Bismuth-M1</version>
+				<version>Bismuth-BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
