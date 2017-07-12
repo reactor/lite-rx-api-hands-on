@@ -34,7 +34,7 @@ Next we will request values one by one: for that you need an initial request, bu
 second single request after you've received and asserted the first element.
 
 Without more request, the source will never complete unless you cancel it. This can be done
-instead of the terminal expectations by using `.thenCancel().verify()`.
+instead of the terminal expectations by using `.thenCancel()`.
 
 @[Request One By One]({"stubs": ["/src/main/java/io/pivotal/literx/Part06Request.java"], "command": "io.pivotal.literx.Part06RequestTest#requestOneByOne", "layout":"aside"})
 
