@@ -16,6 +16,11 @@
 
 package io.pivotal.literx;
 
+//generic imports to help with simpler IDEs (ie tech.io)
+import java.util.*;
+import java.util.function.*;
+import java.time.*;
+
 import java.util.concurrent.CompletableFuture;
 
 import io.pivotal.literx.domain.User;

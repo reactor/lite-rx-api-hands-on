@@ -16,7 +16,11 @@
 
 package io.pivotal.literx;
 
-import java.util.function.Supplier;
+//generic imports to help with simpler IDEs (ie tech.io)
+import java.util.*;
+import java.util.function.*;
+import java.time.*;
+import reactor.test.StepVerifier;
 
 import io.pivotal.literx.domain.User;
 import reactor.core.publisher.Flux;
