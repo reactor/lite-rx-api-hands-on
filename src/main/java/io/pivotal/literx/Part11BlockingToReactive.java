@@ -1,5 +1,10 @@
 package io.pivotal.literx;
 
+//generic imports to help with simpler IDEs (ie tech.io)
+import java.util.*;
+import java.util.function.*;
+import java.time.*;
+
 import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.BlockingRepository;
 import reactor.core.publisher.Flux;
