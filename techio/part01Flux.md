@@ -34,7 +34,12 @@ Flux.fromIterable(getSomeLongList())
 
 ## Practice
 
-In this lesson we'll see different factory methods to create a `Flux`. 
+In this lesson we'll see different factory methods to create a `Flux`.
+
+> ![Tip](/techio/assets/tip.png) **TIP**: If you want some insight as to what is going on
+inside a `Flux` or `Mono` you are about to return during one of these exercises, you can
+always append `.log()` to the flux just before returning it. Part 6 makes use of that. 
+
 Let's try a very simple example: just return an empty flux.
 
 
