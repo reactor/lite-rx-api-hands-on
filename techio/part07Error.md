@@ -18,7 +18,7 @@ Let's try the same thing with `Flux`. In this case, we don't just want a single 
 value, but a totally separate sequence (think getting stale data from a cache). This can
 be achieved with `onErrorResume`, which falls back to a `Publisher<T>`.
 
-Emit both`User#SKYLER` and `User#JESSY` whenever there is an error in the original `FLux`:
+Emit both`User#SAUL` and `User#JESSE` whenever there is an error in the original `FLux`:
 @[OnErrorResumeWith on flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part07Errors.java"], "command": "io.pivotal.literx.Part07ErrorsTest#fluxWithValueInsteadOfError", "layout":"aside"})
 
 Dealing with checked exceptions is a bit more complicated. Whenever some code that throws
