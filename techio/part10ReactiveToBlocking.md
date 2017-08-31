@@ -10,11 +10,11 @@ Note that you should avoid this by favoring having reactive code end-to-end, as 
 possible. You MUST avoid this at all cost in the middle of other reactive code, as this has
 the potential to lock your whole reactive pipeline.
 
-@[Value from Mono]({"stubs": ["/src/main/java/io/pivotal/literx/Part10ReactiveToBlocking.java"], "command": "io.pivotal.literx.Part10ReactiveToBlockingTest#monoToValue", "layout":"aside"})
+@[Value from Mono]({"stubs": ["/src/main/java/io/pivotal/literx/Part10ReactiveToBlocking.java"], "command": "io.pivotal.literx.Part10ReactiveToBlockingTest#mono", "layout":"aside"})
 
 
 Similarly, you can block for the first or last value in a `Flux` with `blockFirst()`/`blockLast()`.
 You can also transform a `Flux` to an `Iterable` with `toIterable`. Same restrictions as
 above still apply.
 
-@[Flux to iterable]({"stubs": ["/src/main/java/io/pivotal/literx/Part10ReactiveToBlocking.java"], "command": "io.pivotal.literx.Part10ReactiveToBlockingTest#fluxToValues", "layout":"aside"})
+@[Flux to iterable]({"stubs": ["/src/main/java/io/pivotal/literx/Part10ReactiveToBlocking.java"], "command": "io.pivotal.literx.Part10ReactiveToBlockingTest#flux", "layout":"aside"})
