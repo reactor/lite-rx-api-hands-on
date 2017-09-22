@@ -28,9 +28,12 @@ There are a lot of possible expectations, see the [reference documentation](http
 and the [javadoc](https://javadoc.io/page/io.projectreactor.addons/reactor-test/3.0/reactor/test/StepVerifier.Step.html). 
 
 ## Practice 
+In these exercises, the methods get a `Flux` or `Mono` as a parameter and you'll need to
+test its behavior. You should create a `StepVerifier` that uses said Flux/Mono, describes
+expectations about it and verifies it.
 
-Let's verify the sequence passed to the code emits two specific elements and that the `Flux`
-then completes successfully.
+Let's verify the sequence passed to the first test method emits two specific elements,
+`"foo"` and `"bar"`, and that the `Flux` then completes successfully.
 
 @[Verify Simple flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part03StepVerifier.java"], "command": "io.pivotal.literx.Part03StepVerifierTest#expectElementsThenComplete", "layout":"aside"})
 
@@ -41,7 +44,8 @@ Now, let's do the same test but verifying that an exception is propagated at the
 Let's try to create a `StepVerifier` with an expectation on a `User`'s `getUsername()` getter.
 Some expectations can work by checking a `Predicate` on the next value, or even by consuming
 the next value by passing it to an assertion library like `Assertions.assertThat(T)` from `AssertJ`.
-Try these lambda-based versions:
+Try these lambda-based versions (for instance `StepVerifier#assertNext` with a lambda using
+an AssertJ assertion like `assertThat(...).isEqualTo(...)`):
 
 @[Lambda and assertion]({"stubs": ["/src/main/java/io/pivotal/literx/Part03StepVerifier.java"], "command": "io.pivotal.literx.Part03StepVerifierTest#expectElementsWithThenComplete", "layout":"aside"})
 

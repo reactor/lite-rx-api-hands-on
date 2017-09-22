@@ -25,6 +25,8 @@ import reactor.test.StepVerifier;
 import io.pivotal.literx.domain.User;
 import reactor.core.publisher.Flux;
 
+import static org.assertj.core.api.Assertions.*;
+
 /**
  * Learn how to use StepVerifier to test Mono, Flux or any other kind of Reactive Streams Publisher.
  *
