@@ -72,11 +72,12 @@ so you should usually put a `expectSubscription()` after `.withVirtualTime()` if
 going to use `expectNoEvent` right after).
 
 ```Java
-StepVerifier.withVirtualtime(() -> Mono.delay(Duration.ofHours(3)))
+StepVerifier.withVirtualTime(() -> Mono.delay(Duration.ofHours(3)))
             .expectSubscription()
             .expectNoEvent(Duration.ofHours(2))
             .thenAwait(Duration.ofHours(1))
             .expectNextCount(1)
+            .expectComplete()
             .verify();
 ```
 
