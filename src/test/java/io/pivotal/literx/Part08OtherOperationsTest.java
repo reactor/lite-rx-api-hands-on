@@ -7,6 +7,7 @@ import org.junit.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+import reactor.test.publisher.PublisherProbe;
 
 /**
  * Learn how to use various other operators.
@@ -76,9 +77,11 @@ public class Part08OtherOperationsTest {
 	@Test
 	public void complete() {
 		ReactiveRepository<User> repository = new ReactiveUserRepository();
-		Mono<Void> completion = workshop.fluxCompletion(repository.findAll());
+		PublisherProbe<User> probe = PublisherProbe.of(repository.findAll());
+		Mono<Void> completion = workshop.fluxCompletion(probe.flux());
 		StepVerifier.create(completion)
 				.verifyComplete();
+		probe.assertWasRequested();
 	}
 
 //========================================================================================
