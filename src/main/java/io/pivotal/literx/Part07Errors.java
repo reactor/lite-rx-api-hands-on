@@ -32,6 +32,9 @@ public class Part07Errors {
 //========================================================================================
 
 	// TODO Return a Mono<User> containing User.SAUL when an error occurs in the input Mono, else do not change the input Mono.
+	//
+	// Align Flux and Mono error handling APIs 
+	// https://github.com/reactor/reactor-core/issues/535 
 	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
 		return null;
 	}
