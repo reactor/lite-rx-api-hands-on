@@ -93,7 +93,7 @@
 			<dependency>
 				<groupId>io.projectreactor</groupId>
 				<artifactId>reactor-bom</artifactId>
-				<version>Bismuth-SR&</version>
+				<version>Bismuth-SR7</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
