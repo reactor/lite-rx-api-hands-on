@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2011-2017 Pivotal Software Inc, All Rights Reserved.
+  ~ Copyright (c) 2011-2018 Pivotal Software Inc, All Rights Reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@
 			<dependency>
 				<groupId>io.projectreactor</groupId>
 				<artifactId>reactor-bom</artifactId>
-				<version>Bismuth-SR10</version>
+				<version>Bismuth-SR11</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
