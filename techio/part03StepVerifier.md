@@ -24,7 +24,7 @@ the `StepVerifier` won't subscribe to your sequence and nothing will be asserted
 StepVerifier.create(T<Publisher>).{expectations...}.verify()
 ```
 
-There are a lot of possible expectations, see the [reference documentation](http://projectreactor.io/docs/core/release/reference/docs/index.html#_testing_a_scenario_with_code_stepverifier_code)
+There are a lot of possible expectations, see the [reference documentation](https://projectreactor.io/docs/core/release/reference/docs/index.html#_testing_a_scenario_with_code_stepverifier_code)
 and the [javadoc](https://javadoc.io/page/io.projectreactor.addons/reactor-test/3.0/reactor/test/StepVerifier.Step.html). 
 
 ## Practice 
