@@ -17,7 +17,7 @@ materialized anew for each `Subscription`.
 Note that some API that change the sequence's cardinality will return a `Flux` (and vice-versa,
 APIs that reduce the cardinality to 1 in a `Flux` return a `Mono`).
 
-See the javadoc [here](http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html).
+See the javadoc [here](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html).
 
 ![Marble diagram representation of a Mono](/techio/assets/mono.png)
 
