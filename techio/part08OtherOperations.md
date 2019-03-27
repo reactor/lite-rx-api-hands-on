@@ -4,9 +4,9 @@
 
 In this section, we'll have a look at a few more useful operators that don't fall into
 the broad categories we explored earlier. Reactor 3 contains a _lot_ of operators, so don't
-hesitate to have a look at the [Flux](http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html)
-and [Mono](http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html)
-javadocs as well as the [reference guide](http://projectreactor.io/docs/core/release/reference/docs/index.html#which-operator)
+hesitate to have a look at the [Flux](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html)
+and [Mono](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html)
+javadocs as well as the [reference guide](https://projectreactor.io/docs/core/release/reference/docs/index.html#which-operator)
 to learn about more of them.
 
 ## Practice
