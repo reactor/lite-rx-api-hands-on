@@ -15,7 +15,7 @@ It can emit 0 to _n_ `<T>` elements (`onNext` event) then either completes or er
 - Each `Flux#subscribe()` or multicasting operation such as `Flux#publish` and `Flux#publishNext`
   will materialize a dedicated instance of the pipeline and trigger the data flow inside it.
 
-See the javadoc [here](http://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html).
+See the javadoc [here](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html).
 
 ![Marble diagram representation of a Flux](/techio/assets/flux.png)
 
