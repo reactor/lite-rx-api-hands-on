@@ -50,7 +50,7 @@ data to it.
 
 Reactor adds the concept of **operators**, which are chained together to describe what
 processing to apply at each stage to the data. Applying an operator returns a new intermediate
-`Publisher` (in fact it can be though of as both a Subscriber to the operator upstream
+`Publisher` (in fact it can be thought of as both a Subscriber to the operator upstream
 and a Publisher for downstream). The final form of the data ends up in the final `Subscriber`
 that defines what to do from a user perspective.
 
