@@ -22,9 +22,9 @@ If you have 3 possible Mono sources and you only want to keep the fastest one, y
 the `first` static method:
 @[Fatest Mono]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#fastestMono", "layout":"aside"})
 
-For `Flux`, a similar result can be achieved using the `firstEmitting` static method.
+For `Flux`, a similar result can be achieved using the `first` static method.
 In this case it's the flux which emits an initial element first which is selected. Flux aren't mixed.
-@[First Emiting]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#fastestFlux", "layout":"aside"})
+@[First]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#fastestFlux", "layout":"aside"})
 
 Sometimes you're not interested in elements of a `Flux<T>`. If you want to still keep a
 `Flux<T>` type, you can use `ignoreElements()`. But if you really just want the completion,
