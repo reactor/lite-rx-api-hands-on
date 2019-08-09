@@ -59,6 +59,7 @@ public class Part07Errors {
 	}
 
 	protected final class GetOutOfHereException extends Exception {
+	    private static final long serialVersionUID = 0L;
 	}
 
 }
