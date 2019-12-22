@@ -16,13 +16,16 @@
 
 package io.pivotal.literx;
 
-import java.time.Duration;
-import java.util.function.Supplier;
-
 import io.pivotal.literx.domain.User;
 import org.assertj.core.api.Assertions;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.function.Supplier;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Learn how to use StepVerifier to test Mono, Flux or any other kind of Reactive Streams Publisher.
@@ -65,9 +68,10 @@ public class Part03StepVerifier {
 
 	// TODO Expect 10 elements then complete and notice how long the test takes.
 	void expect10Elements(Flux<Long> flux) {
-		StepVerifier.create(flux)
-                .expectNextCount(10)
-                .verifyComplete(); // TO BE REMOVED
+		Duration duration = StepVerifier.create(flux)
+				.expectNextCount(10)
+				.verifyComplete();
+		assertThat(duration.get(ChronoUnit.SECONDS)).isEqualTo(10L);
 	}
 
 //========================================================================================
@@ -75,10 +79,11 @@ public class Part03StepVerifier {
 	// TODO Expect 3600 elements at intervals of 1 second, and verify quicker than 3600s
 	// by manipulating virtual time thanks to StepVerifier#withVirtualTime, notice how long the test takes
 	void expect3600Elements(Supplier<Flux<Long>> supplier) {
-		StepVerifier.withVirtualTime(supplier)
-		            .thenAwait(Duration.ofHours(1))
-		            .expectNextCount(3600)
-		            .verifyComplete(); // TO BE REMOVED
+		Duration duration = StepVerifier.withVirtualTime(supplier)
+				.thenAwait(Duration.ofHours(1))
+				.expectNextCount(3600)
+				.verifyComplete();
+		assertThat(duration.get(ChronoUnit.SECONDS)).isLessThan(1);
 	}
 
 	private void fail() {
