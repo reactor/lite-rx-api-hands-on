@@ -30,7 +30,7 @@ maintainable.
 
 The **Reactive Streams** specification is an industry-driven effort to standardize Reactive
 Programming libraries on the JVM, and more importantly specify how they must behave so
-that they are interoperable. Implementors include Reactor 3 but also RxJava 2, Akka Streams,
+that they are interoperable. Implementors include Reactor 3 but also RxJava from version 2 and above, Akka Streams,
 Vert.x and Ratpack.
 
 It contains 4 very simple interfaces as well as a TCK, which shouldn't be overlooked since
