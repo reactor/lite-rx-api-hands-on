@@ -26,7 +26,7 @@ public class Part06RequestTest {
 
 	PrintStream originalConsole = System.out;
 	ByteArrayOutputStream logConsole;
-	String threadInfos = "\\d{2}:\\d{2}:\\d{2}\\.\\d{3}\\s{1}\\[\\S+\\]\\s{1}(INFO)\\s{2}(reactor\\.Flux\\.Zip\\.1)\\s{1}-\\s{1}";
+	String threadInfos = "\\d{4}-\\d{2}-\\d{2}\\s{1}\\d{2}:\\d{2}:\\d{2}\\s{1}\\[\\S+\\]\\s{1}(INFO)\\s{2}(reactor\\.Flux\\.Zip\\.1)\\s{1}-\\s{1}";
 
 	@BeforeEach
 	public void beforeEach() {

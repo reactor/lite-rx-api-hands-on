@@ -1,6 +1,6 @@
 # Adapt
 
-You can make RxJava2 and Reactor 3 types interact without a single external library.
+You can make RxJava3 and Reactor 3 types interact without a single external library.
 
 In the first two examples we will adapt from `Flux` to `Flowable`, which implements `Publisher`,
 and vice-versa.
@@ -15,7 +15,7 @@ but the later doesn't implement `Publisher`.
 
 In the first case, you can transform any publisher to `Observable`.
 In the second case, you have to first transform the `Observable` into a `Flowable`, which
-forces you to define a strategy to deal with backpressure (RxJava 2 `Observable` doesn't
+forces you to define a strategy to deal with backpressure (RxJava 3 `Observable` doesn't
 support backpressure).
 
 @[Flux to Observable and back to Flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part09Adapt.java"], "command": "io.pivotal.literx.Part09AdaptTest#adaptToObservable", "layout":"aside"})
