@@ -21,23 +21,23 @@ import java.util.concurrent.CompletableFuture;
 import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import org.junit.Test;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 /**
- * Learn how to adapt from/to RxJava 2 Observable/Single/Flowable and Java 8+ CompletableFuture.
+ * Learn how to adapt from/to RxJava 3 Observable/Single/Flowable and Java 8+ CompletableFuture.
  *
  * Mono and Flux already implements Reactive Streams interfaces so they are natively
  * Reactive Streams compliant + there are {@link Mono#from(Publisher)} and {@link Flux#from(Publisher)}
  * factory methods.
  *
- * For RxJava 2, you should not use Reactor Adapter but only RxJava 2 and Reactor Core.
+ * For RxJava 3, you should not use Reactor Adapter but only RxJava 3 and Reactor Core.
  *
  * @author Sebastien Deleuze
  */
