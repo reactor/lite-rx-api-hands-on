@@ -58,4 +58,11 @@ public class Part08OtherOperations {
 		return null;
 	}
 
+//========================================================================================
+
+	// TODO Convert the input Flux<User> to a Mono<List<User>> containing list of collected flux values
+	Mono<List<User>> fluxCollection(Flux<User> flux) {
+		return null;
+	}
+
 }
