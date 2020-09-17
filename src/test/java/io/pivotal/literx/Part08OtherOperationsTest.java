@@ -90,17 +90,6 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
 	@Test
-	public void collect() {
-		ReactiveRepository<User> repository = new ReactiveUserRepository();
-		Mono<List<User>> collection = workshop.fluxCollection(repository.findAll());
-		StepVerifier.create(collection)
-				.expectNext(Arrays.asList(User.SKYLER, User.JESSE, User.WALTER, User.SAUL))
-				.verifyComplete();
-	}
-
-//========================================================================================
-
-	@Test
 	public void nullHandling() {
 		Mono<User> mono = workshop.nullAwareUserToMono(User.SKYLER);
 		StepVerifier.create(mono)
@@ -122,6 +111,17 @@ public class Part08OtherOperationsTest {
 		mono = workshop.emptyToSkyler(Mono.empty());
 		StepVerifier.create(mono)
 				.expectNext(User.SKYLER)
+				.verifyComplete();
+	}
+
+//========================================================================================
+
+	@Test
+	public void collect() {
+		ReactiveRepository<User> repository = new ReactiveUserRepository();
+		Mono<List<User>> collection = workshop.fluxCollection(repository.findAll());
+		StepVerifier.create(collection)
+				.expectNext(Arrays.asList(User.SKYLER, User.JESSE, User.WALTER, User.SAUL))
 				.verifyComplete();
 	}
 
