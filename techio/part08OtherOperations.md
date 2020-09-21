@@ -41,3 +41,10 @@ Similarly, if you want to prevent the _empty_ `Mono` case by falling back to a d
 you can find an operator that does this _switch_:
 
 @[Otherwise if empty]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#emptyHandling", "layout":"aside"})
+
+Sometimes you want to capture all values emitted by `Flux` into separate `List`.
+In this case you can use `collectList` operator that would return `Mono` containing that `List`.
+
+@[Collect to list]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#collect", "layout":"aside"})
+
+There are more operators belonging to the _collect_ family. You can check them out in `Flux` [documentation](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html). 
