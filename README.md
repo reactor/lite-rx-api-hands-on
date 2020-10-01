@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/reactor/lite-rx-api-hands-on)
+
 # Lite Rx API Hands-on
 
 This Hands-on is designed to help you to learn easily the lite Rx API provided by [Reactor Core 3.x](https://github.com/reactor/reactor-core/).
