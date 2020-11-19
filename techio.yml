@@ -42,4 +42,4 @@ content:
 
 projects:
   lite-rx-api-hands-on:
-    runner: techio/java-maven3-junit4-runner:1.1.3-java-8
+    runner: techio/maven3-runner:1.0.0-openjdk-8
