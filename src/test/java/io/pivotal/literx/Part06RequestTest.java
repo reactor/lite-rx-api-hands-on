@@ -4,7 +4,6 @@ import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
 import io.pivotal.literx.repository.ReactiveUserRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
@@ -13,8 +12,8 @@ import reactor.util.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -79,21 +78,21 @@ public class Part06RequestTest {
 		            .expectNextMatches(u -> true)
 		            .verifyComplete();
 
-		String log = Arrays.stream(logConsole.toString().split("\n"))
-		                   .filter(s -> s.contains("] INFO"))
-		                   .map(s -> s.replaceAll(".*] INFO .* - ", ""))
-		                   .collect(Collectors.joining("\n"));
+  		List<String> log = Arrays.stream(logConsole.toString().split(System.lineSeparator()))
+							   .filter(s -> s.contains("] INFO"))
+							   .map(s -> s.replaceAll(".*] INFO .* - ", ""))
+							   .collect(Collectors.toList());
 
 		assertThat(log)
-				.contains("onSubscribe(FluxZip.ZipCoordinator)\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})\n"
-						+ "request(2)\n"
-						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})\n"
-						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})\n"
-						+ "onComplete()");
+				.containsExactly("onSubscribe(FluxZip.ZipCoordinator)"
+						, "request(1)"
+						, "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})"
+						, "request(1)"
+						, "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})"
+						, "request(2)"
+						, "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})"
+						, "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})"
+						, "onComplete()");
 	}
 
 //========================================================================================
@@ -110,13 +109,15 @@ public class Part06RequestTest {
 		            .expectNextCount(4)
 		            .verifyComplete();
 
-		assertThat(logConsole.toString())
-				.isEqualTo("Starring:\n"
-						+ "Skyler White\n"
-						+ "Jesse Pinkman\n"
-						+ "Walter White\n"
-						+ "Saul Goodman\n"
-						+ "The end!\n");
+		String[] log = logConsole.toString().split(System.lineSeparator());
+
+		assertThat(log)
+				.containsExactly("Starring:"
+						, "Skyler White"
+						, "Jesse Pinkman"
+						, "Walter White"
+						, "Saul Goodman"
+						, "The end!");
 	}
 
 }
