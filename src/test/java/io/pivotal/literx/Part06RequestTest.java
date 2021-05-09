@@ -85,14 +85,14 @@ public class Part06RequestTest {
 		                   .collect(Collectors.joining("\n"));
 
 		assertThat(log)
-				.contains("onSubscribe(FluxZip.ZipCoordinator)\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})\n"
-						+ "request(2)\n"
-						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})\n"
-						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})\n"
+				.contains("onSubscribe(FluxZip.ZipCoordinator)" + System.lineSeparator()
+						+ "request(1)" + System.lineSeparator()
+						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})" + System.lineSeparator()
+						+ "request(1)" + System.lineSeparator()
+						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})" + System.lineSeparator()
+						+ "request(2)" + System.lineSeparator()
+						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})" + System.lineSeparator()
+						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})" + System.lineSeparator()
 						+ "onComplete()");
 	}
 
@@ -111,12 +111,12 @@ public class Part06RequestTest {
 		            .verifyComplete();
 
 		assertThat(logConsole.toString())
-				.isEqualTo("Starring:\n"
-						+ "Skyler White\n"
-						+ "Jesse Pinkman\n"
-						+ "Walter White\n"
-						+ "Saul Goodman\n"
-						+ "The end!\n");
+				.isEqualTo("Starring:" + System.lineSeparator()
+						+ "Skyler White" + System.lineSeparator()
+						+ "Jesse Pinkman" + System.lineSeparator()
+						+ "Walter White" + System.lineSeparator()
+						+ "Saul Goodman" + System.lineSeparator()
+						+ "The end!" + System.lineSeparator());
 	}
 
 }
