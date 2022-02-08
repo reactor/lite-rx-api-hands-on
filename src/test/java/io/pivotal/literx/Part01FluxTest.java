@@ -11,7 +11,6 @@ import reactor.test.StepVerifier;
  * @see <a href="https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html">Flux Javadoc</a>
  */
 public class Part01FluxTest {
-
 	Part01Flux workshop = new Part01Flux();
 
 //========================================================================================
@@ -62,5 +61,4 @@ public class Part01FluxTest {
 				.expectNext(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L)
 				.verifyComplete();
 	}
-
 }
