@@ -50,7 +50,7 @@ public class Part06Request {
 	Flux<User> fluxWithDoOnPrintln() {
 		return repository
 				.findAll()
-				.doOnSubscribe(s -> System.out.println("Starring:"))
+				.doFirst(() -> System.out.println("Starring:"))
 				.doOnNext(p -> System.out.println(p.getFirstname() + " " + p.getLastname()))
 				.doOnComplete(() -> System.out.println("The end!")); // TO BE REMOVED
 	}
