@@ -54,9 +54,11 @@ onNext...
 @[Request Log]({"stubs": ["/src/main/java/io/pivotal/literx/Part06Request.java"], "command": "io.pivotal.literx.Part06RequestTest#experimentWithLog", "layout":"aside"})
 
 If you want to perform custom actions without really modifying the elements in the sequence,
-you can use the "side effect" methods that start with `doOn`.
+you can use the "side effect" methods that start with `do`/`doOn`.
  
-For example, if you want to print "Starting:" upon subscription, use `doOnSubscribe`.
+For example, if you want to print "Requested" each time the operator receives a request,
+use `doOnRequest`. If you want to print "Starting" first, upon subscription before any signal
+has been received, use `doFirst`, etc.
 
 Each `doOn` method takes a relevant callback representing the custom action for the
 corresponding event.
