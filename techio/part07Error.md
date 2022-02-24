@@ -11,7 +11,7 @@ but also recover from it (eg. by falling back to a different sequence or by retr
 In the first example, we will return a `Mono` containing default user Saul when an error occurs in
 the original `Mono`, using the method `onErrorReturn`. If you want, you can even limit that
 fallback to the `IllegalStateException` class. Use the `User#SAUL` constant.
-@[onErrorReturn]({"stubs": ["/src/main/java/io/pivotal/literx/Part07Errors.java"], "command": "io.pivotal.literx.Part07ErrorsTest#monoWithValueInsteadOfError", "layout":"aside"})
+@[onErrorReturn]({"stubs": ["/src/main/java/io/pivotal/literx/Part07Errors.java", "/src/main/java/io/pivotal/literx/domain/User.java"], "command": "io.pivotal.literx.Part07ErrorsTest#monoWithValueInsteadOfError", "layout":"aside"})
 
 
 Let's try the same thing with `Flux`. In this case, we don't just want a single fallback

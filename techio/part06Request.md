@@ -28,7 +28,7 @@ In this first example, create a `StepVerifier` that produces an initial unbounde
 and verifies 4 values to be received, before completion. This is equivalent to the way you've
 been using StepVerifier so far.
 
-@[Request All]({"stubs": ["/src/main/java/io/pivotal/literx/Part06Request.java"], "command": "io.pivotal.literx.Part06RequestTest#requestAll", "layout":"aside"})
+@[Request All]({"stubs": ["/src/main/java/io/pivotal/literx/Part06Request.java", "/src/main/java/io/pivotal/literx/domain/User.java", "/src/main/java/io/pivotal/literx/repository/ReactiveRepository.java"], "command": "io.pivotal.literx.Part06RequestTest#requestAll", "layout":"aside"})
 
 Next we will request values one by one: for that you need an initial request, but also a
 second single request after you've received and asserted the first element.

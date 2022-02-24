@@ -9,7 +9,7 @@ In the first place, we will capitalize a `String`. Since this is a simple 1-1 tr
 with no expected latency, we can use the `map` operator with a lambda transforming a `T`
 into a `U`.
 
-@[Capitalize data on Mono]({"stubs": ["/src/main/java/io/pivotal/literx/Part04Transform.java"], "command": "io.pivotal.literx.Part04TransformTest#transformMono", "layout":"aside"})
+@[Capitalize data on Mono]({"stubs": ["/src/main/java/io/pivotal/literx/Part04Transform.java", "/src/main/java/io/pivotal/literx/domain/User.java"], "command": "io.pivotal.literx.Part04TransformTest#transformMono", "layout":"aside"})
 
 We can use exactly the same code on a `Flux`, applying the mapping to each element as it
 becomes available.

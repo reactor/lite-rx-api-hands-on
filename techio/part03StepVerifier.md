@@ -35,7 +35,7 @@ expectations about it and verifies it.
 Let's verify the sequence passed to the first test method emits two specific elements,
 `"foo"` and `"bar"`, and that the `Flux` then completes successfully.
 
-@[Verify Simple flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part03StepVerifier.java"], "command": "io.pivotal.literx.Part03StepVerifierTest#expectElementsThenComplete", "layout":"aside"})
+@[Verify Simple flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part03StepVerifier.java", "/src/main/java/io/pivotal/literx/domain/User.java"], "command": "io.pivotal.literx.Part03StepVerifierTest#expectElementsThenComplete", "layout":"aside"})
 
 Now, let's do the same test but verifying that an exception is propagated at the end.
 

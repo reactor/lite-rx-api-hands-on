@@ -24,7 +24,7 @@ to the number of threads it can create and reuse (unlike the now deprecated `ela
 Use that trick to slowly read all users from the blocking `repository` in the first exercise.
 Note that you will need to wrap the call to the repository inside a `Flux.defer` lambda.
 
-@[Slow publisher]({"stubs": ["/src/main/java/io/pivotal/literx/Part11BlockingToReactive.java"], "command": "io.pivotal.literx.Part11BlockingToReactiveTest#slowPublisherFastSubscriber", "layout":"aside"})
+@[Slow publisher]({"stubs": ["/src/main/java/io/pivotal/literx/Part11BlockingToReactive.java", "/src/main/java/io/pivotal/literx/repository/ReactiveRepository.java"], "command": "io.pivotal.literx.Part11BlockingToReactiveTest#slowPublisherFastSubscriber", "layout":"aside"})
 
 For slow subscribers (eg. saving to a database), you can isolate a smaller section of the
 sequence with the `publishOn` operator. Unlike `subscribeOn`, it only affects the part of
