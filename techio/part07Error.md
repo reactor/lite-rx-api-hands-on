@@ -29,7 +29,7 @@ can be signalled downstream.
 
 There is a `Exceptions#propagate` utility that will wrap a checked exception into a special
 runtime exception that can be automatically unwrapped by Reactor subscribers and `StepVerifier`:
-this avoid seeing an irrelevant `RuntimeException` in the stacktrace.
+this avoids seeing an irrelevant `RuntimeException` in the stacktrace.
 
 Try to use that on the `capitalizeMany` method within a `map`: you'll need to catch a
 `GetOutOfHereException`, which is checked, but the corresponding test still expects the

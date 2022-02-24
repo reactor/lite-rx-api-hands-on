@@ -34,7 +34,8 @@ Next we will request values one by one: for that you need an initial request, bu
 second single request after you've received and asserted the first element.
 
 Without more request, the source will never complete unless you cancel it. This can be done
-instead of the terminal expectations by using `.thenCancel()`.
+instead of the terminal expectations by using `.thenCancel()`. If you want to also ensure
+no incoming signal is received over a `Duration` you can instead use `.expectTimeout(Duration)`.
 
 @[Request One By One]({"stubs": ["/src/main/java/io/pivotal/literx/Part06Request.java"], "command": "io.pivotal.literx.Part06RequestTest#requestOneByOne", "layout":"aside"})
 
@@ -44,7 +45,7 @@ How to check that the previous sequence was requested one by one, and that a can
 happened?
 
 It's important to be able to debug reactive APIs, so in the next example we will make use
-of the `log` operator to know exactly what happens in term of signals and events.
+of the `log` operator to know exactly what happens in terms of signals and events.
 
 Use the `repository` to get a `Flux` of **all** users, then apply a log to it. Observe in
 the console below how the underlying test requests it, and the other events like subscribe,
@@ -65,5 +66,5 @@ is also true of other operator callbacks like `map`): it's more for quick operat
 
 @[Custom Operations]({"stubs": ["/src/main/java/io/pivotal/literx/Part06Request.java"], "command": "io.pivotal.literx.Part06RequestTest#experimentWithDoOn", "layout":"aside"})
 
-Go ahead an modify the first two methods in this exercise in order to get some insight into
-their sequences using `log` and `doOnXXX`.
+Go ahead and modify the first two methods in this exercise in order to get some insight into
+their sequences using `log` and `do[On]XXX`.

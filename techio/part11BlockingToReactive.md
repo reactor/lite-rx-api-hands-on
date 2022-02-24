@@ -16,8 +16,10 @@ the call to block the rest of the pipeline?
 
 ## Practice
 The `subscribeOn` method allow to isolate a sequence from the start on a provided `Scheduler`.
-For example, the `Schedulers.elastic()` will create a pool of threads that grows on demand,
-releasing threads that haven't been used in a while automatically.
+For example, the `Schedulers.boundedElastic()` will create a pool of threads that grows on demand,
+releasing threads that haven't been used in a while automatically. In order to avoid too many
+threads due to abusing of this easy option, the `boundedElastic` Scheduler places an upper limit
+to the number of threads it can create and reuse (unlike the now deprecated `elastic()` one).
 
 Use that trick to slowly read all users from the blocking `repository` in the first exercise.
 Note that you will need to wrap the call to the repository inside a `Flux.defer` lambda.

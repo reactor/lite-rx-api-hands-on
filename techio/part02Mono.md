@@ -24,9 +24,10 @@ See the javadoc [here](https://projectreactor.io/docs/core/release/api/reactor/c
 `Mono` in action:
 
 ```java
-Mono.just(1)
-    .map(integer -> "foo" + integer)
-    .or(Mono.delay(Duration.ofMillis(100)))
+Mono.firstWithValue(
+        Mono.just(1).map(integer -> "foo" + integer),
+        Mono.delay(Duration.ofMillis(100)).thenReturn("bar")
+    )
     .subscribe(System.out::println);
 ```
 

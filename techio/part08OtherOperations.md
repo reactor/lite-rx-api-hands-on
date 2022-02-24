@@ -18,12 +18,12 @@ called `zip`:
 
 @[Zip Operator]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#zipFirstNameAndLastName", "layout":"aside"})
 
-If you have 3 possible Mono sources and you only want to keep the fastest one, you can use
-the `first` static method:
+If you have 3 possible Mono sources and you only want to keep the one that emits its value the fastest,
+you can use the `firstWithValue` static method:
 @[Fatest Mono]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#fastestMono", "layout":"aside"})
 
-For `Flux`, a similar result can be achieved using the `first` static method.
-In this case it's the flux which emits an initial element first which is selected. Flux aren't mixed.
+`Flux` also has the `firstWithValue` static method. Only the first element emitted by each `Flux`
+is considered to select the fastest `Flux` (which is then mirrored in the output):
 @[First]({"stubs": ["/src/main/java/io/pivotal/literx/Part08OtherOperations.java"], "command": "io.pivotal.literx.Part08OtherOperationsTest#fastestFlux", "layout":"aside"})
 
 Sometimes you're not interested in elements of a `Flux<T>`. If you want to still keep a
