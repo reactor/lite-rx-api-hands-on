@@ -86,12 +86,12 @@ public class Part06RequestTest {
 		assertThat(log)
 				.containsExactly("onSubscribe(FluxZip.ZipCoordinator)"
 						, "request(1)"
-						, "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})"
+						, "onNext(User{username='swhite', firstname='Skyler', lastname='White'})"
 						, "request(1)"
-						, "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})"
+						, "onNext(User{username='jpinkman', firstname='Jesse', lastname='Pinkman'})"
 						, "request(2)"
-						, "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})"
-						, "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})"
+						, "onNext(User{username='wwhite', firstname='Walter', lastname='White'})"
+						, "onNext(User{username='sgoodman', firstname='Saul', lastname='Goodman'})"
 						, "onComplete()");
 	}
 
