@@ -19,7 +19,7 @@ value, but a totally separate sequence (think getting stale data from a cache). 
 be achieved with `onErrorResume`, which falls back to a `Publisher<T>`.
 
 Emit both`User#SAUL` and `User#JESSE` whenever there is an error in the original `FLux`:
-@[OnErrorResumeWith on flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part07Errors.java"], "command": "io.pivotal.literx.Part07ErrorsTest#fluxWithValueInsteadOfError", "layout":"aside"})
+@[OnErrorResume on flux]({"stubs": ["/src/main/java/io/pivotal/literx/Part07Errors.java"], "command": "io.pivotal.literx.Part07ErrorsTest#fluxWithValueInsteadOfError", "layout":"aside"})
 
 Dealing with checked exceptions is a bit more complicated. Whenever some code that throws
 checked exceptions is used in an operator (eg. the transformation function of a `map`), you
